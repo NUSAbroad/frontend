@@ -1,10 +1,16 @@
 import "./App.css";
 
 import React from "react";
+import ReactGA from "react-ga";
 
+import { useTrackPage } from "./hooks/GoogleAnalytics";
 import logo from "./logo.svg";
 
+ReactGA.initialize("UA-209752856-1");
+
 const App: React.FC = () => {
+  useTrackPage();
+
   return (
     <div className="App">
       <header className="App-header">
