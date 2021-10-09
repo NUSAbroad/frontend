@@ -29,6 +29,7 @@
       "sort-imports": "off",
       "import/order": "off",
       "react/prop-types": "off",
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }
