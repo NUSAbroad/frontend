@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
 
-import { Body1, Heading2, StyledLink } from "./Styles";
+import Logo from "./Logo";
+import { Body1, StyledLink } from "./Styles";
 
 const Wrapper = styled.div<{ $boxShadow: boolean }>`
   position: sticky;
@@ -13,7 +14,7 @@ const Wrapper = styled.div<{ $boxShadow: boolean }>`
   box-shadow: ${(props) => (props.$boxShadow ? "0 4px 2px -2px gray" : "none")};
 `;
 
-const Logo = styled.div`
+const LogoWrapper = styled.div`
   flex-grow: 1;
 `;
 
@@ -50,11 +51,9 @@ const Navbar: React.FC = () => {
 
   return (
     <Wrapper $boxShadow={boxShadow}>
-      <Logo>
-        <Heading2>
-          <StyledLink to="/">NUSAbroad</StyledLink>
-        </Heading2>
-      </Logo>
+      <LogoWrapper>
+        <Logo />
+      </LogoWrapper>
       <Links>
         <MarginLink>
           <StyledLink
