@@ -3,6 +3,7 @@ import ReactGA from "react-ga";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useTheme } from "styled-components";
 
+import Notice from "./components/Notice";
 import {
   Body1,
   Body2,
@@ -44,6 +45,7 @@ const App: React.FC = () => {
       >
         Button
       </Button>
+      <Notice>This is a notice</Notice>
     </Router>
   );
 };
