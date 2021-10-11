@@ -3,6 +3,7 @@ import ReactGA from "react-ga";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useTheme } from "styled-components";
 
+import Navbar from "./components/Navbar";
 import {
   Body1,
   Body2,
@@ -24,6 +25,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <Navbar />
       <Heading1>Heading1</Heading1>
       <Divider />
       <Heading2>Heading2</Heading2>
