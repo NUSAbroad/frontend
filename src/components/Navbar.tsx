@@ -10,8 +10,10 @@ const Wrapper = styled.div<{ $boxShadow: boolean }>`
   top: 0;
   width: 100%;
   display: flex;
-  padding: 1rem;
-  box-shadow: ${(props) => (props.$boxShadow ? "0 4px 2px -2px gray" : "none")};
+  padding: 2px 30px;
+  background: ${(props) => props.theme.colors.floralWhite};
+  border-bottom: ${(props) =>
+    props.$boxShadow ? `1px solid ${props.theme.colors.grey300}` : "none"};
 `;
 
 const LogoWrapper = styled.div`

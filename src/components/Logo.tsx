@@ -4,18 +4,16 @@ import styled from "styled-components";
 import { Heading2, StyledLink } from "./Styles";
 
 const Abroad = styled.span`
-  font-weight: 400;
+  font-weight: 300;
 `;
 
-const Logo = () => {
+const Logo: React.FC = () => {
   return (
-    <>
-      <Heading2>
-        <StyledLink to="/">
-          NUS<Abroad>Abroad</Abroad>
-        </StyledLink>
-      </Heading2>
-    </>
+    <Heading2>
+      <StyledLink to="/">
+        NUS<Abroad>Abroad</Abroad>
+      </StyledLink>
+    </Heading2>
   );
 };
 

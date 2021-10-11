@@ -38,7 +38,7 @@ const App: React.FC = () => {
       <Route exact path="/universities">
         <Universities />
       </Route>
-      <Route exact path="/Resources">
+      <Route exact path="/resources">
         <Resources />
       </Route>
       <Heading1>Heading1</Heading1>
