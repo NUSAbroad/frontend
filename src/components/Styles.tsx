@@ -51,9 +51,9 @@ export const Divider = styled.hr`
   margin: 0;
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)<{ $isUnderlined?: boolean }>`
   color: ${(props) => props.theme.colors.blueCrayola};
-  text-decoration: none;
+  text-decoration: ${(props) => (props.$isUnderlined ? "underline" : "none")};
 
   &:hover {
     text-decoration: underline;

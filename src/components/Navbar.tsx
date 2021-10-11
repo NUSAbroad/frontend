@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router";
 import styled from "styled-components";
 
 import { Body1, Heading2, StyledLink } from "./Styles";
@@ -24,6 +25,11 @@ const MarginLink = styled(Body1)`
 `;
 
 const Navbar: React.FC = () => {
+  const location = useLocation();
+  const currentPageLinkId = location.pathname.split("/")[1];
+  const [underlinedTextId, setUnderlinedTextId] =
+    useState<string>(currentPageLinkId);
+
   return (
     <Wrapper>
       <Logo>
@@ -33,13 +39,34 @@ const Navbar: React.FC = () => {
       </Logo>
       <Links>
         <MarginLink>
-          <StyledLink to="/planner">Planner</StyledLink>
+          <StyledLink
+            to="/planner"
+            $isUnderlined={underlinedTextId === "planner"}
+            onMouseEnter={() => setUnderlinedTextId("planner")}
+            onMouseLeave={() => setUnderlinedTextId(currentPageLinkId)}
+          >
+            Planner
+          </StyledLink>
         </MarginLink>
         <MarginLink>
-          <StyledLink to="/universities">Universities</StyledLink>
+          <StyledLink
+            to="/universities"
+            $isUnderlined={underlinedTextId === "universities"}
+            onMouseEnter={() => setUnderlinedTextId("universities")}
+            onMouseLeave={() => setUnderlinedTextId(currentPageLinkId)}
+          >
+            Universities
+          </StyledLink>
         </MarginLink>
         <MarginLink>
-          <StyledLink to="/resources">Resources</StyledLink>
+          <StyledLink
+            to="/resources"
+            $isUnderlined={underlinedTextId === "resources"}
+            onMouseEnter={() => setUnderlinedTextId("resources")}
+            onMouseLeave={() => setUnderlinedTextId(currentPageLinkId)}
+          >
+            Resources
+          </StyledLink>
         </MarginLink>
       </Links>
     </Wrapper>
