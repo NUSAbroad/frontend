@@ -14,6 +14,8 @@ export interface Theme {
     blueCrayola50: string;
     orangeSoda: string;
     orangeSoda50: string;
+    saffron: string;
+    saffron10: string;
   };
 
   fontSizes: {
@@ -40,6 +42,8 @@ const theme: Theme = {
     blueCrayola50: "rgba(55, 114, 255, 0.5)",
     orangeSoda: "#FC5130",
     orangeSoda50: "rgba(252, 81, 48, 0.5)",
+    saffron: "#F0C62D",
+    saffron10: "rgba(240, 198, 45, 0.1)",
   },
   fontSizes: {
     sm: "0.8rem",
