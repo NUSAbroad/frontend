@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import { useTheme } from "styled-components";
 
 import Navbar from "./components/Navbar";
+import Notice from "./components/Notice";
 import {
   Body1,
   Body2,
@@ -61,6 +62,7 @@ const App: React.FC = () => {
       >
         Button
       </Button>
+      <Notice>This is a notice</Notice>
     </Router>
   );
 };
