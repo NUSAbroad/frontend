@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
 
   input,
   textarea {
+    font-family: ${(props) => props.theme.typeface};
     appearance: none;
   }
 `;
