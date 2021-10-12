@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
 import styled from "styled-components";
 
 import Logo from "./Logo";
-import { Body1, StyledLink } from "./Styles";
+import { Body1, StyledNavLink } from "./Styles";
 
 const Wrapper = styled.div<{ $boxShadow: boolean }>`
   position: sticky;
@@ -30,10 +29,6 @@ const MarginLink = styled(Body1)`
 `;
 
 const Navbar: React.FC = () => {
-  const location = useLocation();
-  const currentPageLinkId = location.pathname.split("/")[1];
-  const [underlinedTextId, setUnderlinedTextId] =
-    useState<string>(currentPageLinkId);
   const [boxShadow, setBoxShadow] = useState<boolean>(false);
 
   useEffect(() => {
@@ -58,34 +53,28 @@ const Navbar: React.FC = () => {
       </LogoWrapper>
       <Links>
         <MarginLink>
-          <StyledLink
+          <StyledNavLink
             to="/planner"
-            $isUnderlined={underlinedTextId === "planner"}
-            onMouseEnter={() => setUnderlinedTextId("planner")}
-            onMouseLeave={() => setUnderlinedTextId(currentPageLinkId)}
+            activeStyle={{ textDecoration: "underline" }}
           >
             Planner
-          </StyledLink>
+          </StyledNavLink>
         </MarginLink>
         <MarginLink>
-          <StyledLink
+          <StyledNavLink
             to="/universities"
-            $isUnderlined={underlinedTextId === "universities"}
-            onMouseEnter={() => setUnderlinedTextId("universities")}
-            onMouseLeave={() => setUnderlinedTextId(currentPageLinkId)}
+            activeStyle={{ textDecoration: "underline" }}
           >
             Universities
-          </StyledLink>
+          </StyledNavLink>
         </MarginLink>
         <MarginLink>
-          <StyledLink
+          <StyledNavLink
             to="/resources"
-            $isUnderlined={underlinedTextId === "resources"}
-            onMouseEnter={() => setUnderlinedTextId("resources")}
-            onMouseLeave={() => setUnderlinedTextId(currentPageLinkId)}
+            activeStyle={{ textDecoration: "underline" }}
           >
             Resources
-          </StyledLink>
+          </StyledNavLink>
         </MarginLink>
       </Links>
     </Wrapper>
