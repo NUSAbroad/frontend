@@ -1,8 +1,9 @@
 import React from "react";
 import ReactGA from "react-ga";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import { useTheme } from "styled-components";
 
+import Navbar from "./components/Navbar";
 import Notice from "./components/Notice";
 import {
   Body1,
@@ -16,6 +17,9 @@ import {
   Subheading,
 } from "./components/Styles";
 import { useTrackPage } from "./hooks/GoogleAnalytics";
+import Planner from "./pages/Planner";
+import Resources from "./pages/Resources";
+import Universities from "./pages/Universities";
 
 ReactGA.initialize("UA-209752856-1");
 
@@ -25,6 +29,19 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <Navbar />
+      <Route exact path="/">
+        <Redirect to="/planner" />
+      </Route>
+      <Route exact path="/planner">
+        <Planner />
+      </Route>
+      <Route exact path="/universities">
+        <Universities />
+      </Route>
+      <Route exact path="/resources">
+        <Resources />
+      </Route>
       <Heading1>Heading1</Heading1>
       <Divider />
       <Heading2>Heading2</Heading2>
