@@ -77,37 +77,37 @@ const MappingsTable: React.FC<Props> = function (props) {
   const { isPlanner } = props;
 
   return (
-    <>
-      <Table cellSpacing="0">
-        <thead>
-          <HeaderRow $isCentered>
-            <HeaderCell colSpan={4}>NUS</HeaderCell>
-            <HeaderCell colSpan={3}>PU</HeaderCell>
-          </HeaderRow>
-          <HeaderRow $isSmall>
-            <HeaderCell $softBorder>Faculty</HeaderCell>
-            <HeaderCell $softBorder>Module Code</HeaderCell>
-            <HeaderCell $softBorder>Module Name</HeaderCell>
-            <HeaderCell>Credits</HeaderCell>
-            <HeaderCell $softBorder>Module Code</HeaderCell>
-            <HeaderCell $softBorder>Module Name</HeaderCell>
-            <HeaderCell>Credits</HeaderCell>
-          </HeaderRow>
-        </thead>
-        <tbody>
-          <MappingsRow mapping={mapping} />
-          <MappingsRow mapping={mapping} />
-          <MappingsRow mapping={mapping} />
-          {isPlanner && (
-            <tr>
-              <ButtonCell colSpan={7}>
-                <AddButton>+ Add mapping</AddButton>
-              </ButtonCell>
-            </tr>
-          )}
-        </tbody>
-      </Table>
-    </>
+    <Table cellSpacing="0">
+      <thead>
+        <HeaderRow $isCentered>
+          <HeaderCell colSpan={4}>NUS</HeaderCell>
+          <HeaderCell colSpan={3}>PU</HeaderCell>
+          <HeaderCell />
+        </HeaderRow>
+        <HeaderRow $isSmall>
+          <HeaderCell $softBorder>Faculty</HeaderCell>
+          <HeaderCell $softBorder>Module Code</HeaderCell>
+          <HeaderCell $softBorder>Module Name</HeaderCell>
+          <HeaderCell>Credits</HeaderCell>
+          <HeaderCell $softBorder>Module Code</HeaderCell>
+          <HeaderCell $softBorder>Module Name</HeaderCell>
+          <HeaderCell>Credits</HeaderCell>
+          <HeaderCell />
+        </HeaderRow>
+      </thead>
+      <tbody>
+        <MappingsRow mapping={mapping} isPlanner={isPlanner} />
+        <MappingsRow mapping={mapping} isPlanner={isPlanner} />
+        <MappingsRow mapping={mapping} isPlanner={isPlanner} />
+        {isPlanner && (
+          <tr>
+            <ButtonCell colSpan={8}>
+              <AddButton>+ Add mapping</AddButton>
+            </ButtonCell>
+          </tr>
+        )}
+      </tbody>
+    </Table>
   );
 };
 
