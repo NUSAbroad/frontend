@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import {
-  Body1,
   Body2,
   Column,
   Divider,
