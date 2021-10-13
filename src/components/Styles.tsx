@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Heading1 = styled.h1`
   margin: 0;
@@ -51,22 +51,21 @@ export const Divider = styled.hr`
   margin: 0;
 `;
 
-export const StyledLink = styled(Link)<{ $isUnderlined?: boolean }>`
-  color: ${(props) => props.theme.colors.blueCrayola};
-  text-decoration: ${(props) => (props.$isUnderlined ? "underline" : "none")};
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-export const StyledNavLink = styled(NavLink)`
+const LinkStyles = css`
   color: ${(props) => props.theme.colors.blueCrayola};
   text-decoration: none;
 
   &:hover {
     text-decoration: underline;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  ${LinkStyles}
+`;
+
+export const StyledNavLink = styled(NavLink)`
+  ${LinkStyles}
 `;
 
 export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
