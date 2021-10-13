@@ -20,21 +20,25 @@ const PaddedBody1 = styled(Body1)`
   padding-bottom: 20px;
 `;
 
+const StyledColumn = styled(Column)`
+  padding: 0;
+`;
+
 const UniversityResult: React.FC = () => {
   return (
     <Wrapper>
-      <Column $width="75%">
+      <StyledColumn $width="75%">
         <UniversityName>King&apos;s College London</UniversityName>
         <PaddedBody1>London, United Kingdom</PaddedBody1>
         <PaddedBody1>
           <b>24</b> Previous mappings &bull; <b>6</b> Reviews
         </PaddedBody1>
         <FacultiesSection />
-      </Column>
-      <Column $width="25%">
+      </StyledColumn>
+      <StyledColumn $width="25%">
         <SemestersSection />
         <QuickLinksSection />
-      </Column>
+      </StyledColumn>
     </Wrapper>
   );
 };
