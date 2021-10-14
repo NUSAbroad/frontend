@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Body2, Subheading } from "./Styles";
+import { Body1, Subheading } from "./Styles";
 
 interface Props {
   semesters: string[];
@@ -18,7 +18,7 @@ const Semesters: React.FC<Props> = (props) => {
     <>
       <MarginSubheading>Semesters</MarginSubheading>
       {semesters.map((elem, index) => {
-        return <Body2 key={index}>{elem}</Body2>;
+        return <Body1 key={index}>{elem}</Body1>;
       })}
     </>
   );
