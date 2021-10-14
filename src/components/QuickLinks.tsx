@@ -9,12 +9,11 @@ interface Props {
 
 const MarginSubheading = styled(Subheading)`
   margin-bottom: 10px;
-  margin-top: 1rem;
+  margin-top: 30px;
 `;
 
 const QuickLinks: React.FC<Props> = (props) => {
   const { links } = props;
-  console.log(Object.keys(links));
 
   return (
     <>
