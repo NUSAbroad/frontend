@@ -14,6 +14,7 @@ import {
   StyledLink,
   Subheading,
 } from "../components/Styles";
+import UniversitySidebar from "../components/UniversitySidebar";
 
 const Container = styled.div`
   display: flex;
@@ -50,6 +51,10 @@ const ComponentsTest: React.FC = function () {
       <Notice>This is a notice</Notice>
       <MappingsTable />
       <MappingsTable isPlanner />
+      <UniversitySidebar
+        semesters={["Sept - Dec", "Jan - June"]}
+        links={{ "GRO PDF": "/test" }}
+      />
     </Container>
   );
 };
