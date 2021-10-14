@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { ReactComponent as SearchIcon } from "../assets/search.svg";
+import { ReactComponent as CrossIcon } from "../assets/x.svg";
 import {
   Body2,
   Column,
@@ -12,6 +14,9 @@ import {
 import UniversityResult from "../components/UniversityResult";
 
 const SearchBarWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
   border: 1px solid ${(props) => props.theme.colors.grey300};
   width: 100%;
   border-radius: 3px;
@@ -19,10 +24,10 @@ const SearchBarWrapper = styled.div`
 `;
 
 const SearchBarInput = styled.input.attrs({ type: "text" })`
+  padding: 0 10px;
   font-weight: 400;
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.theme.colors.bistre};
-  padding: 10px;
   border: none;
   outline: none;
   width: 100%;
@@ -65,7 +70,9 @@ const Universities: React.FC = () => {
     <Wrapper>
       <Column $width="75%">
         <SearchBarWrapper>
+          <SearchIcon />
           <SearchBarInput />
+          <CrossIcon />
         </SearchBarWrapper>
         <SearchResultCounter>10 universities found</SearchResultCounter>
         <Divider />
@@ -78,7 +85,9 @@ const Universities: React.FC = () => {
         <Divider />
         <StyledSubheading>Country</StyledSubheading>
         <SearchBarWrapper>
+          <SearchIcon />
           <SearchBarInput />
+          <CrossIcon />
         </SearchBarWrapper>
         <TagsWrapper>
           <TagContainer>
