@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import FacultiesSection from "./FacultiesSection";
-import QuickLinksSection from "./QuickLinksSection";
-import SemestersSection from "./SemestersSection";
 import { Body1, Column, Heading2, StyledLink } from "./Styles";
+import UniversitySidebar from "./UniversitySidebar";
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,8 +32,10 @@ const UniversityResult: React.FC = () => {
         <FacultiesSection />
       </StyledColumn>
       <StyledColumn $width="25%">
-        <SemestersSection />
-        <QuickLinksSection />
+        <UniversitySidebar
+          semesters={["Sept - Dec", "Jan - June"]}
+          links={{ "GRO PDF": "/test" }}
+        />
       </StyledColumn>
     </Wrapper>
   );
