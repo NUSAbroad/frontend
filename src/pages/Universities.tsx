@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+import { ReactComponent as ChevronIcon } from "../assets/chevron-down.svg";
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
 import { ReactComponent as CrossIcon } from "../assets/x.svg";
+import { ReactComponent as CrossInCircleIcon } from "../assets/x-circle.svg";
 import {
   Body2,
   Column,
@@ -47,7 +49,7 @@ const StyledSubheading = styled(Subheading)`
   margin-bottom 5px;
 `;
 
-const TagContainer = styled.div`
+const TagWrapper = styled.div`
   padding: 0 15px;
   display: inline-block;
   line-height: 25px;
@@ -57,12 +59,18 @@ const TagContainer = styled.div`
   margin-bottom: 10px;
 `;
 
+const TagContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const TagsWrapper = styled.div`
   padding-top: 10px;
 `;
 
 const TagBody2 = styled(Body2)`
   color: ${(props) => props.theme.colors.blueCrayola};
+  margin-right: 10px;
 `;
 
 const Universities: React.FC = () => {
@@ -87,15 +95,21 @@ const Universities: React.FC = () => {
         <SearchBarWrapper>
           <SearchIcon />
           <SearchBarInput />
-          <CrossIcon />
+          <ChevronIcon />
         </SearchBarWrapper>
         <TagsWrapper>
-          <TagContainer>
-            <TagBody2>United Kingdom</TagBody2>
-          </TagContainer>
-          <TagContainer>
-            <TagBody2>Canada</TagBody2>
-          </TagContainer>
+          <TagWrapper>
+            <TagContainer>
+              <TagBody2>United Kingdom</TagBody2>
+              <CrossInCircleIcon style={{ transform: "scale(1.2)" }} />
+            </TagContainer>
+          </TagWrapper>
+          <TagWrapper>
+            <TagContainer>
+              <TagBody2>Canada</TagBody2>
+              <CrossInCircleIcon style={{ transform: "scale(1.2)" }} />
+            </TagContainer>
+          </TagWrapper>
         </TagsWrapper>
       </Column>
     </Wrapper>
