@@ -90,3 +90,17 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
       ${(props) => props.$focusColor ?? props.theme.colors.blueCrayola50};
   }
 `;
+
+export const Wrapper = styled.div`
+  display: flex;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-top: 40px;
+`;
+
+export const Column = styled.div<{ $width: string }>`
+  display: flex;
+  width: ${(props) => props.$width};
+  flex-direction: column;
+  padding: 0 20px;
+`;
