@@ -13,18 +13,20 @@ const Container = styled.div`
 
 const StyledEmoji = styled.span`
   margin-right: 20px;
+  font-size: ${(props) => props.theme.fontSizes.md};
   line-height: 1.3;
 `;
 
 interface Props {
+  className?: string;
   emoji?: string;
 }
 
 const Notice: React.FC<Props> = function (props) {
-  const { children, emoji } = props;
+  const { className, children, emoji } = props;
 
   return (
-    <Container>
+    <Container className={className}>
       <StyledEmoji>{emoji ?? "👉"}</StyledEmoji>
       <div>{children}</div>
     </Container>

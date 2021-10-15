@@ -3,11 +3,12 @@ import styled, { css } from "styled-components";
 
 interface TextProps {
   $color?: string;
+  $weight?: string;
 }
 
 export const Heading1 = styled.h1<TextProps>`
   margin: 0;
-  font-weight: 700;
+  font-weight: ${(props) => props.$weight ?? "700"};
   font-size: ${(props) => props.theme.fontSizes.xxl};
   letter-spacing: -0.04em;
   color: ${(props) => props.$color ?? props.theme.colors.bistre};
@@ -15,7 +16,7 @@ export const Heading1 = styled.h1<TextProps>`
 
 export const Heading2 = styled.h2<TextProps>`
   margin: 0;
-  font-weight: 700;
+  font-weight: ${(props) => props.$weight ?? "700"};
   font-size: ${(props) => props.theme.fontSizes.xl};
   letter-spacing: -0.03em;
   color: ${(props) => props.$color ?? props.theme.colors.bistre};
@@ -23,28 +24,28 @@ export const Heading2 = styled.h2<TextProps>`
 
 export const Heading3 = styled.h3<TextProps>`
   margin: 0;
-  font-weight: 700;
+  font-weight: ${(props) => props.$weight ?? "700"};
   font-size: ${(props) => props.theme.fontSizes.lg};
   color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
 export const Subheading = styled.h4<TextProps>`
   margin: 0;
-  font-weight: 600;
+  font-weight: ${(props) => props.$weight ?? "600"};
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
 export const Body1 = styled.p<TextProps>`
   margin: 0;
-  font-weight: 400;
+  font-weight: ${(props) => props.$weight ?? "400"};
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
 export const Body2 = styled.p<TextProps>`
   margin: 0;
-  font-weight: 400;
+  font-weight: ${(props) => props.$weight ?? "400"};
   font-size: ${(props) => props.theme.fontSizes.sm};
   color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;

@@ -9,6 +9,7 @@ declare namespace Types {
     partnerModuleName: string;
     partnerModuleCredits: number;
     partnerUniversityId: string;
+    updatedAt: string;
   }
 
   interface Country {
