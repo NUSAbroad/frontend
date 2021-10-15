@@ -1,48 +1,52 @@
 import { Link, NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-export const Heading1 = styled.h1`
+interface TextProps {
+  $color?: string;
+}
+
+export const Heading1 = styled.h1<TextProps>`
   margin: 0;
   font-weight: 700;
   font-size: ${(props) => props.theme.fontSizes.xxl};
   letter-spacing: -0.04em;
-  color: ${(props) => props.theme.colors.bistre};
+  color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
-export const Heading2 = styled.h2`
+export const Heading2 = styled.h2<TextProps>`
   margin: 0;
   font-weight: 700;
   font-size: ${(props) => props.theme.fontSizes.xl};
   letter-spacing: -0.03em;
-  color: ${(props) => props.theme.colors.bistre};
+  color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
-export const Heading3 = styled.h3`
+export const Heading3 = styled.h3<TextProps>`
   margin: 0;
   font-weight: 700;
   font-size: ${(props) => props.theme.fontSizes.lg};
-  color: ${(props) => props.theme.colors.bistre};
+  color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
-export const Subheading = styled.h4`
+export const Subheading = styled.h4<TextProps>`
   margin: 0;
   font-weight: 600;
   font-size: ${(props) => props.theme.fontSizes.md};
-  color: ${(props) => props.theme.colors.bistre};
+  color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
-export const Body1 = styled.p`
+export const Body1 = styled.p<TextProps>`
   margin: 0;
   font-weight: 400;
   font-size: ${(props) => props.theme.fontSizes.md};
-  color: ${(props) => props.theme.colors.bistre};
+  color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
-export const Body2 = styled.p`
+export const Body2 = styled.p<TextProps>`
   margin: 0;
   font-weight: 400;
   font-size: ${(props) => props.theme.fontSizes.sm};
-  color: ${(props) => props.theme.colors.bistre};
+  color: ${(props) => props.$color ?? props.theme.colors.bistre};
 `;
 
 export const Divider = styled.hr`

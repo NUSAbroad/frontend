@@ -53,7 +53,7 @@ const ComponentsTest: React.FC = function () {
       <MappingsTable isPlanner />
       <UniversitySidebar
         semesters={["Sept - Dec", "Jan - June"]}
-        links={{ "GRO PDF": "/test" }}
+        links={[{ link: "/test", name: "GRO PDF" }]}
       />
     </Container>
   );

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
   background: ${(props) => props.theme.colors.saffron10};
   border: 1px solid ${(props) => props.theme.colors.saffron};
@@ -26,7 +26,7 @@ const Notice: React.FC<Props> = function (props) {
   return (
     <Container>
       <StyledEmoji>{emoji ?? "👉"}</StyledEmoji>
-      {children}
+      <div>{children}</div>
     </Container>
   );
 };

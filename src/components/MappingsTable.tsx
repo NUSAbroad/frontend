@@ -4,7 +4,7 @@ import styled from "styled-components";
 import MappingsRow from "./MappingsRow";
 
 const mapping: Types.Mapping = {
-  id: "1",
+  id: 1,
   nusModuleFaculty: "SOC",
   nusModuleCode: "CS2030",
   nusModuleName: "Programming Methodology II",

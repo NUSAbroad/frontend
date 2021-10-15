@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
 interface Props {
   semesters: string[];
-  links: { [name: string]: string };
+  links: Types.Link[];
 }
 
 const UniversitySidebar: React.FC<Props> = (props) => {
