@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 
-import UniversityInfo from "../components/UniversityInfo";
-import UniversityPastMappings from "../components/UniversityPastMappings";
+import Spinner from "../components/Spinner";
+import UniversityInfo from "../components/University/UniversityInfo";
+import UniversityPastMappings from "../components/University/UniversityPastMappings";
 import { BACKEND_URL } from "../constants";
 
 const Container = styled.div`
@@ -33,7 +34,7 @@ const University: React.FC = function () {
   }, []);
 
   if (loading) {
-    return <span>Loading</span>;
+    return <Spinner />;
   }
 
   if (uni == null) {

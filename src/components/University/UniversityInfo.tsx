@@ -1,10 +1,10 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
-import { getMonthAndYear } from "../utils/date";
-import Notice from "./Notice";
-import { Body1, Body2, Button, Divider, Heading1 } from "./Styles";
-import UniversitySidebar from "./UniversitySidebar";
+import { getMonthAndYear } from "../../utils/date";
+import Notice from "../Notice";
+import { Body1, Body2, Button, Divider, Heading1 } from "../Styles";
+import UniversitySidebar from "../UniversitySidebar";
 
 const HeaderSection = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ const InfoSection = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 30px;
+  gap: 50px;
   width: 100%;
   margin-top: 30px;
 `;

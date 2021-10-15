@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { StyledLink, Subheading } from "./Styles";
+import { StyledLink, Subheading } from "../../Styles";
 
 const MarginSubheading = styled(Subheading)`
   margin-bottom: 10px;

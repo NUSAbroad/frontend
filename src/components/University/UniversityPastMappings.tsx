@@ -1,10 +1,10 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
-import { getMostRecentDate } from "../utils/date";
-import MappingsTable from "./MappingsTable";
-import Notice from "./Notice";
-import { Body1, Body2, Heading2 } from "./Styles";
+import { getMostRecentDate } from "../../utils/date";
+import MappingsTable from "../MappingsTable";
+import Notice from "../Notice";
+import { Body1, Body2, Divider, Heading2 } from "../Styles";
 
 const Container = styled.div`
   width: 100%;
@@ -15,6 +15,10 @@ const MappingsMeta = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
+`;
+
+const StyledDivider = styled(Divider)`
+  margin-bottom: 10px;
 `;
 
 const StyledNotice = styled(Notice)`
@@ -33,13 +37,14 @@ const UniversityPastMappings: React.FC<Props> = function (props) {
     <Container>
       <Heading2>Past Approved Mappings</Heading2>
       <MappingsMeta>
-        <Body1 $color={theme.colors.grey400}>
+        <Body2 $color={theme.colors.grey400}>
           Last retrieved from EduRec on {getMostRecentDate(uni.Mappings)}
-        </Body1>
-        <Body1 $weight="300">
+        </Body2>
+        <Body2 $color={theme.colors.grey500} $weight="300">
           <strong>{uni.Mappings.length}</strong> Total
-        </Body1>
+        </Body2>
       </MappingsMeta>
+      <StyledDivider />
       <MappingsTable mappings={uni.Mappings} />
       <StyledNotice>
         <Body2>
