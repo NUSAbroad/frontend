@@ -27,7 +27,7 @@ declare namespace Types {
     slug: string;
     state: string;
     countryId: number;
-    additionalInfo: Record<string, string>;
+    additionalInfo?: Record<string, string>;
     updatedAt: string;
     Country: Country;
     Links: Link[];

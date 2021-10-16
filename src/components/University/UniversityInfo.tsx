@@ -64,7 +64,7 @@ const UniversityInfo: React.FC<Props> = function (props) {
       <InfoSection>
         <div>
           <AdditionalInfo>
-            {Object.entries(uni.additionalInfo).map(([key, value]) => (
+            {Object.entries(uni.additionalInfo ?? {}).map(([key, value]) => (
               <>
                 <InfoKey>{key}</InfoKey>
                 <InfoValue>{value}</InfoValue>
