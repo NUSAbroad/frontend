@@ -1,17 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-import QuickLinks from "./QuickLinks";
-import Semesters from "./Semesters";
+import QuickLinks from "./components/QuickLinks";
+import Semesters from "./components/Semesters";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 200px;
 `;
 
 interface Props {
   semesters: string[];
-  links: { [name: string]: string };
+  links: Types.Link[];
 }
 
 const UniversitySidebar: React.FC<Props> = (props) => {

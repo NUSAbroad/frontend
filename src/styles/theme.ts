@@ -12,6 +12,7 @@ export interface Theme {
     babyPowder: string;
     blueCrayola: string;
     blueCrayola50: string;
+    blueCrayola10: string;
     orangeSoda: string;
     orangeSoda50: string;
     saffron: string;
@@ -40,6 +41,7 @@ const theme: Theme = {
     babyPowder: "#FFFDFA",
     blueCrayola: "#3772FF",
     blueCrayola50: "rgba(55, 114, 255, 0.5)",
+    blueCrayola10: "rgba(55, 114, 255, 0.1)",
     orangeSoda: "#FC5130",
     orangeSoda50: "rgba(252, 81, 48, 0.5)",
     saffron: "#F0C62D",

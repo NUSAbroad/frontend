@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
   background: ${(props) => props.theme.colors.saffron10};
   border: 1px solid ${(props) => props.theme.colors.saffron};
@@ -13,20 +13,22 @@ const Container = styled.div`
 
 const StyledEmoji = styled.span`
   margin-right: 20px;
+  font-size: ${(props) => props.theme.fontSizes.md};
   line-height: 1.3;
 `;
 
 interface Props {
+  className?: string;
   emoji?: string;
 }
 
 const Notice: React.FC<Props> = function (props) {
-  const { children, emoji } = props;
+  const { className, children, emoji } = props;
 
   return (
-    <Container>
+    <Container className={className}>
       <StyledEmoji>{emoji ?? "👉"}</StyledEmoji>
-      {children}
+      <div>{children}</div>
     </Container>
   );
 };

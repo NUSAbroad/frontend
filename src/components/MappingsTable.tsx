@@ -3,18 +3,6 @@ import styled from "styled-components";
 
 import MappingsRow from "./MappingsRow";
 
-const mapping: Types.Mapping = {
-  id: "1",
-  nusModuleFaculty: "SOC",
-  nusModuleCode: "CS2030",
-  nusModuleName: "Programming Methodology II",
-  nusModuleCredits: 4,
-  partnerModuleCode: "CS2030",
-  partnerModuleName: "Programming Methodology II",
-  partnerModuleCredits: 4,
-  partnerUniversityId: "1234",
-};
-
 const Container = styled.div`
   margin: -5px;
   padding: 5px;
@@ -96,10 +84,11 @@ const AddButton = styled.button`
 
 interface Props {
   isPlanner?: boolean;
+  mappings: Types.Mapping[];
 }
 
 const MappingsTable: React.FC<Props> = function (props) {
-  const { isPlanner } = props;
+  const { isPlanner, mappings } = props;
 
   return (
     <Container>
@@ -122,9 +111,13 @@ const MappingsTable: React.FC<Props> = function (props) {
           </HeaderRow>
         </thead>
         <tbody>
-          <MappingsRow mapping={mapping} isPlanner={isPlanner} />
-          <MappingsRow mapping={mapping} isPlanner={isPlanner} />
-          <MappingsRow mapping={mapping} isPlanner={isPlanner} />
+          {mappings.map((mapping) => (
+            <MappingsRow
+              key={mapping.id}
+              mapping={mapping}
+              isPlanner={isPlanner}
+            />
+          ))}
           {isPlanner && (
             <tr>
               <ButtonCell colSpan={8}>

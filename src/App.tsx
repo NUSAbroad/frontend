@@ -8,6 +8,7 @@ import ComponentsTest from "./pages/ComponentsTest";
 import Planner from "./pages/Planner";
 import Resources from "./pages/Resources";
 import Universities from "./pages/Universities";
+import University from "./pages/University";
 
 ReactGA.initialize("UA-209752856-1");
 
@@ -25,6 +26,9 @@ const App: React.FC = () => {
       </Route>
       <Route exact path="/universities">
         <Universities />
+      </Route>
+      <Route path="/universities/:slug">
+        <University />
       </Route>
       <Route exact path="/resources">
         <Resources />

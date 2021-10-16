@@ -1,27 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
-import { StyledLink, Subheading } from "./Styles";
-
-interface Props {
-  links: { [name: string]: string };
-}
+import { StyledLink, Subheading } from "../../Styles";
 
 const MarginSubheading = styled(Subheading)`
   margin-bottom: 10px;
   margin-top: 30px;
 `;
 
+interface Props {
+  links: Types.Link[];
+}
 const QuickLinks: React.FC<Props> = (props) => {
   const { links } = props;
 
   return (
     <>
       <MarginSubheading>Quick Links</MarginSubheading>
-      {Object.keys(links).map((key) => {
+      {links.map((link, index) => {
         return (
-          <StyledLink key={key} to={links[key]}>
-            {key}
+          <StyledLink key={index} to={link.link}>
+            {link.name}
           </StyledLink>
         );
       })}
