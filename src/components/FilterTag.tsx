@@ -25,17 +25,21 @@ const TagBody2 = styled(Body2)`
 `;
 
 interface Props {
-  tag: string;
+  tag: Types.Country;
+  deleteFilter: (filter: Types.Country) => void;
 }
 
 const FilterTag: React.FC<Props> = (props) => {
-  const { tag } = props;
+  const { tag, deleteFilter } = props;
 
   return (
     <Wrapper>
       <TagContainer>
-        <TagBody2>{tag}</TagBody2>
-        <CrossInCircleIcon style={{ transform: "scale(1.2)" }} />
+        <TagBody2>{tag.name}</TagBody2>
+        <CrossInCircleIcon
+          style={{ transform: "scale(1.2)" }}
+          onClick={() => deleteFilter(tag)}
+        />
       </TagContainer>
     </Wrapper>
   );

@@ -59,11 +59,11 @@ const FilterSearchBar: React.FC<Props> = (props) => {
     const isAlreadyExist = newFilters.find(
       (country) => currentFilter === country.name
     );
+    console.log(isAlreadyExist);
     if (!isAlreadyExist) {
       newFilters.push(relatedCountry);
     }
     setFilters(newFilters);
-    setCurrentFilter("");
   };
 
   const handleClickSearchIcon = () => {

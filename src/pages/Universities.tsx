@@ -56,6 +56,12 @@ const TagsWrapper = styled.div`
 const Universities: React.FC = () => {
   const [filters, setFilters] = useState<Types.Country[]>([]);
 
+  const deleteFilter = (filter: Types.Country) => {
+    const newFilters = [...filters];
+    newFilters.splice(newFilters.indexOf(filter), 1);
+    setFilters(newFilters);
+  };
+
   return (
     <Wrapper>
       <Column $width="75%">
@@ -77,7 +83,9 @@ const Universities: React.FC = () => {
         <FilterSearchBar filters={filters} setFilters={setFilters} />
         <TagsWrapper>
           {filters.map((tag) => {
-            return <FilterTag key={tag.id} tag={tag.name} />;
+            return (
+              <FilterTag key={tag.id} tag={tag} deleteFilter={deleteFilter} />
+            );
           })}
         </TagsWrapper>
       </Column>
