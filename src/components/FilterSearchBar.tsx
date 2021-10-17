@@ -27,11 +27,13 @@ const SearchBarInput = styled.input.attrs({ type: "text" })`
 `;
 
 interface Props {
+  filters: Types.Country[];
   setFilters: React.Dispatch<React.SetStateAction<Types.Country[]>>;
 }
 
 const FilterSearchBar: React.FC<Props> = (props) => {
-  const { setFilters } = props;
+  const { filters, setFilters } = props;
+  const [currentFilter, setCurrentFilter] = useState<string>("");
   const [allCountries, setAllCountries] = useState<Types.Country[]>([]);
 
   useEffect(() => {
@@ -45,10 +47,46 @@ const FilterSearchBar: React.FC<Props> = (props) => {
       });
   }, []);
 
+  const submitFilter = () => {
+    const relatedCountry = allCountries.find(
+      (country) => currentFilter === country.name
+    );
+    const newFilters = [...filters];
+    if (!relatedCountry) {
+      // TODO: Error handling
+      return;
+    }
+    const isAlreadyExist = newFilters.find(
+      (country) => currentFilter === country.name
+    );
+    if (!isAlreadyExist) {
+      newFilters.push(relatedCountry);
+    }
+    setFilters(newFilters);
+    setCurrentFilter("");
+  };
+
+  const handleClickSearchIcon = () => {
+    submitFilter();
+  };
+
+  const handleEnterFilter = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      submitFilter();
+    }
+  };
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentFilter(e.target.value);
+  };
+
   return (
     <Wrapper>
-      <SearchIcon />
-      <SearchBarInput />
+      <SearchIcon onClick={handleClickSearchIcon} />
+      <SearchBarInput
+        onKeyDown={handleEnterFilter}
+        onChange={handleChangeInput}
+      />
       <ChevronIcon />
     </Wrapper>
   );

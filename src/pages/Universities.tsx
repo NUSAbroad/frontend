@@ -74,7 +74,7 @@ const Universities: React.FC = () => {
         <StyledHeading3>Filter by</StyledHeading3>
         <Divider />
         <StyledSubheading>Country</StyledSubheading>
-        <FilterSearchBar setFilters={setFilters} />
+        <FilterSearchBar filters={filters} setFilters={setFilters} />
         <TagsWrapper>
           {filters.map((tag) => {
             return <FilterTag key={tag.id} tag={tag.name} />;
