@@ -1,8 +1,10 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { ReactComponent as ChevronIcon } from "../assets/chevron-down.svg";
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
+import { BACKEND_URL } from "../constants";
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +26,25 @@ const SearchBarInput = styled.input.attrs({ type: "text" })`
   width: 100%;
 `;
 
-const FilterSearchBar: React.FC = () => {
+interface Props {
+  setFilters: React.Dispatch<React.SetStateAction<Types.Country[]>>;
+}
+
+const FilterSearchBar: React.FC<Props> = (props) => {
+  const { setFilters } = props;
+  const [allCountries, setAllCountries] = useState<Types.Country[]>([]);
+
+  useEffect(() => {
+    axios
+      .get(`${BACKEND_URL}/countries`)
+      .then((response) => {
+        setAllCountries(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
   return (
     <Wrapper>
       <SearchIcon />

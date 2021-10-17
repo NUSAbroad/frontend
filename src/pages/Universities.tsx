@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
@@ -54,6 +54,8 @@ const TagsWrapper = styled.div`
 `;
 
 const Universities: React.FC = () => {
+  const [filters, setFilters] = useState<Types.Country[]>([]);
+
   return (
     <Wrapper>
       <Column $width="75%">
@@ -72,10 +74,11 @@ const Universities: React.FC = () => {
         <StyledHeading3>Filter by</StyledHeading3>
         <Divider />
         <StyledSubheading>Country</StyledSubheading>
-        <FilterSearchBar />
+        <FilterSearchBar setFilters={setFilters} />
         <TagsWrapper>
-          <FilterTag tag="United Kingdom" />
-          <FilterTag tag="Canada" />
+          {filters.map((tag) => {
+            return <FilterTag key={tag.id} tag={tag.name} />;
+          })}
         </TagsWrapper>
       </Column>
     </Wrapper>
