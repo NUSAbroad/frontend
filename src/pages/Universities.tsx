@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 import { ReactComponent as ChevronIcon } from "../assets/chevron-down.svg";
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
-import { ReactComponent as CrossIcon } from "../assets/x.svg";
 import { ReactComponent as CrossInCircleIcon } from "../assets/x-circle.svg";
+import SearchBar from "../components/SearchBar";
 import Spinner from "../components/Spinner";
 import {
   Body2,
@@ -50,10 +50,6 @@ const StyledHeading3 = styled(Heading3)`
 const StyledSubheading = styled(Subheading)`
   padding-top: 20px;
   margin-bottom 5px;
-`;
-
-const StyledCrossIcon = styled(CrossIcon)`
-  cursor: pointer;
 `;
 
 const TagWrapper = styled.div`
@@ -112,13 +108,11 @@ const Universities: React.FC = () => {
   return (
     <Wrapper>
       <Column $width="75%">
-        <SearchBarWrapper>
-          <SearchIcon />
-          <SearchBarInput onChange={onChangeHandler} value={query} />
-          {query.length !== 0 ? (
-            <StyledCrossIcon onClick={() => setQuery("")} />
-          ) : null}
-        </SearchBarWrapper>
+        <SearchBar
+          onChangeHandler={onChangeHandler}
+          query={query}
+          onCrossClickHandler={() => setQuery("")}
+        />
         <SearchResultCounter>
           &nbsp;
           {!results || isLoading ? "" : `${results.length} universities found`}
