@@ -21,26 +21,20 @@ const TagContainer = styled.div`
 
 const TagsWrapper = styled.div``;
 
-const FacultiesSection: React.FC = () => {
+interface Props {
+  faculties: Types.Faculty[];
+}
+
+const FacultiesSection: React.FC<Props> = ({ faculties }) => {
   return (
     <Wrapper>
       <Title>Faculties</Title>
       <TagsWrapper>
-        <TagContainer>
-          <Body1>Arts {"&"} Humanities</Body1>
-        </TagContainer>
-        <TagContainer>
-          <Body1>Natural {"&"} Mathematical Sciences</Body1>
-        </TagContainer>
-        <TagContainer>
-          <Body1>Social Science {"&"} Public Policy</Body1>
-        </TagContainer>
-        <TagContainer>
-          <Body1>Law</Body1>
-        </TagContainer>
-        <TagContainer>
-          <Body1>School of Bioscience Education</Body1>
-        </TagContainer>
+        {faculties.map((faculty, index) => (
+          <TagContainer key={index}>
+            <Body1>{faculty.name}</Body1>
+          </TagContainer>
+        ))}
       </TagsWrapper>
     </Wrapper>
   );

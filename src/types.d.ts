@@ -33,4 +33,21 @@ declare namespace Types {
     Links: Link[];
     Mappings: Mapping[];
   }
+
+  interface UniversityResult {
+    id: number;
+    name: string;
+    slug: string;
+    state: string;
+    countryId: number;
+    additionalInfo?: Record<string, string>;
+    updatedAt: string;
+    Country: Country;
+    Semesters: string[];
+    Links: Link[];
+  }
+  interface Faculty {
+    name: string;
+    type: string;
+  }
 }
