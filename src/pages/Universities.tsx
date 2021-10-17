@@ -52,6 +52,10 @@ const StyledSubheading = styled(Subheading)`
   margin-bottom 5px;
 `;
 
+const StyledCrossIcon = styled(CrossIcon)`
+  cursor: pointer;
+`;
+
 const TagWrapper = styled.div`
   padding: 0 15px;
   display: inline-block;
@@ -111,7 +115,9 @@ const Universities: React.FC = () => {
         <SearchBarWrapper>
           <SearchIcon />
           <SearchBarInput onChange={onChangeHandler} value={query} />
-          <CrossIcon />
+          {query.length !== 0 ? (
+            <StyledCrossIcon onClick={() => setQuery("")} />
+          ) : null}
         </SearchBarWrapper>
         <SearchResultCounter>
           &nbsp;
