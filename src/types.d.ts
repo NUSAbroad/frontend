@@ -28,10 +28,17 @@ declare namespace Types {
     slug: string;
     state: string;
     countryId: number;
+    mappingsCount: number;
     additionalInfo?: Record<string, string>;
     updatedAt: string;
     Country: Country;
     Links: Link[];
+    Semesters: string[];
+    Faculties: Faculty[];
     Mappings: Mapping[];
+  }
+  interface Faculty {
+    name: string;
+    type: string;
   }
 }

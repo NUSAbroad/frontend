@@ -18,23 +18,33 @@ const StyledColumn = styled(Column)`
   padding: 0;
 `;
 
-const UniversityResult: React.FC = () => {
+interface Props {
+  university: Types.University;
+}
+
+const UniversityResult: React.FC<Props> = (props) => {
   return (
     <Wrapper>
       <StyledColumn $width="75%">
         <Heading2>
-          <StyledLink to="#">King&apos;s College London</StyledLink>
+          <StyledLink to={`/universities/${props.university.slug}`}>
+            {props.university.name}
+          </StyledLink>
         </Heading2>
-        <PaddedBody1>London, United Kingdom</PaddedBody1>
         <PaddedBody1>
-          <b>24</b> Previous mappings &bull; <b>6</b> Reviews
+          {props.university.state && `${props.university.state}, `}
+          {props.university.Country.name}
         </PaddedBody1>
-        <FacultiesSection />
+        <PaddedBody1>
+          <b>{props.university.mappingsCount}</b> Previous mappings &bull;{" "}
+          <b>6</b> Reviews
+        </PaddedBody1>
+        <FacultiesSection faculties={props.university.Faculties} />
       </StyledColumn>
       <StyledColumn $width="25%">
         <UniversitySidebar
-          semesters={["Sept - Dec", "Jan - June"]}
-          links={[{ link: "/test", name: "GRO PDF" }]}
+          semesters={props.university.Semesters}
+          links={props.university.Links}
         />
       </StyledColumn>
     </Wrapper>

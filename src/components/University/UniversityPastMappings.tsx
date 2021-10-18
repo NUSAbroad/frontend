@@ -4,7 +4,7 @@ import styled, { useTheme } from "styled-components";
 import { getMostRecentDate } from "../../utils/date";
 import MappingsTable from "../MappingsTable";
 import Notice from "../Notice";
-import { Body1, Body2, Divider, Heading2 } from "../Styles";
+import { Body2, Divider, Heading2 } from "../Styles";
 
 const Container = styled.div`
   width: 100%;
