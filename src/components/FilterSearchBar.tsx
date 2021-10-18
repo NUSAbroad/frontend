@@ -7,45 +7,41 @@ import { ReactComponent as SearchIcon } from "../assets/search.svg";
 import { BACKEND_URL } from "../constants";
 import FilterDropdown from "./FilterDropdown";
 
-const Wrapper = styled.div`
+const Wrapper = styled.div.attrs({ tabIndex: -1 })``;
+
+const SearchBarWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
   border: 1px solid ${(props) => props.theme.colors.grey300};
   width: 100%;
   border-radius: 3px;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.babyPowder};
 `;
 
 const SearchBarInput = styled.input.attrs({ type: "text" })`
   padding: 0 10px;
   font-weight: 400;
-  font-size: ${(props) => props.theme.fontSizes.md};
+  font-size: ${(props) => props.theme.fontSizes.sm};
   color: ${(props) => props.theme.colors.bistre};
   border: none;
   outline: none;
   width: 100%;
 `;
 
-const ExtendedSearchIcon = styled(SearchIcon)`
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 interface Props {
   filters: Types.Country[];
   setFilters: React.Dispatch<React.SetStateAction<Types.Country[]>>;
-  setErrorMsg: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const FilterSearchBar: React.FC<Props> = (props) => {
-  const { filters, setFilters, setErrorMsg } = props;
+  const { filters, setFilters } = props;
   const [currentFilter, setCurrentFilter] = useState<string>("");
   const [allCountries, setAllCountries] = useState<Types.Country[]>([]);
   const [dropdownCountries, setDropdownCountries] = useState<Types.Country[]>(
     []
   );
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   useEffect(() => {
     axios
@@ -76,7 +72,6 @@ const FilterSearchBar: React.FC<Props> = (props) => {
     );
     const newFilters = [...filters];
     if (!relatedCountry) {
-      setErrorMsg("Country is not found");
       return;
     }
     const isAlreadyExist = newFilters.find(
@@ -86,11 +81,6 @@ const FilterSearchBar: React.FC<Props> = (props) => {
       newFilters.push(relatedCountry);
     }
     setFilters(newFilters);
-    setErrorMsg("");
-  };
-
-  const handleClickSearchIcon = () => {
-    submitFilter(currentFilter);
   };
 
   const handleEnterFilter = (e: React.KeyboardEvent) => {
@@ -101,26 +91,29 @@ const FilterSearchBar: React.FC<Props> = (props) => {
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentFilter(e.target.value);
-    setErrorMsg("");
   };
 
   return (
-    <>
-      <Wrapper>
-        <ExtendedSearchIcon onClick={handleClickSearchIcon} />
+    <Wrapper
+      onFocus={() => setShowDropdown(true)}
+      onBlur={() => setShowDropdown(false)}
+    >
+      <SearchBarWrapper>
+        <SearchIcon />
         <SearchBarInput
           onKeyDown={handleEnterFilter}
           onChange={handleChangeInput}
+          placeholder="Add a country..."
         />
         <ChevronIcon />
-      </Wrapper>
-      {currentFilter.length > 0 && (
+      </SearchBarWrapper>
+      {showDropdown && dropdownCountries.length > 0 && (
         <FilterDropdown
           countries={dropdownCountries}
           submitFilter={submitFilter}
         />
       )}
-    </>
+    </Wrapper>
   );
 };
 

@@ -5,13 +5,10 @@ import { ReactComponent as CrossInCircleIcon } from "../assets/x-circle.svg";
 import { Body2 } from "./Styles";
 
 const Wrapper = styled.div`
-  padding: 0 15px;
+  padding: 5px 15px;
   display: inline-block;
-  line-height: 25px;
   border: 1px solid ${(props) => props.theme.colors.blueCrayola};
-  border-radius: 35px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  border-radius: 30px;
 `;
 
 const TagContainer = styled.div`
@@ -21,7 +18,7 @@ const TagContainer = styled.div`
 
 const TagBody2 = styled(Body2)`
   color: ${(props) => props.theme.colors.blueCrayola};
-  margin-right: 10px;
+  margin-right: 8px;
 `;
 
 const ExtendedCrossInCircleIcon = styled(CrossInCircleIcon)`

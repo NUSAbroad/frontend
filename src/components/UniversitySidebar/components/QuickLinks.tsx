@@ -23,6 +23,7 @@ const QuickLinks: React.FC<Props> = (props) => {
             key={index}
             to={{ pathname: `${link.link}` }}
             target="_blank"
+            rel="noopener noreferrer"
           >
             {link.name}
           </StyledLink>
