@@ -77,7 +77,7 @@ const TagBody2 = styled(Body2)`
 `;
 
 const Universities: React.FC = () => {
-  const [results, setResults] = useState<Types.UniversityResult[]>();
+  const [results, setResults] = useState<Types.University[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
 
@@ -110,6 +110,7 @@ const Universities: React.FC = () => {
     <Wrapper>
       <Column $width="75%">
         <SearchBar
+          placeholder="University name, module code or name..."
           onChangeHandler={onChangeHandler}
           query={query}
           onCrossClickHandler={() => setQuery("")}

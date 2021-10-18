@@ -25,12 +25,12 @@ interface Props {
   faculties: Types.Faculty[];
 }
 
-const FacultiesSection: React.FC<Props> = ({ faculties }) => {
+const FacultiesSection: React.FC<Props> = (props) => {
   return (
     <Wrapper>
       <Title>Faculties</Title>
       <TagsWrapper>
-        {faculties.map((faculty, index) => (
+        {props.faculties.map((faculty, index) => (
           <TagContainer key={index}>
             <Body1>{faculty.name}</Body1>
           </TagContainer>

@@ -19,32 +19,32 @@ const StyledColumn = styled(Column)`
 `;
 
 interface Props {
-  university: Types.UniversityResult;
+  university: Types.University;
 }
 
-const UniversityResult: React.FC<Props> = ({ university }) => {
+const UniversityResult: React.FC<Props> = (props) => {
   return (
     <Wrapper>
       <StyledColumn $width="75%">
         <Heading2>
-          <StyledLink to={`/universities/${university.slug}`}>
-            {university.name}
+          <StyledLink to={`/universities/${props.university.slug}`}>
+            {props.university.name}
           </StyledLink>
         </Heading2>
         <PaddedBody1>
-          {university.state && `${university.state}, `}
-          {university.Country.name}
+          {props.university.state && `${props.university.state}, `}
+          {props.university.Country.name}
         </PaddedBody1>
         <PaddedBody1>
-          <b>{university.mappingsCount}</b> Previous mappings &bull; <b>6</b>{" "}
-          Reviews
+          <b>{props.university.mappingsCount}</b> Previous mappings &bull;{" "}
+          <b>6</b> Reviews
         </PaddedBody1>
-        <FacultiesSection faculties={university.Faculties} />
+        <FacultiesSection faculties={props.university.Faculties} />
       </StyledColumn>
       <StyledColumn $width="25%">
         <UniversitySidebar
-          semesters={university.Semesters}
-          links={university.Links}
+          semesters={props.university.Semesters}
+          links={props.university.Links}
         />
       </StyledColumn>
     </Wrapper>

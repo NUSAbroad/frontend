@@ -27,26 +27,14 @@ declare namespace Types {
     slug: string;
     state: string;
     countryId: number;
-    additionalInfo?: Record<string, string>;
-    updatedAt: string;
-    Country: Country;
-    Links: Link[];
-    Mappings: Mapping[];
-  }
-
-  interface UniversityResult {
-    id: number;
-    name: string;
-    slug: string;
-    state: string;
-    countryId: number;
     mappingsCount: number;
     additionalInfo?: Record<string, string>;
     updatedAt: string;
     Country: Country;
-    Semesters: string[];
     Links: Link[];
+    Semesters: string[];
     Faculties: Faculty[];
+    Mappings: Mapping[];
   }
   interface Faculty {
     name: string;
