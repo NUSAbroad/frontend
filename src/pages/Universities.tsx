@@ -94,6 +94,7 @@ const Universities: React.FC = () => {
       .then((response) => {
         setIsLoading(false);
         setResults(response.data);
+        console.log(response.data);
       })
       .catch((err) => {
         console.error(err);

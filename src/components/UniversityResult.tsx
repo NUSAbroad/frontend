@@ -32,12 +32,14 @@ const UniversityResult: React.FC<Props> = ({ university }) => {
           </StyledLink>
         </Heading2>
         <PaddedBody1>
-          {university.state}, {university.Country.name}
+          {university.state && `${university.state}, `}
+          {university.Country.name}
         </PaddedBody1>
         <PaddedBody1>
-          <b>24</b> Previous mappings &bull; <b>6</b> Reviews
+          <b>{university.mappingsCount}</b> Previous mappings &bull; <b>6</b>{" "}
+          Reviews
         </PaddedBody1>
-        <FacultiesSection faculties={[]} />
+        <FacultiesSection faculties={university.Faculties} />
       </StyledColumn>
       <StyledColumn $width="25%">
         <UniversitySidebar

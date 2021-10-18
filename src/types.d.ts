@@ -40,11 +40,13 @@ declare namespace Types {
     slug: string;
     state: string;
     countryId: number;
+    mappingsCount: number;
     additionalInfo?: Record<string, string>;
     updatedAt: string;
     Country: Country;
     Semesters: string[];
     Links: Link[];
+    Faculties: Faculty[];
   }
   interface Faculty {
     name: string;
