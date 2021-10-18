@@ -26,7 +26,6 @@ const University: React.FC = function () {
       .then((response) => {
         setLoading(false);
         setUni(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.error(err);

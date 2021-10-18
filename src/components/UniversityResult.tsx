@@ -23,28 +23,29 @@ interface Props {
 }
 
 const UniversityResult: React.FC<Props> = (props) => {
+  const { university } = props;
   return (
     <Wrapper>
       <StyledColumn $width="75%">
         <Heading2>
-          <StyledLink to={`/universities/${props.university.slug}`}>
-            {props.university.name}
+          <StyledLink to={`/universities/${university.slug}`}>
+            {university.name}
           </StyledLink>
         </Heading2>
         <PaddedBody1>
-          {props.university.state && `${props.university.state}, `}
-          {props.university.Country.name}
+          {university.state && `${university.state}, `}
+          {university.Country.name}
         </PaddedBody1>
         <PaddedBody1>
-          <b>{props.university.mappingsCount}</b> Previous mappings &bull;{" "}
-          <b>6</b> Reviews
+          <b>{university.mappingsCount}</b> Previous mappings &bull; <b>6</b>{" "}
+          Reviews
         </PaddedBody1>
-        <FacultiesSection faculties={props.university.Faculties} />
+        <FacultiesSection faculties={university.Faculties} />
       </StyledColumn>
       <StyledColumn $width="25%">
         <UniversitySidebar
-          semesters={props.university.Semesters}
-          links={props.university.Links}
+          semesters={university.Semesters}
+          links={university.Links}
         />
       </StyledColumn>
     </Wrapper>

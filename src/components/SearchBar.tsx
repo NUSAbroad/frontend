@@ -9,7 +9,6 @@ const SearchBarWrapper = styled.div`
   align-items: center;
   padding: 10px;
   border: 1px solid ${(props) => props.theme.colors.grey300};
-  width: 100%;
   border-radius: 3px;
   background-color: ${(props) => props.theme.colors.babyPowder};
 `;
@@ -19,6 +18,7 @@ const SearchBarInput = styled.input.attrs({ type: "text" })`
   font-weight: 400;
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.theme.colors.bistre};
+  background-color: ${(props) => props.theme.colors.babyPowder};
   border: none;
   outline: none;
   width: 100%;
@@ -33,20 +33,26 @@ interface Props {
   query: string;
   onCrossClickHandler: () => void;
   placeholder: string;
+  className?: string;
 }
 
 const SearchBar: React.FC<Props> = (props) => {
+  const {
+    placeholder,
+    onChangeHandler,
+    onCrossClickHandler,
+    query,
+    className,
+  } = props;
   return (
-    <SearchBarWrapper>
+    <SearchBarWrapper className={className}>
       <SearchIcon />
       <SearchBarInput
-        placeholder={props.placeholder}
-        onChange={props.onChangeHandler}
-        value={props.query}
+        placeholder={placeholder}
+        onChange={onChangeHandler}
+        value={query}
       />
-      {props.query.length !== 0 && (
-        <StyledCrossIcon onClick={props.onCrossClickHandler} />
-      )}
+      {query.length !== 0 && <StyledCrossIcon onClick={onCrossClickHandler} />}
     </SearchBarWrapper>
   );
 };
