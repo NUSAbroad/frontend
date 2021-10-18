@@ -85,7 +85,6 @@ const Universities: React.FC = () => {
 
   const filterResults = () => {
     if (filters.length === 0) {
-      console.log("here");
       setFilteredResults(results);
       return;
     }

@@ -24,6 +24,12 @@ const TagBody2 = styled(Body2)`
   margin-right: 10px;
 `;
 
+const ExtendedCrossInCircleIcon = styled(CrossInCircleIcon)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 interface Props {
   tag: Types.Country;
   deleteFilter: (filter: Types.Country) => void;
@@ -36,7 +42,7 @@ const FilterTag: React.FC<Props> = (props) => {
     <Wrapper>
       <TagContainer>
         <TagBody2>{tag.name}</TagBody2>
-        <CrossInCircleIcon
+        <ExtendedCrossInCircleIcon
           style={{ transform: "scale(1.2)" }}
           onClick={() => deleteFilter(tag)}
         />

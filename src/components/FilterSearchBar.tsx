@@ -27,6 +27,12 @@ const SearchBarInput = styled.input.attrs({ type: "text" })`
   width: 100%;
 `;
 
+const ExtendedSearchIcon = styled(SearchIcon)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 interface Props {
   filters: Types.Country[];
   setFilters: React.Dispatch<React.SetStateAction<Types.Country[]>>;
@@ -37,6 +43,9 @@ const FilterSearchBar: React.FC<Props> = (props) => {
   const { filters, setFilters, setErrorMsg } = props;
   const [currentFilter, setCurrentFilter] = useState<string>("");
   const [allCountries, setAllCountries] = useState<Types.Country[]>([]);
+  const [dropdownCountries, setDropdownCountries] = useState<Types.Country[]>(
+    []
+  );
 
   useEffect(() => {
     axios
@@ -49,9 +58,21 @@ const FilterSearchBar: React.FC<Props> = (props) => {
       });
   }, []);
 
+  useEffect(() => {
+    filterCountryForDropdown();
+  }, [allCountries, currentFilter]);
+
+  const filterCountryForDropdown = () => {
+    const toMatch = currentFilter.toUpperCase();
+    const newDropdownCountries = [...allCountries].filter((country) => {
+      return country.name.toUpperCase().indexOf(toMatch) !== -1;
+    });
+    setDropdownCountries(newDropdownCountries);
+  };
+
   const submitFilter = (filter: string) => {
     const relatedCountry = allCountries.find(
-      (country) => filter === country.name
+      (country) => filter.toUpperCase() === country.name.toUpperCase()
     );
     const newFilters = [...filters];
     if (!relatedCountry) {
@@ -59,7 +80,7 @@ const FilterSearchBar: React.FC<Props> = (props) => {
       return;
     }
     const isAlreadyExist = newFilters.find(
-      (country) => filter === country.name
+      (country) => filter.toUpperCase() === country.name.toUpperCase()
     );
     if (!isAlreadyExist) {
       newFilters.push(relatedCountry);
@@ -80,19 +101,25 @@ const FilterSearchBar: React.FC<Props> = (props) => {
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentFilter(e.target.value);
+    setErrorMsg("");
   };
 
   return (
     <>
       <Wrapper>
-        <SearchIcon onClick={handleClickSearchIcon} />
+        <ExtendedSearchIcon onClick={handleClickSearchIcon} />
         <SearchBarInput
           onKeyDown={handleEnterFilter}
           onChange={handleChangeInput}
         />
         <ChevronIcon />
       </Wrapper>
-      <FilterDropdown countries={allCountries} submitFilter={submitFilter} />
+      {currentFilter.length > 0 && (
+        <FilterDropdown
+          countries={dropdownCountries}
+          submitFilter={submitFilter}
+        />
+      )}
     </>
   );
 };
