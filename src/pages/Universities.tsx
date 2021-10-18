@@ -56,6 +56,7 @@ const Universities: React.FC = () => {
   }, [query]);
 
   useEffect(() => {
+    console.log(results);
     filterResults();
   }, [results, filters]);
 

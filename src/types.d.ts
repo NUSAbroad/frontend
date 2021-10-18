@@ -33,12 +33,17 @@ declare namespace Types {
     updatedAt: string;
     Country: Country;
     Links: Link[];
-    Semesters: string[];
+    Semesters: Semester[];
     Faculties: Faculty[];
     Mappings: Mapping[];
   }
+
   interface Faculty {
     name: string;
     type: string;
+  }
+
+  interface Semester {
+    description: string;
   }
 }

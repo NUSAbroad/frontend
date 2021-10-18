@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 `;
 
 interface Props {
-  semesters: string[];
+  semesters: Types.Semester[];
   links: Types.Link[];
 }
 
