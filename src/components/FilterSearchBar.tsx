@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ReactComponent as ChevronIcon } from "../assets/chevron-down.svg";
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
 import { BACKEND_URL } from "../constants";
+import FilterDropdown from "./FilterDropdown";
 
 const Wrapper = styled.div`
   display: flex;
@@ -48,9 +49,9 @@ const FilterSearchBar: React.FC<Props> = (props) => {
       });
   }, []);
 
-  const submitFilter = () => {
+  const submitFilter = (filter: string) => {
     const relatedCountry = allCountries.find(
-      (country) => currentFilter === country.name
+      (country) => filter === country.name
     );
     const newFilters = [...filters];
     if (!relatedCountry) {
@@ -58,7 +59,7 @@ const FilterSearchBar: React.FC<Props> = (props) => {
       return;
     }
     const isAlreadyExist = newFilters.find(
-      (country) => currentFilter === country.name
+      (country) => filter === country.name
     );
     if (!isAlreadyExist) {
       newFilters.push(relatedCountry);
@@ -68,12 +69,12 @@ const FilterSearchBar: React.FC<Props> = (props) => {
   };
 
   const handleClickSearchIcon = () => {
-    submitFilter();
+    submitFilter(currentFilter);
   };
 
   const handleEnterFilter = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
-      submitFilter();
+      submitFilter(currentFilter);
     }
   };
 
@@ -82,14 +83,17 @@ const FilterSearchBar: React.FC<Props> = (props) => {
   };
 
   return (
-    <Wrapper>
-      <SearchIcon onClick={handleClickSearchIcon} />
-      <SearchBarInput
-        onKeyDown={handleEnterFilter}
-        onChange={handleChangeInput}
-      />
-      <ChevronIcon />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <SearchIcon onClick={handleClickSearchIcon} />
+        <SearchBarInput
+          onKeyDown={handleEnterFilter}
+          onChange={handleChangeInput}
+        />
+        <ChevronIcon />
+      </Wrapper>
+      <FilterDropdown countries={allCountries} submitFilter={submitFilter} />
+    </>
   );
 };
 
