@@ -42,7 +42,10 @@ const FilterError = styled(Body2)`
 const Universities: React.FC = () => {
   const [filters, setFilters] = useState<Types.Country[]>([]);
   const [filterErrorMsg, setFilterErrorMsg] = useState<string>("");
-  const [results, setResults] = useState<Types.University[]>();
+  const [results, setResults] = useState<Types.University[]>([]);
+  const [filteredResults, setFilteredResults] = useState<Types.University[]>(
+    []
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
 
@@ -51,6 +54,10 @@ const Universities: React.FC = () => {
     const timeoutId = setTimeout(() => fetchHits(query, token), 500);
     return () => (cancel("No longer last query"), clearTimeout(timeoutId));
   }, [query]);
+
+  useEffect(() => {
+    filterResults();
+  }, [results, filters]);
 
   const deleteFilter = (filter: Types.Country) => {
     const newFilters = [...filters];
@@ -65,7 +72,6 @@ const Universities: React.FC = () => {
       .then((response) => {
         setIsLoading(false);
         setResults(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.error(err);
@@ -75,6 +81,20 @@ const Universities: React.FC = () => {
   const onChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const query = e.target.value;
     setQuery(query);
+  };
+
+  const filterResults = () => {
+    if (filters.length === 0) {
+      console.log("here");
+      setFilteredResults(results);
+      return;
+    }
+    const newFilteredResults = [...results].filter((result) => {
+      return (
+        filters.findIndex((country) => country.id === result.countryId) !== -1
+      );
+    });
+    setFilteredResults(newFilteredResults);
   };
 
   return (
@@ -88,13 +108,15 @@ const Universities: React.FC = () => {
         />
         <SearchResultCounter>
           &nbsp;
-          {!results || isLoading ? "" : `${results.length} universities found`}
+          {!filteredResults || isLoading
+            ? ""
+            : `${filteredResults.length} universities found`}
         </SearchResultCounter>
         <Divider />
-        {isLoading || !results ? (
+        {isLoading || !filteredResults ? (
           <Spinner />
         ) : (
-          results.map((university, index) => (
+          filteredResults.map((university, index) => (
             <UniversityResult key={index} university={university} />
           ))
         )}
