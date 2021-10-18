@@ -53,8 +53,13 @@ const TagsWrapper = styled.div`
   padding-top: 10px;
 `;
 
+const FilterError = styled(Body2)`
+  color: ${(props) => props.theme.colors.orangeSoda};
+`;
+
 const Universities: React.FC = () => {
   const [filters, setFilters] = useState<Types.Country[]>([]);
+  const [filterErrorMsg, setFilterErrorMsg] = useState<string>("");
 
   const deleteFilter = (filter: Types.Country) => {
     const newFilters = [...filters];
@@ -80,7 +85,12 @@ const Universities: React.FC = () => {
         <StyledHeading3>Filter by</StyledHeading3>
         <Divider />
         <StyledSubheading>Country</StyledSubheading>
-        <FilterSearchBar filters={filters} setFilters={setFilters} />
+        <FilterSearchBar
+          filters={filters}
+          setFilters={setFilters}
+          setErrorMsg={setFilterErrorMsg}
+        />
+        <FilterError>{filterErrorMsg}</FilterError>
         <TagsWrapper>
           {filters.map((tag) => {
             return (

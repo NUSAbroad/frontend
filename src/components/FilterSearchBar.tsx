@@ -29,10 +29,11 @@ const SearchBarInput = styled.input.attrs({ type: "text" })`
 interface Props {
   filters: Types.Country[];
   setFilters: React.Dispatch<React.SetStateAction<Types.Country[]>>;
+  setErrorMsg: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const FilterSearchBar: React.FC<Props> = (props) => {
-  const { filters, setFilters } = props;
+  const { filters, setFilters, setErrorMsg } = props;
   const [currentFilter, setCurrentFilter] = useState<string>("");
   const [allCountries, setAllCountries] = useState<Types.Country[]>([]);
 
@@ -53,17 +54,17 @@ const FilterSearchBar: React.FC<Props> = (props) => {
     );
     const newFilters = [...filters];
     if (!relatedCountry) {
-      // TODO: Error handling
+      setErrorMsg("Country is not found");
       return;
     }
     const isAlreadyExist = newFilters.find(
       (country) => currentFilter === country.name
     );
-    console.log(isAlreadyExist);
     if (!isAlreadyExist) {
       newFilters.push(relatedCountry);
     }
     setFilters(newFilters);
+    setErrorMsg("");
   };
 
   const handleClickSearchIcon = () => {
