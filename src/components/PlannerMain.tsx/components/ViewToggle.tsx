@@ -2,10 +2,13 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 import { View } from "../../../constants/plannerViews";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setView } from "../../../redux/plannerSlice";
 import { Button } from "../../Styles";
 
 const Buttons = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const StyledButton = styled(Button)<{ $isCurrView: boolean }>`
@@ -29,17 +32,17 @@ const StyledButton = styled(Button)<{ $isCurrView: boolean }>`
 
 interface Props {
   currView: View;
-  setCurrView: React.Dispatch<React.SetStateAction<View>>;
 }
 
 const ViewToggle: React.FC<Props> = function (props) {
-  const { currView, setCurrView } = props;
+  const { currView } = props;
+  const dispatch = useAppDispatch();
 
   const handleClick = (view: View) => {
     if (view == currView) {
       return;
     }
-    setCurrView(view);
+    dispatch(setView(view));
   };
 
   return (

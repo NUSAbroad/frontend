@@ -16,13 +16,15 @@ const AdditionalInfoRow: React.FC<Props> = function (props) {
       <HeadingCell>Additional Info</HeadingCell>
       {unis.map((uni) => (
         <Cell key={uni.id}>
-          {uni.additionalInfo
-            ? Object.entries(uni.additionalInfo).map(([key, value], index) => (
-                <Body2 key={index}>
-                  {key}: {value}
-                </Body2>
-              ))
-            : "-"}
+          {uni.additionalInfo ? (
+            Object.entries(uni.additionalInfo).map(([key, value], index) => (
+              <Body2 key={index}>
+                {key}: {value}
+              </Body2>
+            ))
+          ) : (
+            <Body2>-</Body2>
+          )}
         </Cell>
       ))}
     </Row>
