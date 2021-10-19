@@ -50,7 +50,7 @@ const UniversityPastMappings: React.FC<Props> = function (props) {
   const [hitsCount, setHitsCount] = useState<string>("");
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => filterMappings(query), 500);
+    const timeoutId = setTimeout(() => filterMappings(query), 200);
     return () => clearTimeout(timeoutId);
   }, [query]);
 
@@ -77,6 +77,7 @@ const UniversityPastMappings: React.FC<Props> = function (props) {
   };
 
   const onCrossClickHandler = () => {
+    setDisplayHitsCount(false);
     setQuery("");
   };
 
