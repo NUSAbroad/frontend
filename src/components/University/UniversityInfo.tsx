@@ -55,7 +55,8 @@ const UniversityInfo: React.FC<Props> = function (props) {
         <div>
           <Heading1 $color={theme.colors.blueCrayola}>{uni.name}</Heading1>
           <StyledBody1>
-            {uni.state}, {uni.Country.name}
+            {uni.state && `${uni.state}, `}
+            {uni.Country.name}
           </StyledBody1>
         </div>
         <Button>+ Add to Planner</Button>
