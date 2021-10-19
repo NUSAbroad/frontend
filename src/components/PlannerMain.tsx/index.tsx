@@ -3,12 +3,9 @@ import styled from "styled-components";
 
 import { View } from "../../constants/plannerViews";
 import MappingsView from "../MappingsView";
+import SideBySideView from "../SideBySideView";
 import { Heading3 } from "../Styles";
 import ViewToggle from "./components/ViewToggle";
-
-const Container = styled.div`
-  flex-grow: 1;
-`;
 
 const HeaderSection = styled.div`
   display: flex;
@@ -158,19 +155,65 @@ const unis: Types.University[] = [
       },
     ],
   },
+  {
+    id: 228,
+    name: "Korea Advanced Institute of Science and Technology (KAIST)",
+    countryId: 10,
+    state: null,
+    slug: "korea-advanced-institute-of-science-and-technology-kaist",
+    additionalInfo: null,
+    updatedAt: "2021-10-18T08:54:04.600Z",
+    Mappings: [],
+    Country: {
+      name: "South Korea",
+    },
+    Links: [
+      {
+        name: "GRO Infosheet",
+        link: "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/kr/sep_korea_kaist.pdf",
+      },
+    ],
+    Semesters: [
+      {
+        description: "Sep - Nov 2021",
+      },
+      {
+        description: "Feb - May 2021",
+      },
+    ],
+    Faculties: [
+      {
+        name: "Law",
+        type: "PU",
+      },
+      {
+        name: "Science",
+        type: "PU",
+      },
+      {
+        name: "Computing",
+        type: "PU",
+      },
+      {
+        name: "Business",
+        type: "PU",
+      },
+    ],
+  },
 ];
 
 const PlannerMain: React.FC = function () {
   const [currView, setCurrView] = useState<View>(View.MAPPINGS);
 
   return (
-    <Container>
+    <div>
       <HeaderSection>
         <Heading3>My Universities</Heading3>
         <ViewToggle currView={currView} setCurrView={setCurrView} />
       </HeaderSection>
       {currView == View.MAPPINGS && <MappingsView unis={unis} />}
-    </Container>
+      {currView == View.SIDE_BY_SIDE && <SideBySideView unis={unis} />}
+    </div>
   );
 };
 

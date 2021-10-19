@@ -4,7 +4,8 @@ import styled from "styled-components";
 import PlannerMain from "../components/PlannerMain.tsx";
 
 const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
   gap: 50px;
   width: 90%;
   max-width: 1280px;
@@ -16,7 +17,7 @@ const Planner: React.FC = () => {
   return (
     <Container>
       <PlannerMain />
-      <div>Planner Sidebar</div>
+      <div style={{ minWidth: "300px" }}>Planner Sidebar</div>
     </Container>
   );
 };

@@ -109,3 +109,9 @@ export const Column = styled.div<{ $width: string }>`
   flex-direction: column;
   padding: 0 20px;
 `;
+
+export const Pill = styled.div`
+  padding: 5px 10px;
+  border-radius: 30px;
+  border: 1px solid ${(props) => props.theme.colors.bistre};
+`;
