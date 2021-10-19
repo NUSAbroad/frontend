@@ -2,9 +2,8 @@ import axios, { CancelToken } from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { ReactComponent as ChevronIcon } from "../assets/chevron-down.svg";
-import { ReactComponent as SearchIcon } from "../assets/search.svg";
-import { ReactComponent as CrossInCircleIcon } from "../assets/x-circle.svg";
+import FilterSearchBar from "../components/FilterSearchBar";
+import FilterTag from "../components/FilterTag";
 import SearchBar from "../components/SearchBar";
 import Spinner from "../components/Spinner";
 import {
@@ -17,26 +16,6 @@ import {
 } from "../components/Styles";
 import UniversityResult from "../components/UniversityResult";
 import { BACKEND_URL } from "../constants";
-
-const SearchBarWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid ${(props) => props.theme.colors.grey300};
-  width: 100%;
-  border-radius: 3px;
-  background-color: white;
-`;
-
-const SearchBarInput = styled.input.attrs({ type: "text" })`
-  padding: 0 10px;
-  font-weight: 400;
-  font-size: ${(props) => props.theme.fontSizes.md};
-  color: ${(props) => props.theme.colors.bistre};
-  border: none;
-  outline: none;
-  width: 100%;
-`;
 
 const SearchResultCounter = styled(Body2)`
   padding-top: 10px;
@@ -52,32 +31,19 @@ const StyledSubheading = styled(Subheading)`
   margin-bottom 5px;
 `;
 
-const TagWrapper = styled.div`
-  padding: 0 15px;
-  display: inline-block;
-  line-height: 25px;
-  border: 1px solid ${(props) => props.theme.colors.blueCrayola};
-  border-radius: 35px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-`;
-
-const TagContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 const TagsWrapper = styled.div`
-  padding-top: 10px;
-`;
-
-const TagBody2 = styled(Body2)`
-  color: ${(props) => props.theme.colors.blueCrayola};
-  margin-right: 10px;
+  display: flex;
+  gap: 10px;
+  padding-top: 7px;
+  flex-wrap: wrap;
 `;
 
 const Universities: React.FC = () => {
-  const [results, setResults] = useState<Types.University[]>();
+  const [filters, setFilters] = useState<Types.Country[]>([]);
+  const [results, setResults] = useState<Types.University[]>([]);
+  const [filteredResults, setFilteredResults] = useState<Types.University[]>(
+    []
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
 
@@ -87,6 +53,17 @@ const Universities: React.FC = () => {
     return () => (cancel("No longer last query"), clearTimeout(timeoutId));
   }, [query]);
 
+  useEffect(() => {
+    console.log(results);
+    filterResults();
+  }, [results, filters]);
+
+  const deleteFilter = (filter: Types.Country) => {
+    const newFilters = [...filters];
+    newFilters.splice(newFilters.indexOf(filter), 1);
+    setFilters(newFilters);
+  };
+
   const fetchHits = (query: string, token: CancelToken) => {
     setIsLoading(true);
     axios
@@ -94,7 +71,6 @@ const Universities: React.FC = () => {
       .then((response) => {
         setIsLoading(false);
         setResults(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.error(err);
@@ -104,6 +80,19 @@ const Universities: React.FC = () => {
   const onChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const query = e.target.value;
     setQuery(query);
+  };
+
+  const filterResults = () => {
+    if (filters.length === 0) {
+      setFilteredResults(results);
+      return;
+    }
+    const newFilteredResults = [...results].filter((result) => {
+      return (
+        filters.findIndex((country) => country.id === result.countryId) !== -1
+      );
+    });
+    setFilteredResults(newFilteredResults);
   };
 
   return (
@@ -117,13 +106,15 @@ const Universities: React.FC = () => {
         />
         <SearchResultCounter>
           &nbsp;
-          {!results || isLoading ? "" : `${results.length} universities found`}
+          {!filteredResults || isLoading
+            ? ""
+            : `${filteredResults.length} universities found`}
         </SearchResultCounter>
         <Divider />
-        {isLoading || !results ? (
+        {isLoading || !filteredResults ? (
           <Spinner />
         ) : (
-          results.map((university, index) => (
+          filteredResults.map((university, index) => (
             <UniversityResult key={index} university={university} />
           ))
         )}
@@ -132,24 +123,13 @@ const Universities: React.FC = () => {
         <StyledHeading3>Filter by</StyledHeading3>
         <Divider />
         <StyledSubheading>Country</StyledSubheading>
-        <SearchBarWrapper>
-          <SearchIcon />
-          <SearchBarInput />
-          <ChevronIcon />
-        </SearchBarWrapper>
+        <FilterSearchBar filters={filters} setFilters={setFilters} />
         <TagsWrapper>
-          <TagWrapper>
-            <TagContainer>
-              <TagBody2>United Kingdom</TagBody2>
-              <CrossInCircleIcon style={{ transform: "scale(1.2)" }} />
-            </TagContainer>
-          </TagWrapper>
-          <TagWrapper>
-            <TagContainer>
-              <TagBody2>Canada</TagBody2>
-              <CrossInCircleIcon style={{ transform: "scale(1.2)" }} />
-            </TagContainer>
-          </TagWrapper>
+          {filters.map((tag) => {
+            return (
+              <FilterTag key={tag.id} tag={tag} deleteFilter={deleteFilter} />
+            );
+          })}
         </TagsWrapper>
       </Column>
     </Wrapper>

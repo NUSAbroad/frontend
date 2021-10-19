@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Body1, Subheading } from "../../Styles";
 
 interface Props {
-  semesters: string[];
+  semesters: Types.Semester[];
 }
 
 const MarginSubheading = styled(Subheading)`
@@ -18,7 +18,7 @@ const Semesters: React.FC<Props> = (props) => {
     <>
       <MarginSubheading>Semesters</MarginSubheading>
       {semesters.map((elem, index) => {
-        return <Body1 key={index}>{elem}</Body1>;
+        return <Body1 key={index}>{elem.description}</Body1>;
       })}
     </>
   );

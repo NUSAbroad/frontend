@@ -19,7 +19,12 @@ const QuickLinks: React.FC<Props> = (props) => {
       <MarginSubheading>Quick Links</MarginSubheading>
       {links.map((link, index) => {
         return (
-          <StyledLink key={index} to={link.link}>
+          <StyledLink
+            key={index}
+            to={{ pathname: `${link.link}` }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {link.name}
           </StyledLink>
         );
