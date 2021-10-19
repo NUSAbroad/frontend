@@ -7,12 +7,14 @@ import { Body1, StyledNavLink } from "./Styles";
 const Wrapper = styled.div<{ $boxShadow: boolean }>`
   position: sticky;
   top: 0;
-  width: 100%;
   display: flex;
+  width: 100%;
   padding: 2px 30px;
   background: ${(props) => props.theme.colors.floralWhite};
-  border-bottom: ${(props) =>
-    props.$boxShadow ? `1px solid ${props.theme.colors.grey300}` : "none"};
+  ${(props) =>
+    props.$boxShadow &&
+    `border-bottom: 1px solid ${props.theme.colors.grey300}`};
+  z-index: 99;
 `;
 
 const LogoWrapper = styled.div`
