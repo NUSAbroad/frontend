@@ -24,6 +24,7 @@ const SearchBarInput = styled.input.attrs({ type: "text" })`
   font-weight: 400;
   font-size: ${(props) => props.theme.fontSizes.sm};
   color: ${(props) => props.theme.colors.bistre};
+  background-color: ${(props) => props.theme.colors.babyPowder};
   border: none;
   outline: none;
   width: 100%;

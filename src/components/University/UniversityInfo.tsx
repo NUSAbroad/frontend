@@ -92,7 +92,7 @@ const UniversityInfo: React.FC<Props> = function (props) {
             </Body2>
           </Notice>
         </div>
-        <UniversitySidebar semesters={[]} links={uni.Links} />
+        <UniversitySidebar semesters={uni.Semesters} links={uni.Links} />
       </InfoSection>
     </>
   );

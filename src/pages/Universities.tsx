@@ -44,7 +44,7 @@ const Universities: React.FC = () => {
   const [filteredResults, setFilteredResults] = useState<Types.University[]>(
     []
   );
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
