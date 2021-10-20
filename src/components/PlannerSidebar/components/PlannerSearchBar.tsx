@@ -5,12 +5,14 @@ import styled from "styled-components";
 import { BACKEND_URL } from "../../../constants";
 import PlannerDropdown from "./PlannerDropdown";
 
-const Wrapper = styled.div.attrs({ tabIndex: -1 })``;
+const Wrapper = styled.div.attrs({ tabIndex: -1 })`
+  margin-bottom: 5px;
+`;
 
 const SearchBarWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 10px 0;
   border: 1px solid ${(props) => props.theme.colors.grey300};
   width: 100%;
   border-radius: 3px;
@@ -27,7 +29,7 @@ const SearchBarInput = styled.input.attrs({ type: "text" })`
   width: 100%;
 `;
 
-const PlannerSearchBar: React.FC = (props) => {
+const PlannerSearchBar: React.FC = () => {
   const [allUnis, setAllUnis] = useState<Types.University[]>([]);
   const [dropdownUnis, setDropdownUnis] = useState<Types.University[]>([]);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
