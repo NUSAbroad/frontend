@@ -57,7 +57,8 @@ const UniversityInfo: React.FC<Props> = function (props) {
     const newUnis = [...unis];
     const index = newUnis.findIndex((newUni) => newUni.id === uni.id);
     if (index === -1) {
-      newUnis.push(uni);
+      const removeMapping = { ...uni, mappingsCount: 0, Mappings: [] };
+      newUnis.push(removeMapping);
       dispatch(setUnis({ unis: newUnis }));
     }
   };

@@ -55,7 +55,7 @@ const University: React.FC<Props> = function (props) {
         {uni.state && `${uni.state}, `}
         {uni.Country.name} &bull; <b>{countMCs(uni.Mappings)}</b> MCs
       </StyledBody1>
-      <MappingsTable mappings={uni.Mappings} isPlanner />
+      <MappingsTable mappings={uni.Mappings} isPlanner uniId={uni.id} />
     </Container>
   );
 };
