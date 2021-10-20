@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { getUnis, setUnis } from "../../../redux/plannerSlice";
 import { countMCs } from "../../../utils/countMCs";
 import MappingsTable from "../../MappingsTable";
 import { Body1, Button, Heading2, StyledLink } from "../../Styles";
@@ -28,6 +30,13 @@ interface Props {
 const University: React.FC<Props> = function (props) {
   const { uni } = props;
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+  const unis = useAppSelector(getUnis);
+
+  const handleRemoveFromPlanner = () => {
+    const newUnis = [...unis].filter((newUni) => newUni.id !== uni.id);
+    dispatch(setUnis({ unis: newUnis }));
+  };
 
   return (
     <Container>
@@ -35,7 +44,12 @@ const University: React.FC<Props> = function (props) {
         <Heading2 $color={theme.colors.blueCrayola}>
           <StyledLink to={`/universities/${uni.slug}`}>{uni.name}</StyledLink>
         </Heading2>
-        <Button $color={theme.colors.orangeSoda}>Remove</Button>
+        <Button
+          $color={theme.colors.orangeSoda}
+          onClick={handleRemoveFromPlanner}
+        >
+          Remove
+        </Button>
       </HeaderSection>
       <StyledBody1>
         {uni.state && `${uni.state}, `}
