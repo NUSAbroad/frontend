@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { getUnis, setUnis } from "../../../redux/plannerSlice";
 import { Body1 } from "../../Styles";
 
 const Wrapper = styled.div`
@@ -32,10 +34,27 @@ interface Props {
 
 const PlannerDropdown: React.FC<Props> = (props) => {
   const { unis } = props;
+  const dispatch = useAppDispatch();
+  const currentUnis = useAppSelector(getUnis);
+
+  const handleAddUni = (uniToAdd: Types.University) => {
+    const newUnis = [...currentUnis];
+    const index = newUnis.findIndex((uni) => uni.id === uniToAdd.id);
+    if (index === -1) {
+      const removeMappings = { ...uniToAdd, mappingCount: 0, Mappings: [] };
+      newUnis.push(removeMappings);
+      dispatch(setUnis({ unis: newUnis }));
+    }
+  };
+
   return (
     <Wrapper>
       {unis.map((uni) => {
-        return <WhiteBox key={uni.id}>{uni.name}</WhiteBox>;
+        return (
+          <WhiteBox key={uni.id} onClick={() => handleAddUni(uni)}>
+            {uni.name}
+          </WhiteBox>
+        );
       })}
     </Wrapper>
   );
