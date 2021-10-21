@@ -3,6 +3,8 @@ import styled, { useTheme } from "styled-components";
 
 import { ReactComponent as Cross } from "../assets/cross.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
+import { useAppDispatch } from "../redux/hooks";
+import { addMapping, removeMapping } from "../redux/plannerSlice";
 
 interface BodyCellProps {
   $softBorder?: boolean;
@@ -101,16 +103,25 @@ const Button = styled.button<{ $color: string; $focusColor: string }>`
 interface Props {
   mapping: Types.Mapping;
   isPlanner?: boolean;
+  uniId: number;
 }
 
 const MappingsRow: React.FC<Props> = function (props) {
-  const { mapping, isPlanner } = props;
+  const { mapping, isPlanner, uniId } = props;
   const theme = useTheme();
-
+  const dispatch = useAppDispatch();
   const color = isPlanner ? theme.colors.orangeSoda : theme.colors.blueCrayola;
   const focusColor = isPlanner
     ? theme.colors.orangeSoda50
     : theme.colors.blueCrayola50;
+
+  const handleClickButton = () => {
+    if (isPlanner) {
+      dispatch(removeMapping({ uniId, mapping }));
+    } else {
+      dispatch(addMapping({ uniId, mapping }));
+    }
+  };
 
   return (
     <BodyRow>
@@ -167,7 +178,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         <Button
           $color={color}
           $focusColor={focusColor}
-          onClick={() => console.log("clicked")}
+          onClick={handleClickButton}
         >
           {isPlanner ? <Cross /> : <Plus />}
         </Button>

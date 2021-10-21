@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import PlannerMain from "../components/PlannerMain.tsx";
+import PlannerMain from "../components/PlannerMain";
+import PlannerSidebar from "../components/PlannerSidebar";
 import { View } from "../constants/plannerViews";
 import { useAppSelector } from "../redux/hooks";
 import { getCurrView } from "../redux/plannerSlice";
@@ -26,7 +27,7 @@ const Planner: React.FC = () => {
   return (
     <Container $currView={currView}>
       <PlannerMain />
-      <div style={{ minWidth: "300px" }}>Planner Sidebar</div>
+      <PlannerSidebar />
     </Container>
   );
 };

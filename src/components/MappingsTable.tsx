@@ -85,10 +85,11 @@ const AddButton = styled.button`
 interface Props {
   isPlanner?: boolean;
   mappings: Types.Mapping[];
+  uniId: number;
 }
 
 const MappingsTable: React.FC<Props> = function (props) {
-  const { isPlanner, mappings } = props;
+  const { isPlanner, mappings, uniId } = props;
 
   return (
     <Container>
@@ -116,6 +117,7 @@ const MappingsTable: React.FC<Props> = function (props) {
               key={mapping.id}
               mapping={mapping}
               isPlanner={isPlanner}
+              uniId={uniId}
             />
           ))}
           {isPlanner && (

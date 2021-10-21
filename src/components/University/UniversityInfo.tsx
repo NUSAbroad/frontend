@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
+import { useAppDispatch } from "../../redux/hooks";
+import { addUni } from "../../redux/plannerSlice";
 import { getMonthAndYear } from "../../utils/date";
 import Notice from "../Notice";
 import { Body1, Body2, Button, Divider, Heading1 } from "../Styles";
@@ -48,6 +50,11 @@ interface Props {
 const UniversityInfo: React.FC<Props> = function (props) {
   const { uni } = props;
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+
+  const handleAddToPlanner = () => {
+    dispatch(addUni(uni));
+  };
 
   return (
     <>
@@ -59,7 +66,7 @@ const UniversityInfo: React.FC<Props> = function (props) {
             {uni.Country.name}
           </StyledBody1>
         </div>
-        <Button>+ Add to Planner</Button>
+        <Button onClick={handleAddToPlanner}>+ Add to Planner</Button>
       </HeaderSection>
       <Divider />
       <InfoSection>

@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
+import { useAppDispatch } from "../../../redux/hooks";
+import { removeUni } from "../../../redux/plannerSlice";
 import { countMCs } from "../../../utils/countMCs";
 import MappingsTable from "../../MappingsTable";
 import { Body1, Button, Heading2, StyledLink } from "../../Styles";
@@ -28,6 +30,11 @@ interface Props {
 const University: React.FC<Props> = function (props) {
   const { uni } = props;
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+
+  const handleRemoveFromPlanner = () => {
+    dispatch(removeUni(uni));
+  };
 
   return (
     <Container>
@@ -35,13 +42,18 @@ const University: React.FC<Props> = function (props) {
         <Heading2 $color={theme.colors.blueCrayola}>
           <StyledLink to={`/universities/${uni.slug}`}>{uni.name}</StyledLink>
         </Heading2>
-        <Button $color={theme.colors.orangeSoda}>Remove</Button>
+        <Button
+          $color={theme.colors.orangeSoda}
+          onClick={handleRemoveFromPlanner}
+        >
+          Remove
+        </Button>
       </HeaderSection>
       <StyledBody1>
         {uni.state && `${uni.state}, `}
         {uni.Country.name} &bull; <b>{countMCs(uni.Mappings)}</b> MCs
       </StyledBody1>
-      <MappingsTable mappings={uni.Mappings} isPlanner />
+      <MappingsTable mappings={uni.Mappings} isPlanner uniId={uni.id} />
     </Container>
   );
 };

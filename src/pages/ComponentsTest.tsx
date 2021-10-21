@@ -49,8 +49,8 @@ const ComponentsTest: React.FC = function () {
         Button
       </Button>
       <Notice>This is a notice</Notice>
-      <MappingsTable mappings={[]} />
-      <MappingsTable mappings={[]} isPlanner />
+      <MappingsTable mappings={[]} uniId={0} />
+      <MappingsTable mappings={[]} isPlanner uniId={0} />
       <UniversitySidebar
         semesters={[]}
         links={[{ link: "/test", name: "GRO PDF" }]}
