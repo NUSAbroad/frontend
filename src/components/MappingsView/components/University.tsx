@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { getUnis, setUnis } from "../../../redux/plannerSlice";
+import { useAppDispatch } from "../../../redux/hooks";
+import { removeUni } from "../../../redux/plannerSlice";
 import { countMCs } from "../../../utils/countMCs";
 import MappingsTable from "../../MappingsTable";
 import { Body1, Button, Heading2, StyledLink } from "../../Styles";
@@ -31,11 +31,9 @@ const University: React.FC<Props> = function (props) {
   const { uni } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const unis = useAppSelector(getUnis);
 
   const handleRemoveFromPlanner = () => {
-    const newUnis = [...unis].filter((newUni) => newUni.id !== uni.id);
-    dispatch(setUnis({ unis: newUnis }));
+    dispatch(removeUni(uni));
   };
 
   return (

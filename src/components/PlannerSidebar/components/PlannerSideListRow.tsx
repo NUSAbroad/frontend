@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import { ReactComponent as TrashIcon } from "../../../assets/trash.svg";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { getUnis, setUnis } from "../../../redux/plannerSlice";
+import { useAppDispatch } from "../../../redux/hooks";
+import { removeUni } from "../../../redux/plannerSlice";
 import { countMCs } from "../../../utils/countMCs";
-import { Body1, Body2, StyledLink } from "../../Styles";
+import { Body2, StyledLink, Subheading } from "../../Styles";
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const InnerWrapper = styled.div`
   flex-grow: 1;
 `;
 
-const StyledBody1 = styled(Body2)`
+const StyledBody2 = styled(Body2)`
   margin: 5px 0;
 `;
 
@@ -37,24 +37,21 @@ interface Props {
 const PlannerSideListRow: React.FC<Props> = (props) => {
   const { uni } = props;
   const dispatch = useAppDispatch();
-  const unis = useAppSelector(getUnis);
 
   const handleRemoveUni = () => {
-    const newUnis = [...unis].filter((oldUni) => oldUni.id !== uni.id);
-    dispatch(setUnis({ unis: newUnis }));
+    dispatch(removeUni(uni));
   };
 
   return (
     <Wrapper>
       <InnerWrapper>
-        <Body1 $weight="700">
+        <Subheading>
           <StyledLink to={`/universities/${uni.slug}`}>{uni.name}</StyledLink>
-        </Body1>
-        <StyledBody1>
+        </Subheading>
+        <StyledBody2>
           {uni.state && `${uni.state}, `}
           {uni.Country.name} &bull; <b>{countMCs(uni.Mappings)}</b> MCs
-        </StyledBody1>
-        <Body2></Body2>
+        </StyledBody2>
       </InnerWrapper>
       <StyledTrashIcon onClick={handleRemoveUni} />
     </Wrapper>

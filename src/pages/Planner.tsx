@@ -27,7 +27,6 @@ const Planner: React.FC = () => {
   return (
     <Container $currView={currView}>
       <PlannerMain />
-      {/* <div style={{ minWidth: "300px" }}>Planner Sidebar</div> */}
       <PlannerSidebar />
     </Container>
   );

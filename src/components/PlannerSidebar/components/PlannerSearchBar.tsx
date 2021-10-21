@@ -53,7 +53,7 @@ const PlannerSearchBar: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get(`${BACKEND_URL}/universities`)
+      .get(`${BACKEND_URL}/search/general`)
       .then((response) => {
         setAllUnis(response.data);
       })

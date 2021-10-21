@@ -3,8 +3,8 @@ import styled, { useTheme } from "styled-components";
 
 import { ReactComponent as Cross } from "../assets/cross.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { getUnis, setUnis } from "../redux/plannerSlice";
+import { useAppDispatch } from "../redux/hooks";
+import { addMapping, removeMapping } from "../redux/plannerSlice";
 
 interface BodyCellProps {
   $softBorder?: boolean;
@@ -110,53 +110,18 @@ const MappingsRow: React.FC<Props> = function (props) {
   const { mapping, isPlanner, uniId } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const unis = useAppSelector(getUnis);
-
-  const handleClickButton = () => {
-    if (isPlanner) {
-      handleRemoveMapping();
-    } else {
-      handleAddMapping();
-    }
-  };
-
-  const handleRemoveMapping = () => {
-    const newUnis = [...unis];
-    const relatedUniIndex = newUnis.findIndex((uni) => uni.id === uniId);
-    if (relatedUniIndex === -1) {
-      return;
-    }
-    const relatedUni = { ...newUnis[relatedUniIndex] };
-    relatedUni.Mappings = [
-      ...relatedUni.Mappings.filter((map) => map.id !== mapping.id),
-    ];
-    relatedUni.mappingsCount = relatedUni.Mappings.length;
-    newUnis[relatedUniIndex] = relatedUni;
-    dispatch(setUnis({ unis: newUnis }));
-  };
-
-  const handleAddMapping = () => {
-    const newUnis = [...unis];
-    const relatedUniIndex = newUnis.findIndex((uni) => uni.id === uniId);
-    if (relatedUniIndex === -1) {
-      return;
-    }
-    const relatedUni = { ...newUnis[relatedUniIndex] };
-    const index = relatedUni.Mappings.findIndex((map) => map.id === mapping.id);
-    if (index === -1) {
-      const newMappings = [...relatedUni.Mappings];
-      newMappings.push(mapping);
-      relatedUni.mappingsCount = newMappings.length;
-      relatedUni.Mappings = newMappings;
-      newUnis[relatedUniIndex] = relatedUni;
-      dispatch(setUnis({ unis: newUnis }));
-    }
-  };
-
   const color = isPlanner ? theme.colors.orangeSoda : theme.colors.blueCrayola;
   const focusColor = isPlanner
     ? theme.colors.orangeSoda50
     : theme.colors.blueCrayola50;
+
+  const handleClickButton = () => {
+    if (isPlanner) {
+      dispatch(removeMapping({ uniId, mapping }));
+    } else {
+      dispatch(addMapping({ uniId, mapping }));
+    }
+  };
 
   return (
     <BodyRow>

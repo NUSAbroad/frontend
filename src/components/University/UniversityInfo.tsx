@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getUnis, resetUnis, setUnis } from "../../redux/plannerSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import { addUni } from "../../redux/plannerSlice";
 import { getMonthAndYear } from "../../utils/date";
 import Notice from "../Notice";
 import { Body1, Body2, Button, Divider, Heading1 } from "../Styles";
@@ -51,16 +51,9 @@ const UniversityInfo: React.FC<Props> = function (props) {
   const { uni } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const unis = useAppSelector(getUnis);
 
   const handleAddToPlanner = () => {
-    const newUnis = [...unis];
-    const index = newUnis.findIndex((newUni) => newUni.id === uni.id);
-    if (index === -1) {
-      const removeMapping = { ...uni, mappingsCount: 0, Mappings: [] };
-      newUnis.push(removeMapping);
-      dispatch(setUnis({ unis: newUnis }));
-    }
+    dispatch(addUni(uni));
   };
 
   return (
