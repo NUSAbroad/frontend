@@ -13,9 +13,11 @@ import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 
 import plannerSlice from "./plannerSlice";
+import toastSlice from "./toastSlice";
 
 const reducers = combineReducers({
   planner: plannerSlice,
+  toast: toastSlice,
 });
 
 const persistConfig = {

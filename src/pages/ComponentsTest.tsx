@@ -15,6 +15,8 @@ import {
   Subheading,
 } from "../components/Styles";
 import UniversitySidebar from "../components/UniversitySidebar";
+import { useAppDispatch } from "../redux/hooks";
+import { addToast } from "../redux/toastSlice";
 
 const Container = styled.div`
   display: flex;
@@ -25,6 +27,15 @@ const Container = styled.div`
 
 const ComponentsTest: React.FC = function () {
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(addToast({ message: "Button Clicked" }));
+  };
+
+  const handleUndoableClick = () => {
+    dispatch(addToast({ message: "Button Clicked", canUndo: true }));
+  };
 
   return (
     <Container>
@@ -41,12 +52,13 @@ const ComponentsTest: React.FC = function () {
       <Body1>
         <StyledLink to="/">Link</StyledLink>
       </Body1>
-      <Button>Button</Button>
+      <Button onClick={handleClick}>Button</Button>
       <Button
         $color={theme.colors.orangeSoda}
         $focusColor={theme.colors.orangeSoda50}
+        onClick={handleUndoableClick}
       >
-        Button
+        Undobable Button
       </Button>
       <Notice>This is a notice</Notice>
       <MappingsTable mappings={[]} uniId={0} />
