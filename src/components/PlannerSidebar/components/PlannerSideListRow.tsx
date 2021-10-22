@@ -62,7 +62,7 @@ const PlannerSideListRow: React.FC<Props> = (props) => {
     dispatch(removeUni(uni));
     dispatch(
       setToast({
-        message: "Univeresity removed from planner",
+        message: "University removed from planner",
         canUndo: true,
         undoMessage: "University re-added to planner",
       })

@@ -58,7 +58,7 @@ const ComponentsTest: React.FC = function () {
         $focusColor={theme.colors.orangeSoda50}
         onClick={handleUndoableClick}
       >
-        Undobable Button
+        Undoable Button
       </Button>
       <Notice>This is a notice</Notice>
       <MappingsTable mappings={[]} uniId={0} />
