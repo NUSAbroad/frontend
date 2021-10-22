@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled, { useTheme } from "styled-components";
 
-import { ReactComponent as SearchIcon } from "../../assets/search-small.svg";
 import { getMostRecentDate } from "../../utils/date";
 import MappingsTable from "../MappingsTable";
 import Notice from "../Notice";
@@ -87,12 +86,11 @@ const UniversityPastMappings: React.FC<Props> = function (props) {
       <HeadingWrapper>
         <Heading2>Past Approved Mappings</Heading2>
         <StyledSearchBar
-          icon={SearchIcon}
+          size="sm"
           onChangeHandler={onSearchChangeHandler}
           query={query}
           onCrossClickHandler={onCrossClickHandler}
           placeholder="Module code or name..."
-          fontSize={theme.fontSizes.sm}
         />
       </HeadingWrapper>
       <MappingsMeta>

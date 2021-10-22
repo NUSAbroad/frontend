@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+import { ReactComponent as SearchIcon } from "../assets/search.svg";
+import { ReactComponent as SmallSearchIcon } from "../assets/search-small.svg";
 import { ReactComponent as CrossIcon } from "../assets/x.svg";
+import { ReactComponent as SmallCrossIcon } from "../assets/x-small.svg";
+import theme from "../styles/theme";
 
 const SearchBarWrapper = styled.div`
   display: flex;
@@ -31,36 +35,43 @@ const StyledCrossIcon = styled(CrossIcon)`
   cursor: pointer;
 `;
 
+const StyledSmallCrossIcon = styled(SmallCrossIcon)`
+  cursor: pointer;
+`;
+
 interface Props {
-  icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  size?: string;
   onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
   query: string;
   onCrossClickHandler: () => void;
   placeholder: string;
   className?: string;
-  fontSize?: string;
 }
 
 const SearchBar: React.FC<Props> = (props) => {
   const {
-    icon: Icon,
+    size,
     placeholder,
     onChangeHandler,
     onCrossClickHandler,
     query,
     className,
-    fontSize,
   } = props;
   return (
     <SearchBarWrapper className={className}>
-      <Icon />
+      {size == "sm" ? <SmallSearchIcon /> : <SearchIcon />}
       <SearchBarInput
-        $size={fontSize}
+        $size={size == "sm" ? theme.fontSizes.sm : undefined}
         placeholder={placeholder}
         onChange={onChangeHandler}
         value={query}
       />
-      {query.length !== 0 && <StyledCrossIcon onClick={onCrossClickHandler} />}
+      {query.length !== 0 &&
+        (size == "sm" ? (
+          <StyledSmallCrossIcon onClick={onCrossClickHandler} />
+        ) : (
+          <StyledCrossIcon onClick={onCrossClickHandler} />
+        ))}
     </SearchBarWrapper>
   );
 };
