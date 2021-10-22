@@ -5,28 +5,26 @@ import styled from "styled-components";
 import { BACKEND_URL } from "../../../constants";
 import PlannerDropdown from "./PlannerDropdown";
 
-const Wrapper = styled.div.attrs({ tabIndex: -1 })`
-  margin-bottom: 5px;
-`;
-
-const SearchBarWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  border: 1px solid ${(props) => props.theme.colors.grey300};
-  width: 100%;
-  border-radius: 3px;
-  background-color: ${(props) => props.theme.colors.babyPowder};
-`;
+const Wrapper = styled.div.attrs({ tabIndex: -1 })``;
 
 const SearchBarInput = styled.input.attrs({ type: "text" })`
-  padding: 0 10px;
-  font-weight: 400;
-  font-size: ${(props) => props.theme.fontSizes.sm};
-  color: ${(props) => props.theme.colors.bistre};
-  border: none;
-  outline: none;
   width: 100%;
+  padding: 8px 10px;
+  border: 1px solid ${(props) => props.theme.colors.grey300};
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.colors.babyPowder};
+  color: ${(props) => props.theme.colors.bistre};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  font-weight: 400;
+
+  &::placeholder {
+    color: ${(props) => props.theme.colors.grey400};
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: ${(props) => props.theme.colors.blueCrayola};
+  }
 `;
 
 const PlannerSearchBar: React.FC = () => {
@@ -67,12 +65,10 @@ const PlannerSearchBar: React.FC = () => {
       onFocus={() => setShowDropdown(true)}
       onBlur={() => setShowDropdown(false)}
     >
-      <SearchBarWrapper>
-        <SearchBarInput
-          placeholder="Add university to list..."
-          onChange={handleChangeInput}
-        />
-      </SearchBarWrapper>
+      <SearchBarInput
+        placeholder="Add university to list..."
+        onChange={handleChangeInput}
+      />
       {showDropdown && dropdownUnis.length > 0 && (
         <PlannerDropdown unis={dropdownUnis} />
       )}

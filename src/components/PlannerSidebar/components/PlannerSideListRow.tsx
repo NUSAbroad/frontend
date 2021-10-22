@@ -11,8 +11,8 @@ import { Body2, StyledLink, Subheading } from "../../Styles";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 5px 0;
   align-items: center;
+  gap: 10px;
 `;
 
 const InnerWrapper = styled.div`
@@ -22,12 +22,31 @@ const InnerWrapper = styled.div`
 `;
 
 const StyledBody2 = styled(Body2)`
-  margin: 5px 0;
+  margin-top: 5px;
 `;
 
-const StyledTrashIcon = styled(TrashIcon)`
+const Button = styled.button`
+  flex-shrink: 0;
+  height: 30px;
+  width: 30px;
+  padding: 3px;
+  border: 0;
+  border-radius: 3px;
+  background: none;
+
   &:hover {
+    background: ${(props) => props.theme.colors.orangeSoda};
     cursor: pointer;
+
+    svg path {
+      stroke: ${(props) => props.theme.colors.floralWhite};
+      stroke-width: 1.5px;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem ${(props) => props.theme.colors.orangeSoda50};
   }
 `;
 
@@ -61,7 +80,9 @@ const PlannerSideListRow: React.FC<Props> = (props) => {
           {uni.Country.name} &bull; <b>{countMCs(uni.Mappings)}</b> MCs
         </StyledBody2>
       </InnerWrapper>
-      <StyledTrashIcon onClick={handleRemoveUni} />
+      <Button onClick={handleRemoveUni}>
+        <TrashIcon />
+      </Button>
     </Wrapper>
   );
 };
