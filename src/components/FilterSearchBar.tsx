@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { ReactComponent as ChevronIcon } from "../assets/chevron-down.svg";
-import { ReactComponent as SearchIcon } from "../assets/search.svg";
+import { ReactComponent as SearchIcon } from "../assets/search-small.svg";
 import { BACKEND_URL } from "../constants";
 import FilterDropdown from "./FilterDropdown";
 

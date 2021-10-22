@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
+import { ReactComponent as SmallSearchIcon } from "../assets/search-small.svg";
 import { ReactComponent as CrossIcon } from "../assets/x.svg";
+import { ReactComponent as SmallCrossIcon } from "../assets/x-small.svg";
+import theme from "../styles/theme";
 
 const SearchBarWrapper = styled.div`
   display: flex;
@@ -13,10 +16,14 @@ const SearchBarWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.babyPowder};
 `;
 
-const SearchBarInput = styled.input.attrs({ type: "text" })`
+interface TextProps {
+  $size?: string;
+}
+
+const SearchBarInput = styled.input.attrs({ type: "text" })<TextProps>`
   padding: 0 10px;
   font-weight: 400;
-  font-size: ${(props) => props.theme.fontSizes.md};
+  font-size: ${(props) => props.$size ?? props.theme.fontSizes.md};
   color: ${(props) => props.theme.colors.bistre};
   background-color: ${(props) => props.theme.colors.babyPowder};
   border: none;
@@ -28,7 +35,12 @@ const StyledCrossIcon = styled(CrossIcon)`
   cursor: pointer;
 `;
 
+const StyledSmallCrossIcon = styled(SmallCrossIcon)`
+  cursor: pointer;
+`;
+
 interface Props {
+  size?: string;
   onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
   query: string;
   onCrossClickHandler: () => void;
@@ -38,6 +50,7 @@ interface Props {
 
 const SearchBar: React.FC<Props> = (props) => {
   const {
+    size,
     placeholder,
     onChangeHandler,
     onCrossClickHandler,
@@ -46,13 +59,19 @@ const SearchBar: React.FC<Props> = (props) => {
   } = props;
   return (
     <SearchBarWrapper className={className}>
-      <SearchIcon />
+      {size == "sm" ? <SmallSearchIcon /> : <SearchIcon />}
       <SearchBarInput
+        $size={size == "sm" ? theme.fontSizes.sm : undefined}
         placeholder={placeholder}
         onChange={onChangeHandler}
         value={query}
       />
-      {query.length !== 0 && <StyledCrossIcon onClick={onCrossClickHandler} />}
+      {query.length !== 0 &&
+        (size == "sm" ? (
+          <StyledSmallCrossIcon onClick={onCrossClickHandler} />
+        ) : (
+          <StyledCrossIcon onClick={onCrossClickHandler} />
+        ))}
     </SearchBarWrapper>
   );
 };

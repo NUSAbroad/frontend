@@ -86,6 +86,7 @@ const UniversityPastMappings: React.FC<Props> = function (props) {
       <HeadingWrapper>
         <Heading2>Past Approved Mappings</Heading2>
         <StyledSearchBar
+          size="sm"
           onChangeHandler={onSearchChangeHandler}
           query={query}
           onCrossClickHandler={onCrossClickHandler}
