@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled, { useTheme } from "styled-components";
 
 import { useAppDispatch } from "../../../redux/hooks";
-import { removeToast } from "../../../redux/toastSlice";
+import { clearToast } from "../../../redux/toastSlice";
 import { Body2 } from "../../Styles";
 
 const Container = styled.div`
@@ -30,15 +30,15 @@ const Toast: React.FC<Props> = function (props) {
   const theme = useTheme();
   const dispatch = useAppDispatch();
 
-  const time = toast.canUndo ? 8000 : 3000;
+  const time = toast?.canUndo ? 8000 : 3000;
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      dispatch(removeToast(toast.id));
+      dispatch(clearToast());
     }, time);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [toast]);
 
   const handleUndoClick = () => {
     console.log("click");
@@ -46,8 +46,8 @@ const Toast: React.FC<Props> = function (props) {
 
   return (
     <Container>
-      <Body2 $color={theme.colors.babyPowder}>{toast.message}</Body2>
-      {toast.canUndo && (
+      <Body2 $color={theme.colors.babyPowder}>{toast?.message}</Body2>
+      {toast?.canUndo && (
         <UndoButton onClick={handleUndoClick}>
           <Body2 $color={theme.colors.saffron} $weight="600">
             UNDO

@@ -16,7 +16,7 @@ import {
 } from "../components/Styles";
 import UniversitySidebar from "../components/UniversitySidebar";
 import { useAppDispatch } from "../redux/hooks";
-import { addToast } from "../redux/toastSlice";
+import { setToast } from "../redux/toastSlice";
 
 const Container = styled.div`
   display: flex;
@@ -30,11 +30,11 @@ const ComponentsTest: React.FC = function () {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(addToast({ message: "Button Clicked" }));
+    dispatch(setToast({ message: "Button Clicked" }));
   };
 
   const handleUndoableClick = () => {
-    dispatch(addToast({ message: "Button Clicked", canUndo: true }));
+    dispatch(setToast({ message: "Button Clicked", canUndo: true }));
   };
 
   return (

@@ -1,29 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
 
 import { RootState } from "./store";
 
-const initialState: Types.Toast[] = [];
+interface ToastState {
+  toast: Types.Toast | null;
+}
+
+const initialState: ToastState = {
+  toast: null,
+};
 
 export const toastSlice = createSlice({
   name: "toast",
   initialState,
   reducers: {
-    addToast: (state, action) => {
-      state.push({
-        ...action.payload,
-        id: uuidv4(),
-      });
+    setToast: (state, action) => {
+      state.toast = action.payload;
     },
-    removeToast: (state, action) => {
-      const filtered = state.filter((toast) => toast.id != action.payload);
-      return [...filtered];
+    clearToast: (state) => {
+      state.toast = null;
     },
   },
 });
 
-export const { addToast, removeToast } = toastSlice.actions;
+export const { setToast, clearToast } = toastSlice.actions;
 
-export const getToasts = (state: RootState) => state.toast;
+export const getToast = (state: RootState): Types.Toast | null =>
+  state.toast.toast;
 
 export default toastSlice.reducer;

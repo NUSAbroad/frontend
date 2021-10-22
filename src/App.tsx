@@ -3,7 +3,7 @@ import ReactGA from "react-ga";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-import ToastOverlay from "./components/ToastOverlay";
+import ToastOverlay from "./components/Toast";
 import { useTrackPage } from "./hooks/GoogleAnalytics";
 import ComponentsTest from "./pages/ComponentsTest";
 import Planner from "./pages/Planner";
