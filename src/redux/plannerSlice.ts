@@ -28,7 +28,7 @@ export const plannerSlice = createSlice({
       const newUnis = [...state.unis];
       const index = newUnis.findIndex((newUni) => newUni.id === uni.id);
       if (index === -1) {
-        const removeMapping = { ...uni, mappingsCount: 0, Mappings: [] };
+        const removeMapping = { ...uni, Mappings: [] };
         newUnis.push(removeMapping);
         state.unis = newUnis;
       }
@@ -51,7 +51,6 @@ export const plannerSlice = createSlice({
       if (index === -1) {
         const newMappings = [...relatedUni.Mappings];
         newMappings.push(mapping);
-        relatedUni.mappingsCount = newMappings.length;
         relatedUni.Mappings = newMappings;
         newUnis[relatedUniIndex] = relatedUni;
         state.unis = newUnis;
@@ -68,7 +67,6 @@ export const plannerSlice = createSlice({
       relatedUni.Mappings = [
         ...relatedUni.Mappings.filter((map) => map.id !== mapping.id),
       ];
-      relatedUni.mappingsCount = relatedUni.Mappings.length;
       newUnis[relatedUniIndex] = relatedUni;
       state.unis = newUnis;
     },

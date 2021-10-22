@@ -83,6 +83,7 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.$color ?? props.theme.colors.blueCrayola};
   text-align: center;
+  white-space: nowrap;
   cursor: pointer;
 
   &:hover {
