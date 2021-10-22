@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import MappingsRow from "./MappingsRow";
+import { Body1 } from "./Styles";
 
 const Container = styled.div`
   margin: -5px;
@@ -82,6 +83,10 @@ const AddButton = styled.button`
   }
 `;
 
+const StyledBody1 = styled(Body1)`
+  padding: 10px;
+`;
+
 interface Props {
   isPlanner?: boolean;
   mappings: Types.Mapping[];
@@ -126,6 +131,13 @@ const MappingsTable: React.FC<Props> = function (props) {
                 <AddButton onClick={() => console.log("clicked")}>
                   + Add mapping
                 </AddButton>
+              </ButtonCell>
+            </tr>
+          )}
+          {!isPlanner && mappings.length === 0 && (
+            <tr>
+              <ButtonCell colSpan={8}>
+                <StyledBody1>No mappings available</StyledBody1>
               </ButtonCell>
             </tr>
           )}
