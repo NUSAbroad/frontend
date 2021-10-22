@@ -5,6 +5,7 @@ import { ReactComponent as Cross } from "../assets/cross.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
 import { useAppDispatch } from "../redux/hooks";
 import { addMapping, removeMapping } from "../redux/plannerSlice";
+import { setToast } from "../redux/toastSlice";
 
 interface BodyCellProps {
   $softBorder?: boolean;
@@ -118,8 +119,16 @@ const MappingsRow: React.FC<Props> = function (props) {
   const handleClickButton = () => {
     if (isPlanner) {
       dispatch(removeMapping({ uniId, mapping }));
+      dispatch(
+        setToast({
+          message: "Mapping deleted from planner",
+          canUndo: true,
+          undoMessage: "Mapping re-added to planner",
+        })
+      );
     } else {
       dispatch(addMapping({ uniId, mapping }));
+      dispatch(setToast({ message: "Mapping added to planner" }));
     }
   };
 

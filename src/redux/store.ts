@@ -11,12 +11,13 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
+import undoable, { excludeAction } from "redux-undo";
 
-import plannerSlice from "./plannerSlice";
+import plannerSlice, { setView } from "./plannerSlice";
 import toastSlice from "./toastSlice";
 
 const reducers = combineReducers({
-  planner: plannerSlice,
+  planner: undoable(plannerSlice, { filter: excludeAction([setView]) }),
   toast: toastSlice,
 });
 

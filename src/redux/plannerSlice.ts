@@ -83,8 +83,9 @@ export const {
 } = plannerSlice.actions;
 
 export const getUnis = (state: RootState): Types.University[] =>
-  state.planner.unis;
+  state.planner.present.unis;
 
-export const getCurrView = (state: RootState): View => state.planner.view;
+export const getCurrView = (state: RootState): View =>
+  state.planner.present.view;
 
 export default plannerSlice.reducer;

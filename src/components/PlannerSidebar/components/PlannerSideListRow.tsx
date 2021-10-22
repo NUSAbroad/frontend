@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ReactComponent as TrashIcon } from "../../../assets/trash.svg";
 import { useAppDispatch } from "../../../redux/hooks";
 import { removeUni } from "../../../redux/plannerSlice";
+import { setToast } from "../../../redux/toastSlice";
 import { countMCs } from "../../../utils/countMCs";
 import { Body2, StyledLink, Subheading } from "../../Styles";
 
@@ -40,6 +41,13 @@ const PlannerSideListRow: React.FC<Props> = (props) => {
 
   const handleRemoveUni = () => {
     dispatch(removeUni(uni));
+    dispatch(
+      setToast({
+        message: "Univeresity removed from planner",
+        canUndo: true,
+        undoMessage: "University re-added to planner",
+      })
+    );
   };
 
   return (

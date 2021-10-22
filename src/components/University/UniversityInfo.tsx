@@ -65,7 +65,11 @@ const UniversityInfo: React.FC<Props> = function (props) {
   const handleRemoveFromPlanner = () => {
     dispatch(removeUni(uni));
     dispatch(
-      setToast({ message: "University removed from planner", canUndo: true })
+      setToast({
+        message: "University removed from planner",
+        canUndo: true,
+        undoMessage: "University re-added to planner",
+      })
     );
   };
 

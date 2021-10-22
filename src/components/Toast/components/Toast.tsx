@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+import { ActionCreators } from "redux-undo";
 import styled, { useTheme } from "styled-components";
 
 import { useAppDispatch } from "../../../redux/hooks";
-import { clearToast } from "../../../redux/toastSlice";
+import { clearToast, setToast } from "../../../redux/toastSlice";
 import { Body2 } from "../../Styles";
 
 const Container = styled.div`
@@ -41,7 +42,8 @@ const Toast: React.FC<Props> = function (props) {
   }, [toast]);
 
   const handleUndoClick = () => {
-    console.log("click");
+    dispatch(ActionCreators.undo());
+    dispatch(setToast({ message: toast?.undoMessage ?? "Action undone" }));
   };
 
   return (

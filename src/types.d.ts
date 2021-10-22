@@ -51,5 +51,6 @@ declare namespace Types {
   interface Toast {
     message: string;
     canUndo?: boolean;
+    undoMessage?: string;
   }
 }
