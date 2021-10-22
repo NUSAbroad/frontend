@@ -56,7 +56,7 @@ export const Divider = styled.hr`
   margin: 0;
 `;
 
-const LinkStyles = css`
+export const LinkStyles = css`
   color: ${(props) => props.theme.colors.blueCrayola};
   text-decoration: none;
 
