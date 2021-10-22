@@ -2,6 +2,7 @@ import axios, { CancelToken } from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { ReactComponent as SearchIcon } from "../assets/search.svg";
 import FilterSearchBar from "../components/FilterSearchBar";
 import FilterTag from "../components/FilterTag";
 import SearchBar from "../components/SearchBar";
@@ -99,6 +100,7 @@ const Universities: React.FC = () => {
     <Wrapper>
       <Column $width="75%">
         <SearchBar
+          icon={SearchIcon}
           placeholder="University name, module code or name..."
           onChangeHandler={onChangeHandler}
           query={query}
