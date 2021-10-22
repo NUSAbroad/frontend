@@ -3,6 +3,7 @@ import styled, { useTheme } from "styled-components";
 
 import { useAppDispatch } from "../../../redux/hooks";
 import { removeUni } from "../../../redux/plannerSlice";
+import { setToast } from "../../../redux/toastSlice";
 import { countMCs } from "../../../utils/countMCs";
 import MappingsTable from "../../MappingsTable";
 import { Body1, Button, Heading2, StyledLink } from "../../Styles";
@@ -34,6 +35,13 @@ const University: React.FC<Props> = function (props) {
 
   const handleRemoveFromPlanner = () => {
     dispatch(removeUni(uni));
+    dispatch(
+      setToast({
+        message: "University removed from planner",
+        canUndo: true,
+        undoMessage: "University re-added to planner",
+      })
+    );
   };
 
   return (

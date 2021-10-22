@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { useTheme } from "styled-components";
 
-import { useAppDispatch } from "../../redux/hooks";
-import { addUni } from "../../redux/plannerSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addUni, getUnis, removeUni } from "../../redux/plannerSlice";
+import { setToast } from "../../redux/toastSlice";
 import { getMonthAndYear } from "../../utils/date";
 import Notice from "../Notice";
 import { Body1, Body2, Button, Divider, Heading1 } from "../Styles";
@@ -51,9 +52,25 @@ const UniversityInfo: React.FC<Props> = function (props) {
   const { uni } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
+  const plannerUnis = useAppSelector(getUnis);
+
+  const isUniInPlanner =
+    plannerUnis.findIndex((plannerUni) => plannerUni.id == uni.id) !== -1;
 
   const handleAddToPlanner = () => {
     dispatch(addUni(uni));
+    dispatch(setToast({ message: "University added to planner" }));
+  };
+
+  const handleRemoveFromPlanner = () => {
+    dispatch(removeUni(uni));
+    dispatch(
+      setToast({
+        message: "University removed from planner",
+        canUndo: true,
+        undoMessage: "University re-added to planner",
+      })
+    );
   };
 
   return (
@@ -66,7 +83,17 @@ const UniversityInfo: React.FC<Props> = function (props) {
             {uni.Country.name}
           </StyledBody1>
         </div>
-        <Button onClick={handleAddToPlanner}>+ Add to Planner</Button>
+        {isUniInPlanner ? (
+          <Button
+            onClick={handleRemoveFromPlanner}
+            $color={theme.colors.orangeSoda}
+            $focusColor={theme.colors.orangeSoda50}
+          >
+            Remove from Planner
+          </Button>
+        ) : (
+          <Button onClick={handleAddToPlanner}>+ Add to Planner</Button>
+        )}
       </HeaderSection>
       <Divider />
       <InfoSection>

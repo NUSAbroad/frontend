@@ -3,53 +3,42 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { BACKEND_URL } from "../../../constants";
+import { useAppDispatch } from "../../../redux/hooks";
+import { addUni } from "../../../redux/plannerSlice";
 import PlannerDropdown from "./PlannerDropdown";
 
-const Wrapper = styled.div.attrs({ tabIndex: -1 })`
-  margin-bottom: 5px;
-`;
-
-const SearchBarWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  border: 1px solid ${(props) => props.theme.colors.grey300};
-  width: 100%;
-  border-radius: 3px;
-  background-color: ${(props) => props.theme.colors.babyPowder};
+const Container = styled.div`
+  position: relative;
 `;
 
 const SearchBarInput = styled.input.attrs({ type: "text" })`
-  padding: 0 10px;
-  font-weight: 400;
-  font-size: ${(props) => props.theme.fontSizes.sm};
-  color: ${(props) => props.theme.colors.bistre};
-  border: none;
-  outline: none;
   width: 100%;
+  padding: 8px 10px;
+  border: 1px solid ${(props) => props.theme.colors.grey300};
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.colors.babyPowder};
+  color: ${(props) => props.theme.colors.bistre};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  font-weight: 400;
+
+  &::placeholder {
+    color: ${(props) => props.theme.colors.grey400};
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: ${(props) => props.theme.colors.blueCrayola};
+    box-shadow: 0 0 0 0.2rem ${(props) => props.theme.colors.blueCrayola50};
+  }
 `;
 
 const PlannerSearchBar: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [allUnis, setAllUnis] = useState<Types.University[]>([]);
   const [dropdownUnis, setDropdownUnis] = useState<Types.University[]>([]);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
-  const [currentUni, setCurrentUni] = useState<string>("");
-
-  useEffect(() => {
-    filterUniForDropdown();
-  }, [allUnis, currentUni]);
-
-  const filterUniForDropdown = () => {
-    const toMatch = currentUni.toUpperCase();
-    const newDropdownUnis = [...allUnis].filter((uni) => {
-      return uni.name.toUpperCase().indexOf(toMatch) !== -1;
-    });
-    setDropdownUnis(newDropdownUnis);
-  };
-
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentUni(e.target.value);
-  };
+  const [filter, setFilter] = useState<string>("");
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   useEffect(() => {
     axios
@@ -62,21 +51,86 @@ const PlannerSearchBar: React.FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    filterUniForDropdown();
+  }, [allUnis, filter]);
+
+  const filterUniForDropdown = () => {
+    const toMatch = filter.toUpperCase();
+    const newDropdownUnis = [...allUnis].filter((uni) => {
+      return uni.name.toUpperCase().indexOf(toMatch) !== -1;
+    });
+    setDropdownUnis(newDropdownUnis);
+    if (newDropdownUnis.length < activeIndex) {
+      setActiveIndex(0);
+    }
+  };
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.value);
+  };
+
+  const getPrevIndex = () => {
+    if (activeIndex === -1) {
+      return 0;
+    }
+    if (activeIndex === 0) {
+      return dropdownUnis.length - 1;
+    }
+    return activeIndex - 1;
+  };
+
+  const getNextIndex = () => {
+    if (activeIndex === -1) {
+      return 0;
+    }
+    if (activeIndex === dropdownUnis.length - 1) {
+      return 0;
+    }
+    return activeIndex + 1;
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler = (e) => {
+    switch (e.key) {
+      case "ArrowUp":
+        e.preventDefault();
+        setActiveIndex(getPrevIndex());
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        setActiveIndex(getNextIndex());
+        break;
+      case "Enter":
+        e.preventDefault();
+        dispatch(addUni(dropdownUnis[activeIndex]));
+        break;
+    }
+  };
+
+  const handleFocus = () => {
+    setShowDropdown(true);
+    setActiveIndex(-1);
+  };
+
   return (
-    <Wrapper
-      onFocus={() => setShowDropdown(true)}
+    <Container
+      tabIndex={-1}
+      onFocus={handleFocus}
       onBlur={() => setShowDropdown(false)}
+      onKeyDown={handleKeyDown}
     >
-      <SearchBarWrapper>
-        <SearchBarInput
-          placeholder="Add university to list..."
-          onChange={handleChangeInput}
-        />
-      </SearchBarWrapper>
+      <SearchBarInput
+        role="combobox"
+        aria-controls="autocomplete-listbox"
+        aria-activedescendant="active-option"
+        placeholder="Add university to list..."
+        value={filter}
+        onChange={handleChangeInput}
+      />
       {showDropdown && dropdownUnis.length > 0 && (
-        <PlannerDropdown unis={dropdownUnis} />
+        <PlannerDropdown unis={dropdownUnis} activeIndex={activeIndex} />
       )}
-    </Wrapper>
+    </Container>
   );
 };
 

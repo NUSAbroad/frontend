@@ -79,9 +79,11 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
   border-radius: 35px;
   background: none;
   line-height: 35px;
+  font-family: ${(props) => props.theme.typeface};
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.$color ?? props.theme.colors.blueCrayola};
   text-align: center;
+  white-space: nowrap;
   cursor: pointer;
 
   &:hover {

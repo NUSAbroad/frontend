@@ -47,4 +47,10 @@ declare namespace Types {
   interface Semester {
     description: string;
   }
+
+  interface Toast {
+    message: string;
+    canUndo?: boolean;
+    undoMessage?: string;
+  }
 }
