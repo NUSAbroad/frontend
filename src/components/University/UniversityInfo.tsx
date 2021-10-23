@@ -100,10 +100,10 @@ const UniversityInfo: React.FC<Props> = function (props) {
         <div>
           <AdditionalInfo>
             {Object.entries(uni.additionalInfo ?? {}).map(([key, value]) => (
-              <>
+              <div key={key}>
                 <InfoKey>{key}</InfoKey>
                 <InfoValue>{value}</InfoValue>
-              </>
+              </div>
             ))}
             <InfoKey>Last Updated</InfoKey>
             <InfoValue>{getMonthAndYear(new Date(uni.updatedAt))}</InfoValue>
