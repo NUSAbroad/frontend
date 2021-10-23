@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useAppDispatch } from "../redux/hooks";
+import { createMapping } from "../redux/plannerSlice";
 import MappingsRow from "./MappingsRow";
 import { Body1 } from "./Styles";
 
@@ -95,6 +97,11 @@ interface Props {
 
 const MappingsTable: React.FC<Props> = function (props) {
   const { isPlanner, mappings, uniId } = props;
+  const dispatch = useAppDispatch();
+
+  const handleAddClick = () => {
+    dispatch(createMapping(uniId));
+  };
 
   return (
     <Container>
@@ -128,9 +135,7 @@ const MappingsTable: React.FC<Props> = function (props) {
           {isPlanner && (
             <tr>
               <ButtonCell colSpan={8}>
-                <AddButton onClick={() => console.log("clicked")}>
-                  + Add mapping
-                </AddButton>
+                <AddButton onClick={handleAddClick}>+ Add mapping</AddButton>
               </ButtonCell>
             </tr>
           )}
