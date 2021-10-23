@@ -33,7 +33,11 @@ const Resources: React.FC = () => {
             <Subheading>{section.header}</Subheading>
             {section.links.map((link, index) => (
               <Container key={index}>
-                <StyledLink to={link.url} target="_blank">
+                <StyledLink
+                  to={{ pathname: link.url }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <StyledHeading2>{link.label}&#8599;</StyledHeading2>
                 </StyledLink>
               </Container>
