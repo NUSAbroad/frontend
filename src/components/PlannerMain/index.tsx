@@ -21,21 +21,14 @@ const HeaderSection = styled.div`
 
 const NoUniversityWrapper = styled.div`
   display: flex;
-  align-items: center;
-  width: 100%;
   flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
 `;
 
 const StyledUniversityIcon = styled(UniversityIcon)`
   margin-top: 15vh;
-`;
-
-const StyledBody1 = styled(Body1)`
-  margin-top: 20px;
-`;
-
-const StyledButton = styled(Button)`
-  margin-top: 20px;
 `;
 
 const PlannerMain: React.FC = function () {
@@ -51,15 +44,15 @@ const PlannerMain: React.FC = function () {
     <div>
       <HeaderSection>
         <Heading3>My Universities</Heading3>
-        {unis.length !== 0 && <ViewToggle currView={currView} />}
+        <ViewToggle currView={currView} />
       </HeaderSection>
       {unis.length === 0 && (
         <NoUniversityWrapper>
           <StyledUniversityIcon />
-          <StyledBody1>You have yet to add any universities.</StyledBody1>
-          <StyledButton onClick={onFindUniversitiesClickHandler}>
+          <Body1>You have yet to add any universities.</Body1>
+          <Button onClick={onFindUniversitiesClickHandler}>
             Find Universities
-          </StyledButton>
+          </Button>
         </NoUniversityWrapper>
       )}
       {currView == View.MAPPINGS && <MappingsView unis={unis} />}
