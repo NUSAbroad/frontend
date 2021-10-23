@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import { ReactComponent as CrossInCircleIcon } from "../assets/x-circle.svg";
-import { Body2 } from "./Styles";
+import { ReactComponent as CrossInCircleIcon } from "../../../assets/x-circle.svg";
+import { Body2 } from "../../Styles";
 
 const Wrapper = styled.div`
-  padding: 5px 15px;
   display: inline-block;
+  padding: 5px 10px;
   border: 1px solid ${(props) => props.theme.colors.blueCrayola};
   border-radius: 30px;
 `;

@@ -2,8 +2,7 @@ import axios, { CancelToken } from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import FilterSearchBar from "../components/FilterSearchBar";
-import FilterTag from "../components/FilterTag";
+import Filter from "../components/Filter";
 import SearchBar from "../components/SearchBar";
 import Spinner from "../components/Spinner";
 import {
@@ -27,15 +26,7 @@ const StyledHeading3 = styled(Heading3)`
 `;
 
 const StyledSubheading = styled(Subheading)`
-  padding-top: 20px;
-  margin-bottom 5px;
-`;
-
-const TagsWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-  padding-top: 7px;
-  flex-wrap: wrap;
+  margin: 20px 0 10px;
 `;
 
 const Universities: React.FC = () => {
@@ -54,15 +45,8 @@ const Universities: React.FC = () => {
   }, [query]);
 
   useEffect(() => {
-    console.log(results);
     filterResults();
   }, [results, filters]);
-
-  const deleteFilter = (filter: Types.Country) => {
-    const newFilters = [...filters];
-    newFilters.splice(newFilters.indexOf(filter), 1);
-    setFilters(newFilters);
-  };
 
   const fetchHits = (query: string, token: CancelToken) => {
     setIsLoading(true);
@@ -123,14 +107,7 @@ const Universities: React.FC = () => {
         <StyledHeading3>Filter by</StyledHeading3>
         <Divider />
         <StyledSubheading>Country</StyledSubheading>
-        <FilterSearchBar filters={filters} setFilters={setFilters} />
-        <TagsWrapper>
-          {filters.map((tag) => {
-            return (
-              <FilterTag key={tag.id} tag={tag} deleteFilter={deleteFilter} />
-            );
-          })}
-        </TagsWrapper>
+        <Filter filters={filters} setFilters={setFilters} />
       </Column>
     </Wrapper>
   );
