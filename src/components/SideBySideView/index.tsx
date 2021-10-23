@@ -27,6 +27,10 @@ interface Props {
 const SideBySideView: React.FC<Props> = function (props) {
   const { unis } = props;
 
+  if (unis.length === 0) {
+    return null;
+  }
+
   return (
     <Container>
       <Table cellSpacing="0">

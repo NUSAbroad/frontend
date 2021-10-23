@@ -1,7 +1,7 @@
 declare namespace Types {
   interface Mapping {
-    id: number;
-    nusFacultyId: number;
+    id: number | string;
+    nusFacultyId?: number;
     nusModuleFaculty: string;
     nusModuleCode: string;
     nusModuleName: string;
@@ -9,7 +9,7 @@ declare namespace Types {
     partnerModuleCode: string;
     partnerModuleName: string;
     partnerModuleCredits: number;
-    partnerUniversityId: number;
+    partnerUniversityId?: number;
     updatedAt: string;
   }
 

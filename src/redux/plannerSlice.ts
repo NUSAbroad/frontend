@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 import { View } from "../constants/plannerViews";
 import { RootState } from "./store";
@@ -70,16 +71,51 @@ export const plannerSlice = createSlice({
       newUnis[relatedUniIndex] = relatedUni;
       state.unis = newUnis;
     },
+    createMapping: (state, action) => {
+      const uniId = action.payload;
+      const emptyMapping: Types.Mapping = {
+        id: uuidv4(),
+        nusModuleFaculty: "",
+        nusModuleCode: "",
+        nusModuleName: "",
+        nusModuleCredits: 0,
+        partnerModuleCode: "",
+        partnerModuleName: "",
+        partnerModuleCredits: 0,
+        updatedAt: new Date().toISOString(),
+      };
+      const uniIndex = state.unis.findIndex((uni) => uni.id === uniId);
+      if (uniIndex === -1) {
+        return;
+      }
+      state.unis[uniIndex].Mappings.push(emptyMapping);
+    },
+    updateMapping: (state, action) => {
+      const { uniId, mapping } = action.payload;
+      const uniIndex = state.unis.findIndex((uni) => uni.id === uniId);
+      if (uniIndex === -1) {
+        return;
+      }
+      const mappingIndex = state.unis[uniIndex].Mappings.findIndex(
+        (m) => m.id === mapping.id
+      );
+      if (mappingIndex === -1) {
+        return;
+      }
+      state.unis[uniIndex].Mappings[mappingIndex] = mapping;
+    },
   },
 });
 
 export const {
   setView,
   resetUnis,
+  addUni,
   removeUni,
   addMapping,
   removeMapping,
-  addUni,
+  createMapping,
+  updateMapping,
 } = plannerSlice.actions;
 
 export const getUnis = (state: RootState): Types.University[] =>

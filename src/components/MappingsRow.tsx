@@ -4,7 +4,11 @@ import styled, { useTheme } from "styled-components";
 import { ReactComponent as Cross } from "../assets/cross.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
 import { useAppDispatch } from "../redux/hooks";
-import { addMapping, removeMapping } from "../redux/plannerSlice";
+import {
+  addMapping,
+  removeMapping,
+  updateMapping,
+} from "../redux/plannerSlice";
 import { setToast } from "../redux/toastSlice";
 
 interface BodyCellProps {
@@ -132,12 +136,31 @@ const MappingsRow: React.FC<Props> = function (props) {
     }
   };
 
+  const handleChange =
+    (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const updatedMapping = {
+        ...mapping,
+        [field]: e.target.value,
+      };
+      dispatch(updateMapping({ uniId, mapping: updatedMapping }));
+    };
+
+  const handleNumberChange =
+    (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const updatedMapping = {
+        ...mapping,
+        [field]: parseInt(e.target.value),
+      };
+      dispatch(updateMapping({ uniId, mapping: updatedMapping }));
+    };
+
   return (
     <BodyRow>
       <BodyCell $softBorder $width="5%">
         <Input
           type="text"
           value={mapping.nusModuleFaculty}
+          onChange={handleChange("nusModuleFaculty")}
           disabled={!isPlanner}
         />
       </BodyCell>
@@ -145,6 +168,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         <Input
           type="text"
           value={mapping.nusModuleCode}
+          onChange={handleChange("nusModuleCode")}
           disabled={!isPlanner}
         />
       </BodyCell>
@@ -152,13 +176,16 @@ const MappingsRow: React.FC<Props> = function (props) {
         <Input
           type="text"
           value={mapping.nusModuleName}
+          onChange={handleChange("nusModuleName")}
           disabled={!isPlanner}
         />
       </BodyCell>
       <BodyCell $width="5%">
         <Input
           type="number"
+          min="0"
           value={mapping.nusModuleCredits}
+          onChange={handleNumberChange("nusModuleCredits")}
           disabled={!isPlanner}
         />
       </BodyCell>
@@ -166,6 +193,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         <Input
           type="text"
           value={mapping.partnerModuleCode}
+          onChange={handleChange("partnerModuleCode")}
           disabled={!isPlanner}
         />
       </BodyCell>
@@ -173,13 +201,16 @@ const MappingsRow: React.FC<Props> = function (props) {
         <Input
           type="text"
           value={mapping.partnerModuleName}
+          onChange={handleChange("partnerModuleName")}
           disabled={!isPlanner}
         />
       </BodyCell>
       <BodyCell $width="5%">
         <Input
           type="number"
+          min="0"
           value={mapping.partnerModuleCredits}
+          onChange={handleNumberChange("partnerModuleCredits")}
           disabled={!isPlanner}
         />
       </BodyCell>
