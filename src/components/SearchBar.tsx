@@ -1,67 +1,101 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
 import { ReactComponent as SmallSearchIcon } from "../assets/search-small.svg";
 import { ReactComponent as CrossIcon } from "../assets/x.svg";
 import { ReactComponent as SmallCrossIcon } from "../assets/x-small.svg";
-import theme from "../styles/theme";
 
-const SearchBarWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid ${(props) => props.theme.colors.grey300};
-  border-radius: 3px;
-  background-color: ${(props) => props.theme.colors.babyPowder};
+const IconStyles = css`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
-interface TextProps {
-  $size?: string;
-}
+const StyledSearchIcon = styled(SearchIcon)`
+  ${IconStyles}
+  left: 10px;
+`;
 
-const SearchBarInput = styled.input.attrs({ type: "text" })<TextProps>`
-  padding: 0 10px;
-  font-weight: 400;
-  font-size: ${(props) => props.$size ?? props.theme.fontSizes.md};
-  color: ${(props) => props.theme.colors.bistre};
-  background-color: ${(props) => props.theme.colors.babyPowder};
-  border: none;
-  outline: none;
-  width: 100%;
+const StyledSmallSearchIcon = styled(SmallSearchIcon)`
+  ${IconStyles}
+  left: 8px;
 `;
 
 const StyledCrossIcon = styled(CrossIcon)`
+  ${IconStyles}
+  right: 10px;
   cursor: pointer;
 `;
 
 const StyledSmallCrossIcon = styled(SmallCrossIcon)`
+  ${IconStyles}
+  right: 8px;
   cursor: pointer;
 `;
 
+const SearchBarWrapper = styled.div`
+  position: relative;
+
+  &:focus-within {
+    ${StyledSearchIcon}, ${StyledSmallSearchIcon} {
+      path {
+        stroke: ${(props) => props.theme.colors.blueCrayola};
+      }
+    }
+  }
+`;
+
+interface TextProps {
+  $isSmall?: boolean;
+}
+
+const SearchBarInput = styled.input.attrs({ type: "text" })<TextProps>`
+  width: 100%;
+  padding: ${(props) => (props.$isSmall ? "8px 34px" : "10px 44px")};
+  border: 1px solid ${(props) => props.theme.colors.grey300};
+  border-radius: 3px;
+  background: ${(props) => props.theme.colors.babyPowder};
+  color: ${(props) => props.theme.colors.bistre};
+  font-weight: 400;
+  font-size: ${(props) =>
+    props.$isSmall ? props.theme.fontSizes.sm : props.theme.fontSizes.md};
+
+  &::placeholder {
+    color: ${(props) => props.theme.colors.grey400};
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: ${(props) => props.theme.colors.blueCrayola};
+    box-shadow: 0 0 0 0.2rem ${(props) => props.theme.colors.blueCrayola50};
+  }
+`;
+
 interface Props {
+  className?: string;
   size?: string;
   onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
   query: string;
   onCrossClickHandler: () => void;
   placeholder: string;
-  className?: string;
 }
 
 const SearchBar: React.FC<Props> = (props) => {
   const {
+    className,
     size,
     placeholder,
     onChangeHandler,
     onCrossClickHandler,
     query,
-    className,
   } = props;
+
   return (
     <SearchBarWrapper className={className}>
-      {size == "sm" ? <SmallSearchIcon /> : <SearchIcon />}
+      {size == "sm" ? <StyledSmallSearchIcon /> : <StyledSearchIcon />}
       <SearchBarInput
-        $size={size == "sm" ? theme.fontSizes.sm : undefined}
+        $isSmall={size == "sm"}
         placeholder={placeholder}
         onChange={onChangeHandler}
         value={query}
