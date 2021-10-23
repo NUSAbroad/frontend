@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 import {
   Column,
-  Heading1,
   Heading2,
   LinkStyles,
+  StyledLink,
   Subheading,
   Wrapper,
 } from "../components/Styles";
+import { resourcesContent } from "../constants/resources";
 
 const Section = styled.div`
   padding-top: 20px;
@@ -18,9 +19,8 @@ const Container = styled.div`
   padding-top: 5px;
 `;
 
-const StyledLink = styled(Heading2)`
+const StyledHeading2 = styled(Heading2)`
   display: inline;
-  cursor: pointer;
   ${LinkStyles}
 `;
 
@@ -28,40 +28,18 @@ const Resources: React.FC = () => {
   return (
     <Wrapper>
       <Column $width="100%">
-        <Heading1>Useful Resources</Heading1>
-        <Section>
-          <Subheading>General</Subheading>
-          <Container>
-            <StyledLink>GRO Website &#8599;</StyledLink>
-          </Container>
-          <Container>
-            <StyledLink>GRO Essential Guide PDF &#8599;</StyledLink>
-          </Container>
-        </Section>
-        <Section>
-          <Subheading>Faculty-Specific SEP Websites</Subheading>
-          <Container>
-            <StyledLink>School of Computing &#8599;</StyledLink>
-          </Container>
-          <Container>
-            <StyledLink>Faculty of Arts and Social Sciences &#8599;</StyledLink>
-          </Container>
-          <Container>
-            <StyledLink>Faculty of Science &#8599;</StyledLink>
-          </Container>
-          <Container>
-            <StyledLink>Buisness School &#8599;</StyledLink>
-          </Container>
-          <Container>
-            <StyledLink>School of Design and Environment &#8599;</StyledLink>
-          </Container>
-        </Section>
-        <Section>
-          <Subheading>Community Resources</Subheading>
-          <Container>
-            <StyledLink>ExchangeBuddy &#8599;</StyledLink>
-          </Container>
-        </Section>
+        {resourcesContent.map((section, index) => (
+          <Section key={index}>
+            <Subheading>{section.header}</Subheading>
+            {section.links.map((link, index) => (
+              <Container key={index}>
+                <StyledLink to={link.url} target="_blank">
+                  <StyledHeading2>{link.label}&#8599;</StyledHeading2>
+                </StyledLink>
+              </Container>
+            ))}
+          </Section>
+        ))}
       </Column>
     </Wrapper>
   );

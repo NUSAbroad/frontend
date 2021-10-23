@@ -97,7 +97,7 @@ const Universities: React.FC = () => {
 
   return (
     <Wrapper>
-      <Column $width="75%">
+      <Column $width="75%" style={{ paddingRight: "40px" }}>
         <SearchBar
           placeholder="University name, module code or name..."
           onChangeHandler={onChangeHandler}

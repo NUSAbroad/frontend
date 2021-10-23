@@ -100,16 +100,15 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
 
 export const Wrapper = styled.div`
   display: flex;
-  max-width: 1500px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding-top: 40px;
+  padding: 30px;
 `;
 
 export const Column = styled.div<{ $width: string }>`
   display: flex;
   width: ${(props) => props.$width};
   flex-direction: column;
-  padding: 0 20px;
 `;
 
 export const Pill = styled.div`
