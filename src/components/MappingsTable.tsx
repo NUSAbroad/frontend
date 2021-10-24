@@ -92,15 +92,15 @@ const StyledBody1 = styled(Body1)`
 interface Props {
   isPlanner?: boolean;
   mappings: Types.Mapping[];
-  uniId: number;
+  uni: Types.University;
 }
 
 const MappingsTable: React.FC<Props> = function (props) {
-  const { isPlanner, mappings, uniId } = props;
+  const { isPlanner, mappings, uni } = props;
   const dispatch = useAppDispatch();
 
   const handleAddClick = () => {
-    dispatch(createMapping(uniId));
+    dispatch(createMapping(uni.id));
   };
 
   return (
@@ -129,7 +129,7 @@ const MappingsTable: React.FC<Props> = function (props) {
               key={mapping.id}
               mapping={mapping}
               isPlanner={isPlanner}
-              uniId={uniId}
+              uni={uni}
             />
           ))}
           {isPlanner && (

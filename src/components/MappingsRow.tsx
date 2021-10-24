@@ -108,11 +108,11 @@ const Button = styled.button<{ $color: string; $focusColor: string }>`
 interface Props {
   mapping: Types.Mapping;
   isPlanner?: boolean;
-  uniId: number;
+  uni: Types.University;
 }
 
 const MappingsRow: React.FC<Props> = function (props) {
-  const { mapping, isPlanner, uniId } = props;
+  const { mapping, isPlanner, uni } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const color = isPlanner ? theme.colors.orangeSoda : theme.colors.blueCrayola;
@@ -122,7 +122,7 @@ const MappingsRow: React.FC<Props> = function (props) {
 
   const handleClickButton = () => {
     if (isPlanner) {
-      dispatch(removeMapping({ uniId, mapping }));
+      dispatch(removeMapping({ uniId: uni.id, mapping }));
       dispatch(
         setToast({
           message: "Mapping deleted from planner",
@@ -131,7 +131,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         })
       );
     } else {
-      dispatch(addMapping({ uniId, mapping }));
+      dispatch(addMapping({ uni, mapping }));
       dispatch(setToast({ message: "Mapping added to planner" }));
     }
   };
@@ -142,7 +142,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         ...mapping,
         [field]: e.target.value,
       };
-      dispatch(updateMapping({ uniId, mapping: updatedMapping }));
+      dispatch(updateMapping({ uniId: uni.id, mapping: updatedMapping }));
     };
 
   const handleNumberChange =
@@ -151,7 +151,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         ...mapping,
         [field]: parseInt(e.target.value),
       };
-      dispatch(updateMapping({ uniId, mapping: updatedMapping }));
+      dispatch(updateMapping({ uniId: uni.id, mapping: updatedMapping }));
     };
 
   return (

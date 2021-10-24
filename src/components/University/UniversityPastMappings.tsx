@@ -108,7 +108,7 @@ const UniversityPastMappings: React.FC<Props> = function (props) {
         </Body2>
       </MappingsMeta>
       <StyledDivider />
-      <MappingsTable mappings={filteredMappings} uniId={uni.id} />
+      <MappingsTable mappings={filteredMappings} uni={uni} />
       <StyledNotice>
         <Body2>
           These past mappings were approved solely based on the similarity of

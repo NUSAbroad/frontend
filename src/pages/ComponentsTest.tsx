@@ -37,6 +37,23 @@ const ComponentsTest: React.FC = function () {
     dispatch(setToast({ message: "Button Clicked", canUndo: true }));
   };
 
+  const testUni = {
+    id: 0,
+    name: "National University of Singapore",
+    slug: "national-university-of-singapore",
+    state: null,
+    countryId: 0,
+    additionalInfo: null,
+    updatedAt: "Thursday",
+    Country: {
+      name: "Singapore",
+    },
+    Links: [],
+    Semesters: [],
+    Faculties: [],
+    Mappings: [],
+  };
+
   return (
     <Container>
       <Heading1>Heading1</Heading1>
@@ -61,8 +78,8 @@ const ComponentsTest: React.FC = function () {
         Undoable Button
       </Button>
       <Notice>This is a notice</Notice>
-      <MappingsTable mappings={[]} uniId={0} />
-      <MappingsTable mappings={[]} isPlanner uniId={0} />
+      <MappingsTable mappings={[]} uni={testUni} />
+      <MappingsTable mappings={[]} isPlanner uni={testUni} />
       <UniversitySidebar
         semesters={[]}
         links={[{ link: "/test", name: "GRO PDF" }]}

@@ -39,11 +39,13 @@ export const plannerSlice = createSlice({
       state.unis = [...state.unis].filter((newUni) => newUni.id !== uni.id);
     },
     addMapping: (state, action) => {
-      const { uniId, mapping } = action.payload;
+      const { uni, mapping } = action.payload;
       const newUnis = [...state.unis];
-      const relatedUniIndex = newUnis.findIndex((uni) => uni.id === uniId);
+      let relatedUniIndex = newUnis.findIndex((newUni) => newUni.id === uni.id);
       if (relatedUniIndex === -1) {
-        return;
+        const removeMapping = { ...uni, Mappings: [] };
+        newUnis.push(removeMapping);
+        relatedUniIndex = newUnis.length - 1;
       }
       const relatedUni = { ...newUnis[relatedUniIndex] };
       const index = relatedUni.Mappings.findIndex(
