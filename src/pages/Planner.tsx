@@ -10,7 +10,7 @@ import { getCurrView } from "../redux/plannerSlice";
 const Container = styled.div<{ $currView: View }>`
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 50px;
+  gap: 30px;
   width: 100%;
   margin: 0 auto;
   padding: 30px 0;

@@ -1,20 +1,34 @@
 import axios, { CancelToken } from "axios";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 
 import Filter from "../components/Filter";
 import SearchBar from "../components/SearchBar";
 import Spinner from "../components/Spinner";
-import {
-  Body2,
-  Column,
-  Divider,
-  Heading3,
-  Subheading,
-  Wrapper,
-} from "../components/Styles";
+import { Body2, Divider, Heading3, Subheading } from "../components/Styles";
 import UniversityResult from "../components/UniversityResult";
 import { BACKEND_URL } from "../constants";
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 30px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 30px 0;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+`;
+
+const UnisSection = styled.div``;
+
+const FilterSection = styled.div`
+  width: 300px;
+`;
 
 const SearchResultCounter = styled(Body2)`
   padding-top: 10px;
@@ -30,6 +44,7 @@ const StyledSubheading = styled(Subheading)`
 `;
 
 const Universities: React.FC = () => {
+  const theme = useTheme();
   const [filters, setFilters] = useState<Types.Country[]>([]);
   const [results, setResults] = useState<Types.University[]>([]);
   const [filteredResults, setFilteredResults] = useState<Types.University[]>(
@@ -81,7 +96,7 @@ const Universities: React.FC = () => {
 
   return (
     <Wrapper>
-      <Column $width="75%" style={{ paddingRight: "40px" }}>
+      <UnisSection>
         <SearchBar
           placeholder="University name, module code or name..."
           onChangeHandler={onChangeHandler}
@@ -102,13 +117,13 @@ const Universities: React.FC = () => {
             <UniversityResult key={index} university={university} />
           ))
         )}
-      </Column>
-      <Column $width="25%">
-        <StyledHeading3>Filter by</StyledHeading3>
+      </UnisSection>
+      <FilterSection>
+        <StyledHeading3 $color={theme.colors.grey400}>Filter by</StyledHeading3>
         <Divider />
         <StyledSubheading>Country</StyledSubheading>
         <Filter filters={filters} setFilters={setFilters} />
-      </Column>
+      </FilterSection>
     </Wrapper>
   );
 };

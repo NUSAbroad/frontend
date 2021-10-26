@@ -7,7 +7,19 @@ import Semesters from "./components/Semesters";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 200px;
+  width: 200px;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.lg}) {
+    width: 100%;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    width: 200px;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `;
 
 interface Props {

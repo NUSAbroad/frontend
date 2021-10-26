@@ -5,7 +5,7 @@ import { StyledLink, Subheading } from "../../Styles";
 
 const MarginSubheading = styled(Subheading)`
   margin-bottom: 10px;
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
 interface Props {

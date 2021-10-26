@@ -15,7 +15,7 @@ const HeaderSection = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 15px;
+  gap: 0.8rem;
   margin-bottom: 1rem;
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
@@ -28,7 +28,7 @@ const NoUniversityWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.8rem;
   width: 100%;
   margin-top: 15vh;
 
