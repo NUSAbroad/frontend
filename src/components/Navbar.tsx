@@ -14,7 +14,7 @@ const Wrapper = styled.div<{ $boxShadow: boolean }>`
   ${(props) =>
     props.$boxShadow &&
     `border-bottom: 1px solid ${props.theme.colors.grey300}`};
-  z-index: 99;
+  z-index: 3;
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
     flex-direction: column;
