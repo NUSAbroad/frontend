@@ -12,13 +12,14 @@ const Container = styled.div<{ $currView: View }>`
   grid-template-columns: minmax(0, 1fr) 300px;
   gap: 50px;
   width: 100%;
-  ${(props) =>
-    props.$currView === View.MAPPINGS &&
-    `
-    max-width: 1440px;
-  `};
   margin: 0 auto;
-  padding: 30px;
+  padding: 30px 0;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.lg}) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 `;
 
 const Planner: React.FC = () => {

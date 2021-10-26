@@ -84,7 +84,7 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
   border: 1px solid ${(props) => props.$color ?? props.theme.colors.blueCrayola};
   border-radius: 35px;
   background: none;
-  line-height: 35px;
+  line-height: 2rem;
   font-family: ${(props) => props.theme.typeface};
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.$color ?? props.theme.colors.blueCrayola};

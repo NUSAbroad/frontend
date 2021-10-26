@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${(props) => props.theme.typeface};
     font-size: 18px;
 
+    @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+      font-size: 16px;
+    }
+
     @media (max-width: ${(props) => props.theme.breakPoints.sm}) {
       font-size: 14px;
     }
