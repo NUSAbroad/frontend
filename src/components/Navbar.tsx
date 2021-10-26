@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 
 import Logo from "./Logo";
 import { Body1, StyledNavLink } from "./Styles";
@@ -9,12 +9,19 @@ const Wrapper = styled.div<{ $boxShadow: boolean }>`
   top: 0;
   display: flex;
   width: 100%;
-  padding: 2px 30px;
+  padding: 2px 0;
   background: ${(props) => props.theme.colors.floralWhite};
   ${(props) =>
     props.$boxShadow &&
     `border-bottom: 1px solid ${props.theme.colors.grey300}`};
   z-index: 99;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+  }
 `;
 
 const LogoWrapper = styled.div`
@@ -24,14 +31,22 @@ const LogoWrapper = styled.div`
 const Links = styled.div`
   display: flex;
   align-items: center;
-`;
+  gap: 10px 30px;
 
-const MarginLink = styled(Body1)`
-  margin: 0 1rem;
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 
 const Navbar: React.FC = () => {
+  const theme = useTheme();
   const [boxShadow, setBoxShadow] = useState<boolean>(false);
+
+  const activeStyle = {
+    textDecoration: "underline",
+    color: theme.colors.blueCrayola,
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -41,7 +56,7 @@ const Navbar: React.FC = () => {
 
   const handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
-    if (scrollTop === 0) {
+    if (scrollTop < 30) {
       setBoxShadow(false);
     } else {
       setBoxShadow(true);
@@ -54,30 +69,21 @@ const Navbar: React.FC = () => {
         <Logo />
       </LogoWrapper>
       <Links>
-        <MarginLink>
-          <StyledNavLink
-            to="/planner"
-            activeStyle={{ textDecoration: "underline" }}
-          >
+        <Body1>
+          <StyledNavLink to="/planner" activeStyle={activeStyle}>
             Planner
           </StyledNavLink>
-        </MarginLink>
-        <MarginLink>
-          <StyledNavLink
-            to="/universities"
-            activeStyle={{ textDecoration: "underline" }}
-          >
+        </Body1>
+        <Body1>
+          <StyledNavLink to="/universities" activeStyle={activeStyle}>
             Universities
           </StyledNavLink>
-        </MarginLink>
-        <MarginLink>
-          <StyledNavLink
-            to="/resources"
-            activeStyle={{ textDecoration: "underline" }}
-          >
+        </Body1>
+        <Body1>
+          <StyledNavLink to="/resources" activeStyle={activeStyle}>
             Resources
           </StyledNavLink>
-        </MarginLink>
+        </Body1>
       </Links>
     </Wrapper>
   );

@@ -71,6 +71,11 @@ export const StyledLink = styled(Link)`
 
 export const StyledNavLink = styled(NavLink)`
   ${LinkStyles}
+  color: ${(props) => props.theme.colors.grey500};
+
+  &:hover {
+    color: ${(props) => props.theme.colors.blueCrayola};
+  }
 `;
 
 export const Button = styled.button<{ $color?: string; $focusColor?: string }>`

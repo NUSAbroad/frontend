@@ -26,6 +26,13 @@ export interface Theme {
     xl: string;
     xxl: string;
   };
+
+  breakPoints: {
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+  };
 }
 
 const theme: Theme = {
@@ -53,6 +60,12 @@ const theme: Theme = {
     lg: "1.563rem",
     xl: "1.953rem",
     xxl: "3.815rem",
+  },
+  breakPoints: {
+    xs: "320px",
+    sm: "425px",
+    md: "768px",
+    lg: "1024px",
   },
 };
 
