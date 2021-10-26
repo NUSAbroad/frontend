@@ -104,12 +104,6 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
   }
 `;
 
-export const Column = styled.div<{ $width: string }>`
-  display: flex;
-  width: ${(props) => props.$width};
-  flex-direction: column;
-`;
-
 export const Pill = styled.div`
   padding: 5px 10px;
   border-radius: 30px;
