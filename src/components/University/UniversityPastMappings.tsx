@@ -10,12 +10,22 @@ import { Body2, Divider, Heading2 } from "../Styles";
 const Container = styled.div`
   width: 100%;
   margin-top: 30px;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    margin-top: 20px;
+  }
 `;
 
 const HeadingWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
 `;
 
 const MappingsMeta = styled.div`
@@ -34,6 +44,10 @@ const StyledNotice = styled(Notice)`
 
 const StyledSearchBar = styled(SearchBar)`
   width: 300px;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    width: 100%;
+  }
 `;
 
 interface Props {

@@ -9,8 +9,8 @@ import UniversityPastMappings from "../components/University/UniversityPastMappi
 import { BACKEND_URL } from "../constants";
 
 const Container = styled.div`
-  width: 90%;
-  max-width: 1080px;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 30px 0;
 `;
