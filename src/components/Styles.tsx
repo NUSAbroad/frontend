@@ -12,6 +12,7 @@ export const Heading1 = styled.h1<TextProps>`
   font-size: ${(props) => props.theme.fontSizes.xxl};
   letter-spacing: -0.04em;
   color: ${(props) => props.$color ?? props.theme.colors.bistre};
+  line-height: 1.1;
 `;
 
 export const Heading2 = styled.h2<TextProps>`

@@ -9,7 +9,7 @@ const Wrapper = styled.div<{ $boxShadow: boolean }>`
   top: 0;
   display: flex;
   width: 100%;
-  padding: 2px 0;
+  padding: 2px;
   background: ${(props) => props.theme.colors.floralWhite};
   ${(props) =>
     props.$boxShadow &&
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
 
   const handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
-    if (scrollTop < 30) {
+    if (scrollTop === 0) {
       setBoxShadow(false);
     } else {
       setBoxShadow(true);
