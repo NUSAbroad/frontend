@@ -44,6 +44,7 @@ const University: React.FC = function () {
   return (
     <Container>
       <SEO title={uni.name} />
+
       <UniversityInfo uni={uni} />
       <UniversityPastMappings uni={uni} />
     </Container>

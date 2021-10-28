@@ -8,18 +8,17 @@ interface Props {
 }
 
 const SEO: React.FC<Props> = function (props) {
-  const { title, children } = props;
+  const { title } = props;
+
+  if (title == null) {
+    return null;
+  }
 
   return (
-    <Helmet titleTemplate={`%s | ${APP_TITLE}`} defaultTitle={APP_TITLE}>
-      {children}
-      {title && (
-        <>
-          <title>{title}</title>
-          <meta property="og:title" content={`${title} | ${APP_TITLE}`} />
-          <meta name="twitter:title" content={`${title} | ${APP_TITLE}`} />
-        </>
-      )}
+    <Helmet titleTemplate="%s | NUSAbroad" defaultTitle={APP_TITLE}>
+      <title>{title}</title>
+      <meta property="og:title" content={`${title} | ${APP_TITLE}`} />
+      <meta name="twitter:title" content={`${title} | ${APP_TITLE}`} />
     </Helmet>
   );
 };
