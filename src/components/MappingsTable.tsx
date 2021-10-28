@@ -112,14 +112,14 @@ interface Props {
   uni: Types.University;
 }
 
-const mappingsPerPage = 10;
+const MAPPINGS_PER_PAGE = 10;
 
 const MappingsTable: React.FC<Props> = function (props) {
   const { isPlanner, mappings, uni } = props;
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
 
-  const totalPageCount = Math.ceil(mappings.length / mappingsPerPage);
+  const totalPageCount = Math.ceil(mappings.length / MAPPINGS_PER_PAGE);
 
   useEffect(() => {
     setPage(1);
@@ -142,8 +142,8 @@ const MappingsTable: React.FC<Props> = function (props) {
   };
 
   const generatePaginatedMappings = () => {
-    const startIndex = (page - 1) * mappingsPerPage;
-    const endIndex = startIndex + mappingsPerPage;
+    const startIndex = (page - 1) * MAPPINGS_PER_PAGE;
+    const endIndex = startIndex + MAPPINGS_PER_PAGE;
     const displayedMappings = mappings.slice(startIndex, endIndex);
     return displayedMappings.map((mapping) => (
       <MappingsRow
