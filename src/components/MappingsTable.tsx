@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch } from "../redux/hooks";
@@ -85,6 +85,23 @@ const AddButton = styled.button`
   }
 `;
 
+const PaginationWrapper = styled.div`
+  display: flex;
+  padding: 10px;
+  justify-content: right;
+`;
+
+const Pagination = styled.span<{ $selected: boolean }>`
+  color: ${(props) => props.theme.colors.blueCrayola};
+  margin-left: 10px;
+  text-decoration: ${(props) => props.$selected && "underline"};
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
 const StyledBody1 = styled(Body1)`
   padding: 10px;
 `;
@@ -95,12 +112,60 @@ interface Props {
   uni: Types.University;
 }
 
+const mappingsPerPage = 10;
+
 const MappingsTable: React.FC<Props> = function (props) {
   const { isPlanner, mappings, uni } = props;
   const dispatch = useAppDispatch();
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setPage(1);
+  }, [mappings]);
 
   const handleAddClick = () => {
     dispatch(createMapping(uni.id));
+  };
+
+  const onPaginationClick = (page: number) => {
+    setPage(page);
+  };
+
+  const generatePaginatedMappings = () => {
+    const startIndex = (page - 1) * mappingsPerPage;
+    const endIndex = startIndex + mappingsPerPage;
+    const displayedMappings = mappings.slice(startIndex, endIndex);
+    return displayedMappings.map((mapping) => (
+      <MappingsRow
+        key={mapping.id}
+        mapping={mapping}
+        isPlanner={isPlanner}
+        uni={uni}
+      />
+    ));
+  };
+
+  const generateMappings = () =>
+    mappings.map((mapping) => (
+      <MappingsRow
+        key={mapping.id}
+        mapping={mapping}
+        isPlanner={isPlanner}
+        uni={uni}
+      />
+    ));
+
+  const generatePaginations = () => {
+    const totalPageCount = Math.ceil(mappings.length / mappingsPerPage);
+    const paginations = [];
+    for (let i = 1; i <= totalPageCount; i++) {
+      paginations.push(
+        <Pagination $selected={page === i} onClick={() => onPaginationClick(i)}>
+          {i}
+        </Pagination>
+      );
+    }
+    return paginations;
   };
 
   return (
@@ -124,14 +189,14 @@ const MappingsTable: React.FC<Props> = function (props) {
           </HeaderRow>
         </thead>
         <tbody>
-          {mappings.map((mapping) => (
-            <MappingsRow
-              key={mapping.id}
-              mapping={mapping}
-              isPlanner={isPlanner}
-              uni={uni}
-            />
-          ))}
+          {isPlanner ? generateMappings() : generatePaginatedMappings()}
+          {!isPlanner && mappings.length !== 0 && (
+            <tr>
+              <ButtonCell colSpan={8}>
+                <PaginationWrapper>{generatePaginations()}</PaginationWrapper>
+              </ButtonCell>
+            </tr>
+          )}
           {isPlanner && (
             <tr>
               <ButtonCell colSpan={8}>
