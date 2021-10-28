@@ -5,6 +5,7 @@ import styled, { useTheme } from "styled-components";
 import { ReactComponent as Cross } from "../assets/x.svg";
 import Filter from "../components/Filter";
 import SearchBar from "../components/SearchBar";
+import SEO from "../components/SEO";
 import Spinner from "../components/Spinner";
 import { Body2, Divider, Heading3, Subheading } from "../components/Styles";
 import UniversityResult from "../components/UniversityResult";
@@ -162,6 +163,7 @@ const Universities: React.FC = () => {
 
   return (
     <Wrapper>
+      <SEO title="Universities" />
       <UnisSection>
         <SearchBar
           placeholder="University name, module code or name..."

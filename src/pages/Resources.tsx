@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { ReactComponent as Arrow } from "../assets/arrow.svg";
+import SEO from "../components/SEO";
 import {
   Heading1,
   Heading2,
@@ -46,6 +47,7 @@ const ArrowLink = styled(StyledLink)`
 const Resources: React.FC = () => {
   return (
     <Wrapper>
+      <SEO title="Resources" />
       <Heading1>Useful Resources</Heading1>
       {resourcesContent.map((section, index) => (
         <Section key={index}>

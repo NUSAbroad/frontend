@@ -1,5 +1,6 @@
 import React from "react";
 import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import styled from "styled-components";
 
@@ -28,6 +29,11 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <Helmet>
+        <title>NUSAbroad</title>
+        <meta property="og:title" content="NUSAbroad" />
+        <meta name="twitter:title" content="NUSAbroad" />
+      </Helmet>
       <Navbar />
       <Main>
         <Route exact path="/">
