@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import FacultiesSection from "./FacultiesSection";
-import { Body1, Heading2, StyledLink } from "./Styles";
+import { Body1, Body2, Heading2, StyledLink } from "./Styles";
 import UniversitySidebar from "./UniversitySidebar";
 
 const Wrapper = styled.div`
@@ -33,6 +33,11 @@ const StyledHeading2 = styled(Heading2)`
   margin-bottom: 5px;
 `;
 
+const StyledBody2 = styled(Body2)`
+  margin-top: 20px;
+  color: ${(props) => props.theme.colors.grey400};
+`;
+
 interface Props {
   university: Types.University;
 }
@@ -56,6 +61,9 @@ const UniversityResult: React.FC<Props> = (props) => {
           Reviews
         </Body1>
         <FacultiesSection faculties={university.Faculties} />
+        {university.foundIn && (
+          <StyledBody2>Found in: {university.foundIn?.join(", ")}</StyledBody2>
+        )}
       </UniInfo>
       <UniversitySidebar
         semesters={university.Semesters}
