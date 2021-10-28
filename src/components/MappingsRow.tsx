@@ -184,7 +184,6 @@ const MappingsRow: React.FC<Props> = function (props) {
         <Input
           type="number"
           min="0"
-          step=".1"
           value={mapping.nusModuleCredits}
           onChange={handleNumberChange("nusModuleCredits")}
           disabled={!isPlanner}
