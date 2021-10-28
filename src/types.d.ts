@@ -37,6 +37,7 @@ declare namespace Types {
     Semesters: Semester[];
     Faculties: Faculty[];
     Mappings: Mapping[];
+    foundIn?: string[];
   }
 
   interface Faculty {
