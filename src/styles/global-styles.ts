@@ -37,7 +37,10 @@ const GlobalStyle = createGlobalStyle`
     overflow-y: auto;
 
     #root {
+      display: flex;
+      flex-direction: column;
       width: 100%;
+      min-height: 100%;
     }
   }
 
