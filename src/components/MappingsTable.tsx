@@ -86,13 +86,13 @@ const AddButton = styled.button`
 `;
 
 const PaginationWrapper = styled.div`
+  color: ${(props) => props.theme.colors.blueCrayola};
   display: flex;
-  padding: 10px;
+  padding: 5px 10px 10px 10px;
   justify-content: right;
 `;
 
-const Pagination = styled.span<{ $selected: boolean }>`
-  color: ${(props) => props.theme.colors.blueCrayola};
+const Pagination = styled.span<{ $selected?: boolean }>`
   margin-left: 10px;
   text-decoration: ${(props) => props.$selected && "underline"};
 
@@ -119,6 +119,8 @@ const MappingsTable: React.FC<Props> = function (props) {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
 
+  const totalPageCount = Math.ceil(mappings.length / mappingsPerPage);
+
   useEffect(() => {
     setPage(1);
   }, [mappings]);
@@ -129,6 +131,14 @@ const MappingsTable: React.FC<Props> = function (props) {
 
   const onPaginationClick = (page: number) => {
     setPage(page);
+  };
+
+  const onNextPageClick = () => {
+    setPage(page + 1);
+  };
+
+  const onPreviousPageClick = () => {
+    setPage(page - 1);
   };
 
   const generatePaginatedMappings = () => {
@@ -156,7 +166,6 @@ const MappingsTable: React.FC<Props> = function (props) {
     ));
 
   const generatePaginations = () => {
-    const totalPageCount = Math.ceil(mappings.length / mappingsPerPage);
     const paginations = [];
     for (let i = 1; i <= totalPageCount; i++) {
       paginations.push(
@@ -190,13 +199,6 @@ const MappingsTable: React.FC<Props> = function (props) {
         </thead>
         <tbody>
           {isPlanner ? generateMappings() : generatePaginatedMappings()}
-          {!isPlanner && mappings.length !== 0 && (
-            <tr>
-              <ButtonCell colSpan={8}>
-                <PaginationWrapper>{generatePaginations()}</PaginationWrapper>
-              </ButtonCell>
-            </tr>
-          )}
           {isPlanner && (
             <tr>
               <ButtonCell colSpan={8}>
@@ -213,6 +215,17 @@ const MappingsTable: React.FC<Props> = function (props) {
           )}
         </tbody>
       </Table>
+      {!isPlanner && totalPageCount > 1 && (
+        <PaginationWrapper>
+          {page !== 1 && (
+            <Pagination onClick={onPreviousPageClick}>Previous</Pagination>
+          )}
+          {generatePaginations()}
+          {page !== totalPageCount && (
+            <Pagination onClick={onNextPageClick}>Next</Pagination>
+          )}
+        </PaginationWrapper>
+      )}
     </Container>
   );
 };
