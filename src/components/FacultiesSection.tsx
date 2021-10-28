@@ -3,23 +3,23 @@ import styled from "styled-components";
 
 import { Body1, Subheading } from "./Styles";
 
-const Wrapper = styled.div``;
-
-const Title = styled(Subheading)`
-  padding-bottom: 10px;
+const Container = styled.div`
+  margin-top: 20px;
 `;
 
 const TagContainer = styled.div`
   padding: 0 15px;
-  display: inline-block;
-  line-height: 30px;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.colors.bistre};
   border-radius: 35px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  line-height: 2rem;
 `;
 
-const TagsWrapper = styled.div``;
+const TagsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+`;
 
 interface Props {
   faculties: Types.Faculty[];
@@ -27,9 +27,10 @@ interface Props {
 
 const FacultiesSection: React.FC<Props> = (props) => {
   const { faculties } = props;
+
   return (
-    <Wrapper>
-      <Title>Faculties</Title>
+    <Container>
+      <Subheading>Faculties</Subheading>
       <TagsWrapper>
         {faculties.map((faculty, index) => (
           <TagContainer key={index}>
@@ -37,7 +38,7 @@ const FacultiesSection: React.FC<Props> = (props) => {
           </TagContainer>
         ))}
       </TagsWrapper>
-    </Wrapper>
+    </Container>
   );
 };
 

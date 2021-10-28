@@ -9,6 +9,14 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: ${(props) => props.theme.typeface};
     font-size: 18px;
+
+    @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+      font-size: 16px;
+    }
+
+    @media (max-width: ${(props) => props.theme.breakPoints.sm}) {
+      font-size: 14px;
+    }
   }
 
   html {
@@ -26,9 +34,9 @@ const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme.colors.floralWhite};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-y: auto;
 
     #root {
-      height: 100%;
       width: 100%;
     }
   }

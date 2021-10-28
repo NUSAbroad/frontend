@@ -15,6 +15,12 @@ const HeaderSection = styled.div`
   justify-content: space-between;
   gap: 15px;
   margin-bottom: 10px;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
 `;
 
 const StyledBody1 = styled(Body1)`
@@ -28,6 +34,12 @@ const InfoSection = styled.div`
   gap: 50px;
   width: 100%;
   margin-top: 30px;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+  }
 `;
 
 const AdditionalInfo = styled.div`
@@ -36,6 +48,11 @@ const AdditionalInfo = styled.div`
   grid-template-columns: auto 1fr;
   gap: 10px 30px;
   margin-bottom: 30px;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    gap: 10px 20px;
+    margin-bottom: 20px;
+  }
 `;
 
 const InfoKey = styled(Body1)``;

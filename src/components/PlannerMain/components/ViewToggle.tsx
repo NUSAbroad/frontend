@@ -28,6 +28,10 @@ const StyledButton = styled(Button)<{ $isCurrView: boolean }>`
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.sm}) {
+    padding: 0 12px;
+  }
 `;
 
 interface Props {

@@ -15,20 +15,31 @@ const HeaderSection = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const NoUniversityWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 0.8rem;
   width: 100%;
+  margin-top: 15vh;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.lg}) {
+    margin: 10vh 0;
+  }
 `;
 
 const StyledUniversityIcon = styled(UniversityIcon)`
-  margin-top: 15vh;
+  max-width: 50%;
+  height: auto;
 `;
 
 const PlannerMain: React.FC = function () {

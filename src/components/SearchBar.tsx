@@ -53,6 +53,14 @@ interface TextProps {
 const SearchBarInput = styled.input.attrs({ type: "text" })<TextProps>`
   width: 100%;
   padding: ${(props) => (props.$isSmall ? "8px 34px" : "10px 44px")};
+  padding-right: ${(props) =>
+    props.value === ""
+      ? props.$isSmall
+        ? "8px"
+        : "10px"
+      : props.$isSmall
+      ? "34px"
+      : "44px"};
   border: 1px solid ${(props) => props.theme.colors.grey300};
   border-radius: 3px;
   background: ${(props) => props.theme.colors.babyPowder};

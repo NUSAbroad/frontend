@@ -12,6 +12,7 @@ export const Heading1 = styled.h1<TextProps>`
   font-size: ${(props) => props.theme.fontSizes.xxl};
   letter-spacing: -0.04em;
   color: ${(props) => props.$color ?? props.theme.colors.bistre};
+  line-height: 1.1;
 `;
 
 export const Heading2 = styled.h2<TextProps>`
@@ -71,6 +72,11 @@ export const StyledLink = styled(Link)`
 
 export const StyledNavLink = styled(NavLink)`
   ${LinkStyles}
+  color: ${(props) => props.theme.colors.grey500};
+
+  &:hover {
+    color: ${(props) => props.theme.colors.blueCrayola};
+  }
 `;
 
 export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
@@ -78,7 +84,7 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
   border: 1px solid ${(props) => props.$color ?? props.theme.colors.blueCrayola};
   border-radius: 35px;
   background: none;
-  line-height: 35px;
+  line-height: 2rem;
   font-family: ${(props) => props.theme.typeface};
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.$color ?? props.theme.colors.blueCrayola};
@@ -96,19 +102,6 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
     box-shadow: 0 0 0 0.2rem
       ${(props) => props.$focusColor ?? props.theme.colors.blueCrayola50};
   }
-`;
-
-export const Wrapper = styled.div`
-  display: flex;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 30px;
-`;
-
-export const Column = styled.div<{ $width: string }>`
-  display: flex;
-  width: ${(props) => props.$width};
-  flex-direction: column;
 `;
 
 export const Pill = styled.div`
