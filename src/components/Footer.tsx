@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { ReactComponent as Logo } from "../assets/logo-horizontal.svg";
-import { Body1, Body2, Subheading } from "./Styles";
+import { Body1, Body2 } from "./Styles";
 
 const Container = styled.footer`
   width: 100%;
