@@ -9,6 +9,7 @@ import Spinner from "../components/Spinner";
 import { Body2, Divider, Heading3, Subheading } from "../components/Styles";
 import UniversityResult from "../components/UniversityResult";
 import { BACKEND_URL } from "../constants";
+import { useDocumentTitle } from "../hooks/DocumentTitle";
 
 const Wrapper = styled.div`
   position: relative;
@@ -109,6 +110,7 @@ const CloseButton = styled.button`
 `;
 
 const Universities: React.FC = () => {
+  useDocumentTitle("Universities");
   const theme = useTheme();
   const [filters, setFilters] = useState<Types.Country[]>([]);
   const [results, setResults] = useState<Types.University[]>([]);

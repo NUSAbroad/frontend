@@ -9,6 +9,7 @@ import {
   Subheading,
 } from "../components/Styles";
 import { resourcesContent } from "../constants/resources";
+import { useDocumentTitle } from "../hooks/DocumentTitle";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -44,6 +45,8 @@ const ArrowLink = styled(StyledLink)`
 `;
 
 const Resources: React.FC = () => {
+  useDocumentTitle("Resources");
+
   return (
     <Wrapper>
       <Heading1>Useful Resources</Heading1>
