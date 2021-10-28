@@ -5,11 +5,11 @@ import styled, { useTheme } from "styled-components";
 import { ReactComponent as Cross } from "../assets/x.svg";
 import Filter from "../components/Filter";
 import SearchBar from "../components/SearchBar";
+import SEO from "../components/SEO";
 import Spinner from "../components/Spinner";
 import { Body2, Divider, Heading3, Subheading } from "../components/Styles";
 import UniversityResult from "../components/UniversityResult";
 import { BACKEND_URL } from "../constants";
-import { useDocumentTitle } from "../hooks/DocumentTitle";
 
 const Wrapper = styled.div`
   position: relative;
@@ -110,7 +110,6 @@ const CloseButton = styled.button`
 `;
 
 const Universities: React.FC = () => {
-  useDocumentTitle("Universities");
   const theme = useTheme();
   const [filters, setFilters] = useState<Types.Country[]>([]);
   const [results, setResults] = useState<Types.University[]>([]);
@@ -164,6 +163,7 @@ const Universities: React.FC = () => {
 
   return (
     <Wrapper>
+      <SEO title="Universities" />
       <UnisSection>
         <SearchBar
           placeholder="University name, module code or name..."

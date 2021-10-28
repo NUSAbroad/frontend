@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { ReactComponent as Arrow } from "../assets/arrow.svg";
+import SEO from "../components/SEO";
 import {
   Heading1,
   Heading2,
@@ -9,7 +10,6 @@ import {
   Subheading,
 } from "../components/Styles";
 import { resourcesContent } from "../constants/resources";
-import { useDocumentTitle } from "../hooks/DocumentTitle";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -45,10 +45,9 @@ const ArrowLink = styled(StyledLink)`
 `;
 
 const Resources: React.FC = () => {
-  useDocumentTitle("Resources");
-
   return (
     <Wrapper>
+      <SEO title="Resources" />
       <Heading1>Useful Resources</Heading1>
       {resourcesContent.map((section, index) => (
         <Section key={index}>

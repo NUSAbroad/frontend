@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import PlannerMain from "../components/PlannerMain";
 import PlannerSidebar from "../components/PlannerSidebar";
+import SEO from "../components/SEO";
 import { View } from "../constants/plannerViews";
-import { useDocumentTitle } from "../hooks/DocumentTitle";
 import { useAppSelector } from "../redux/hooks";
 import { getCurrView } from "../redux/plannerSlice";
 
@@ -24,11 +24,11 @@ const Container = styled.div<{ $currView: View }>`
 `;
 
 const Planner: React.FC = () => {
-  useDocumentTitle("Planner");
   const currView = useAppSelector(getCurrView);
 
   return (
     <Container $currView={currView}>
+      <SEO title="Planner" />
       <PlannerMain />
       <PlannerSidebar />
     </Container>

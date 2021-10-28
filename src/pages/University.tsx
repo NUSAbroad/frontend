@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 
+import SEO from "../components/SEO";
 import Spinner from "../components/Spinner";
 import UniversityInfo from "../components/University/UniversityInfo";
 import UniversityPastMappings from "../components/University/UniversityPastMappings";
 import { BACKEND_URL } from "../constants";
-import { useDocumentTitle } from "../hooks/DocumentTitle";
 
 const Container = styled.div`
   width: 100%;
@@ -20,8 +20,6 @@ const University: React.FC = function () {
   const { slug } = useParams<{ slug: string }>();
   const [loading, setLoading] = useState<boolean>(true);
   const [uni, setUni] = useState<Types.University | null>(null);
-
-  useDocumentTitle(uni?.name);
 
   useEffect(() => {
     axios
@@ -45,6 +43,7 @@ const University: React.FC = function () {
 
   return (
     <Container>
+      <SEO title={uni.name} />
       <UniversityInfo uni={uni} />
       <UniversityPastMappings uni={uni} />
     </Container>
