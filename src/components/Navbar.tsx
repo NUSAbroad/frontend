@@ -22,7 +22,7 @@ const Wrapper = styled.div<{ $boxShadow: boolean }>`
   padding: 2px;
   ${(props) =>
     props.$boxShadow &&
-    `border-bottom: 1px solid ${props.theme.colors.grey300}`};
+    `border-bottom: 1px solid ${props.theme.colors.grey200}`};
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
     flex-direction: column;

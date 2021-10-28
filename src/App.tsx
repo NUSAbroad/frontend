@@ -1,8 +1,10 @@
 import React from "react";
 import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import styled from "styled-components";
 
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import ToastOverlay from "./components/Toast";
 import { useTrackPage } from "./hooks/GoogleAnalytics";
@@ -15,10 +17,10 @@ import University from "./pages/University";
 ReactGA.initialize("UA-209752856-1");
 
 const Main = styled.main`
-  padding: 0 30px;
+  padding: 0 30px 50px;
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
-    padding: 0 20px;
+    padding: 0 20px 40px;
   }
 `;
 
@@ -27,6 +29,11 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <Helmet>
+        <title>NUSAbroad</title>
+        <meta property="og:title" content="NUSAbroad" />
+        <meta name="twitter:title" content="NUSAbroad" />
+      </Helmet>
       <Navbar />
       <Main>
         <Route exact path="/">
@@ -50,6 +57,7 @@ const App: React.FC = () => {
         </Route>
         <ToastOverlay />
       </Main>
+      <Footer />
     </Router>
   );
 };

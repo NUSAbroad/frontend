@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import PlannerMain from "../components/PlannerMain";
 import PlannerSidebar from "../components/PlannerSidebar";
+import SEO from "../components/SEO";
 import { View } from "../constants/plannerViews";
 import { useAppSelector } from "../redux/hooks";
 import { getCurrView } from "../redux/plannerSlice";
@@ -27,6 +28,7 @@ const Planner: React.FC = () => {
 
   return (
     <Container $currView={currView}>
+      <SEO title="Planner" />
       <PlannerMain />
       <PlannerSidebar />
     </Container>

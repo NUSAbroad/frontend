@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 
+import SEO from "../components/SEO";
 import Spinner from "../components/Spinner";
 import UniversityInfo from "../components/University/UniversityInfo";
 import UniversityPastMappings from "../components/University/UniversityPastMappings";
@@ -42,6 +43,8 @@ const University: React.FC = function () {
 
   return (
     <Container>
+      <SEO title={uni.name} />
+
       <UniversityInfo uni={uni} />
       <UniversityPastMappings uni={uni} />
     </Container>
