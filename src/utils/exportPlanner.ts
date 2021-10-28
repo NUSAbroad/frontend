@@ -11,6 +11,7 @@ import {
 import { saveAs } from "file-saver";
 
 const TEXT_SIZE = 24;
+const FONT = "Arial";
 
 export const exportPlanner = (unis: Types.University[]) => {
   const doc = new Document({
@@ -55,6 +56,7 @@ const generateTextRun = (content: string) =>
   new TextRun({
     text: content,
     size: TEXT_SIZE,
+    font: FONT,
   });
 
 const generateParagraph = (content: string) =>
