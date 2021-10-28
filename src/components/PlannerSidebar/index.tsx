@@ -23,7 +23,7 @@ const PlannerSidebar: React.FC = () => {
 
   return (
     <Wrapper>
-      <Button onClick={onExportClickHandler}>Export Planner</Button>
+      <Button onClick={onExportClickHandler}>Download as .docx</Button>
       <PlannerSearchBar />
       <PlannerSideList />
       <Divider />
