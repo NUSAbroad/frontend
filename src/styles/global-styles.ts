@@ -38,11 +38,6 @@ const GlobalStyle = createGlobalStyle`
 
     #root {
       width: 100%;
-      padding: 0 30px;
-
-      @media (max-width: ${(props) => props.theme.breakPoints.md}) {
-        padding: 0 20px;
-      }
     }
   }
 
