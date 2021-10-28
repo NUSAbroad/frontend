@@ -149,7 +149,7 @@ const MappingsRow: React.FC<Props> = function (props) {
     (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const updatedMapping = {
         ...mapping,
-        [field]: parseInt(e.target.value),
+        [field]: parseFloat(e.target.value),
       };
       dispatch(updateMapping({ uniId: uni.id, mapping: updatedMapping }));
     };
@@ -184,6 +184,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         <Input
           type="number"
           min="0"
+          step=".1"
           value={mapping.nusModuleCredits}
           onChange={handleNumberChange("nusModuleCredits")}
           disabled={!isPlanner}
@@ -209,6 +210,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         <Input
           type="number"
           min="0"
+          step=".1"
           value={mapping.partnerModuleCredits}
           onChange={handleNumberChange("partnerModuleCredits")}
           disabled={!isPlanner}
