@@ -96,6 +96,8 @@ const UniversityPastMappings: React.FC<Props> = function (props) {
     setQuery("");
   };
 
+  const mostRecentDate = getMostRecentDate(uni.Mappings);
+
   return (
     <Container>
       <HeadingWrapper>
@@ -110,7 +112,7 @@ const UniversityPastMappings: React.FC<Props> = function (props) {
       </HeadingWrapper>
       <MappingsMeta>
         <Body2 $color={theme.colors.grey400}>
-          Last retrieved from EduRec on {getMostRecentDate(uni.Mappings)}
+          {mostRecentDate && `Last retrieved from EduRec on ${mostRecentDate}`}
         </Body2>
         <Body2 $color={theme.colors.grey500} $weight="300">
           {displayHitsCount && (
