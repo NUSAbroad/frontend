@@ -109,7 +109,7 @@ const MappingsTable: React.FC<Props> = function (props) {
         <thead>
           <HeaderRow $isCentered>
             <HeaderCell colSpan={4}>NUS</HeaderCell>
-            <HeaderCell colSpan={3}>PU</HeaderCell>
+            <HeaderCell colSpan={3}>Partner University</HeaderCell>
             <HeaderCell />
           </HeaderRow>
           <HeaderRow $isSmall>

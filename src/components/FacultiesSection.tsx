@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Body1, Subheading } from "./Styles";
+import { Body1, Body2, Subheading } from "./Styles";
 
 const Container = styled.div`
   margin-top: 20px;
+`;
+
+const StyledBody2 = styled(Body2)`
+  margin-top: 5px;
+  color: ${(props) => props.theme.colors.grey400};
 `;
 
 const TagContainer = styled.div`
@@ -22,15 +27,32 @@ const TagsWrapper = styled.div`
 `;
 
 interface Props {
+  className?: string;
   faculties: Types.Faculty[];
 }
 
 const FacultiesSection: React.FC<Props> = (props) => {
-  const { faculties } = props;
+  const { className, faculties } = props;
+
+  if (faculties.length === 0) {
+    return null;
+  }
+
+  let heading;
+  let subheading;
+
+  if (faculties[0].type === "PU") {
+    heading = "Partner Uni Faculties";
+    subheading = "These faculties are accepting exchange students";
+  } else {
+    heading = "NUS Faculties";
+    subheading = "Suitable for stuents from these faculties";
+  }
 
   return (
-    <Container>
-      <Subheading>Faculties</Subheading>
+    <Container className={className}>
+      <Subheading>{heading}</Subheading>
+      <StyledBody2>{subheading}</StyledBody2>
       <TagsWrapper>
         {faculties.map((faculty, index) => (
           <TagContainer key={index}>
