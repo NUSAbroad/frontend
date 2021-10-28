@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addUni, getUnis, removeUni } from "../../redux/plannerSlice";
 import { setToast } from "../../redux/toastSlice";
 import { getMonthAndYear } from "../../utils/date";
+import FacultiesSection from "../FacultiesSection";
 import Notice from "../Notice";
 import { Body1, Body2, Button, Divider, Heading1 } from "../Styles";
 import UniversitySidebar from "../UniversitySidebar";
@@ -42,16 +43,24 @@ const InfoSection = styled.div`
   }
 `;
 
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    gap: 20px;
+  }
+`;
+
 const AdditionalInfo = styled.div`
   flex-grow: 1;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 10px 30px;
-  margin-bottom: 30px;
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
     gap: 10px 20px;
-    margin-bottom: 20px;
   }
 `;
 
@@ -59,6 +68,10 @@ const InfoKey = styled(Body1)``;
 
 const InfoValue = styled(Body1)`
   font-weight: 700;
+`;
+
+const StyledFacultiesSection = styled(FacultiesSection)`
+  margin: 0;
 `;
 
 interface Props {
@@ -114,7 +127,7 @@ const UniversityInfo: React.FC<Props> = function (props) {
       </HeaderSection>
       <Divider />
       <InfoSection>
-        <div>
+        <Main>
           <AdditionalInfo>
             {Object.entries(uni.additionalInfo ?? {}).map(([key, value]) => (
               <>
@@ -125,6 +138,7 @@ const UniversityInfo: React.FC<Props> = function (props) {
             <InfoKey>Last Updated</InfoKey>
             <InfoValue>{getMonthAndYear(new Date(uni.updatedAt))}</InfoValue>
           </AdditionalInfo>
+          <StyledFacultiesSection faculties={uni.Faculties} />
           <Notice>
             <Body2>
               Interested in this university? Do refer to their website to better
@@ -142,7 +156,7 @@ const UniversityInfo: React.FC<Props> = function (props) {
               3. Are they accepting Bachelor level exchange students?
             </Body2>
           </Notice>
-        </div>
+        </Main>
         <UniversitySidebar semesters={uni.Semesters} links={uni.Links} />
       </InfoSection>
     </>
