@@ -30,7 +30,7 @@ const NoUniversityWrapper = styled.div`
   align-items: center;
   gap: 0.8rem;
   width: 100%;
-  margin-top: 15vh;
+  margin: 10vh 0 5vh;
 
   @media (max-width: ${(props) => props.theme.breakPoints.lg}) {
     margin: 10vh 0;

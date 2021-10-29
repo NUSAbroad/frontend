@@ -53,7 +53,7 @@ export const Body2 = styled.p<TextProps>`
 
 export const Divider = styled.hr`
   border: none;
-  border-top: 1px solid ${(props) => props.theme.colors.grey300};
+  border-top: 1px solid ${(props) => props.theme.colors.grey200};
   margin: 0;
 `;
 
