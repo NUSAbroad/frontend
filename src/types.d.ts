@@ -54,4 +54,10 @@ declare namespace Types {
     canUndo?: boolean;
     undoMessage?: string;
   }
+
+  interface NusModule {
+    name: string;
+    faculty: string;
+    code: string;
+  }
 }
