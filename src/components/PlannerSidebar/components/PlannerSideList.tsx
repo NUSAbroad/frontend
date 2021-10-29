@@ -19,12 +19,15 @@ const StyledBody2 = styled(Body2)`
 const PlannerSideList: React.FC = () => {
   const unis = useAppSelector(getUnis);
 
+  if (unis.length === 0) {
+    return <StyledBody2>No universities added.</StyledBody2>;
+  }
+
   return (
     <List>
       {unis.map((uni) => {
         return <PlannerSideListRow key={uni.id} uni={uni} />;
       })}
-      {unis.length === 0 && <StyledBody2>No universities added.</StyledBody2>}
     </List>
   );
 };
