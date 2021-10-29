@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-const StyledSpinner = styled.div`
+const Spinner = styled.div`
   position: relative;
   width: 3rem;
   height: 3rem;
@@ -29,9 +28,5 @@ const StyledSpinner = styled.div`
     }
   }
 `;
-
-const Spinner: React.FC = function () {
-  return <StyledSpinner />;
-};
 
 export default Spinner;

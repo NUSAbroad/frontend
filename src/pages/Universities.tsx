@@ -62,6 +62,15 @@ const SearchResultCounter = styled(Body2)`
   text-align: right;
 `;
 
+const Results = styled.div<{ $isLoading: boolean }>`
+  ${(props) =>
+    props.$isLoading &&
+    `
+    opacity: 50%;
+    pointer-events: none;
+  `}
+`;
+
 const StyledHeading3 = styled(Heading3)`
   margin-bottom 5px;
 `;
@@ -170,6 +179,7 @@ const Universities: React.FC = () => {
           onChangeHandler={onChangeHandler}
           query={query}
           onCrossClickHandler={() => setQuery("")}
+          isLoading={isLoading}
         />
         <SearchHelpers>
           <FilterButton onClick={() => setIsFilterVisible(true)}>
@@ -182,13 +192,15 @@ const Universities: React.FC = () => {
               : `${filteredResults.length} universities found`}
           </SearchResultCounter>
         </SearchHelpers>
-        <Divider />
-        {isLoading || !filteredResults ? (
+        <Divider style={{ marginBottom: "30px" }} />
+        {!filteredResults ? (
           <Spinner />
         ) : (
-          filteredResults.map((university, index) => (
-            <UniversityResult key={index} university={university} />
-          ))
+          <Results $isLoading={isLoading}>
+            {filteredResults.map((university, index) => (
+              <UniversityResult key={index} university={university} />
+            ))}
+          </Results>
         )}
       </UnisSection>
       <FilterSection>

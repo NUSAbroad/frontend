@@ -2,18 +2,26 @@ import React from "react";
 import styled from "styled-components";
 
 import FacultiesSection from "./FacultiesSection";
-import { Body1, Body2, Heading2, StyledLink } from "./Styles";
+import { Body1, Body2, Divider, Heading2, StyledLink } from "./Styles";
 import UniversitySidebar from "./UniversitySidebar";
 
-const Wrapper = styled.div`
+const HeaderSection = styled.div`
+  margin-bottom: 10px;
+`;
+
+const InfoSection = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 30px;
+  gap: 30px;
+  margin-top: 20px;
+
+  &:not(:last-child) {
+    margin-bottom: 50px;
+  }
 `;
 
 const UniInfo = styled.div`
-  width: calc(100% - 220px);
+  width: calc(100% - 270px);
   padding: 0;
 
   @media (max-width: ${(props) => props.theme.breakPoints.lg}) {
@@ -21,7 +29,7 @@ const UniInfo = styled.div`
   }
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
-    width: calc(100% - 220px);
+    width: calc(100% - 270px);
   }
 
   @media (max-width: 576px) {
@@ -45,31 +53,37 @@ interface Props {
 const UniversityResult: React.FC<Props> = (props) => {
   const { university } = props;
   return (
-    <Wrapper>
-      <UniInfo>
+    <>
+      <HeaderSection>
         <StyledHeading2>
           <StyledLink to={`/universities/${university.slug}`}>
             {university.name}
           </StyledLink>
         </StyledHeading2>
-        <Body1 style={{ marginTop: "5px" }}>
+        <Body1>
           {university.state && `${university.state}, `}
           {university.Country.name}
         </Body1>
-        <Body1 style={{ marginTop: "15px" }}>
-          <b>{university.mappingsCount}</b> Previous mappings &bull; <b>6</b>{" "}
-          Reviews
-        </Body1>
-        <FacultiesSection faculties={university.Faculties} />
-        {university.foundIn && (
-          <StyledBody2>Found in: {university.foundIn?.join(", ")}</StyledBody2>
-        )}
-      </UniInfo>
-      <UniversitySidebar
-        semesters={university.Semesters}
-        links={university.Links}
-      />
-    </Wrapper>
+      </HeaderSection>
+      <Divider />
+      <InfoSection>
+        <UniInfo>
+          <Body1>
+            <b>{university.mappingsCount}</b> Previous mappings
+          </Body1>
+          <FacultiesSection faculties={university.Faculties} />
+          {university.foundIn && (
+            <StyledBody2>
+              Found in: {university.foundIn?.join(", ")}
+            </StyledBody2>
+          )}
+        </UniInfo>
+        <UniversitySidebar
+          semesters={university.Semesters}
+          links={university.Links}
+        />
+      </InfoSection>
+    </>
   );
 };
 

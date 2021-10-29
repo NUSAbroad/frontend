@@ -5,6 +5,7 @@ import { ReactComponent as SearchIcon } from "../assets/search.svg";
 import { ReactComponent as SmallSearchIcon } from "../assets/search-small.svg";
 import { ReactComponent as CrossIcon } from "../assets/x.svg";
 import { ReactComponent as SmallCrossIcon } from "../assets/x-small.svg";
+import Spinner from "./Spinner";
 
 const IconStyles = css`
   position: absolute;
@@ -32,6 +33,26 @@ const StyledSmallCrossIcon = styled(SmallCrossIcon)`
   ${IconStyles}
   right: 8px;
   cursor: pointer;
+`;
+
+const StyledSpinner = styled(Spinner)`
+  position: absolute;
+  top: 11px;
+  left: 10px;
+  margin: 0;
+  height: 23px;
+  width: 23px;
+  border-width: 3px;
+`;
+
+const StyledSmallSpinner = styled(Spinner)`
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  margin: 0;
+  height: 17px;
+  width: 17px;
+  border-width: 2px;
 `;
 
 const SearchBarWrapper = styled.div`
@@ -87,6 +108,7 @@ interface Props {
   query: string;
   onCrossClickHandler: () => void;
   placeholder: string;
+  isLoading?: boolean;
 }
 
 const SearchBar: React.FC<Props> = (props) => {
@@ -97,11 +119,22 @@ const SearchBar: React.FC<Props> = (props) => {
     onChangeHandler,
     onCrossClickHandler,
     query,
+    isLoading,
   } = props;
 
   return (
     <SearchBarWrapper className={className}>
-      {size == "sm" ? <StyledSmallSearchIcon /> : <StyledSearchIcon />}
+      {isLoading ? (
+        size == "sm" ? (
+          <StyledSmallSpinner />
+        ) : (
+          <StyledSpinner />
+        )
+      ) : size == "sm" ? (
+        <StyledSmallSearchIcon />
+      ) : (
+        <StyledSearchIcon />
+      )}
       <SearchBarInput
         $isSmall={size == "sm"}
         placeholder={placeholder}
