@@ -29,6 +29,9 @@ const UnisSection = styled.div``;
 
 const FilterSection = styled.div`
   width: 300px;
+  position: sticky;
+  height: fit-content;
+  top: 0;
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
     display: none;
