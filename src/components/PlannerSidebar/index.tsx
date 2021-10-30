@@ -12,6 +12,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: sticky;
+  top: 80px;
+  height: fit-content;
 `;
 
 const PlannerSidebar: React.FC = () => {

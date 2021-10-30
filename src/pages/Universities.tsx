@@ -7,7 +7,13 @@ import Filter from "../components/Filter";
 import SearchBar from "../components/SearchBar";
 import SEO from "../components/SEO";
 import Spinner from "../components/Spinner";
-import { Body2, Divider, Heading3, Subheading } from "../components/Styles";
+import {
+  Body2,
+  Button,
+  Divider,
+  Heading3,
+  Subheading,
+} from "../components/Styles";
 import UniversityResult from "../components/UniversityResult";
 import { BACKEND_URL } from "../constants";
 
@@ -29,6 +35,9 @@ const UnisSection = styled.div``;
 
 const FilterSection = styled.div`
   width: 300px;
+  position: sticky;
+  height: fit-content;
+  top: 80px;
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
     display: none;
@@ -118,7 +127,24 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
+const LoadMore = styled(Button)`
+  width: 100%;
+  margin-top: 50px;
+`;
+
+const StickyWrapper = styled.div<{ $padding: number }>`
+  position: sticky;
+  top: 50px;
+  background: ${(props) => props.theme.colors.floralWhite};
+  padding-top: ${(props) => `${props.$padding}px`};
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    top: 80px;
+  }
+`;
+
 const Universities: React.FC = () => {
+  const threshold = 20;
   const theme = useTheme();
   const [filters, setFilters] = useState<Types.Country[]>([]);
   const [results, setResults] = useState<Types.University[]>([]);
@@ -128,6 +154,8 @@ const Universities: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
   const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
+  const [loadQuantity, setLoadQuantity] = useState<number>(threshold);
+  const [stickyPadding, setStickyPadding] = useState<number>(0);
 
   useEffect(() => {
     const { cancel, token } = axios.CancelToken.source();
@@ -137,7 +165,23 @@ const Universities: React.FC = () => {
 
   useEffect(() => {
     filterResults();
+    setLoadQuantity(threshold);
   }, [results, filters]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    const scrollTop = document.documentElement.scrollTop;
+    if (scrollTop <= 0) {
+      setStickyPadding(0);
+    } else {
+      setStickyPadding(30);
+    }
+  };
 
   const fetchHits = (query: string, token: CancelToken) => {
     setIsLoading(true);
@@ -174,33 +218,46 @@ const Universities: React.FC = () => {
     <Wrapper>
       <SEO title="Universities" />
       <UnisSection>
-        <SearchBar
-          placeholder="University name, module code or name..."
-          onChangeHandler={onChangeHandler}
-          query={query}
-          onCrossClickHandler={() => setQuery("")}
-          isLoading={isLoading}
-        />
-        <SearchHelpers>
-          <FilterButton onClick={() => setIsFilterVisible(true)}>
-            Filter
-          </FilterButton>
-          <SearchResultCounter $color={theme.colors.grey400}>
-            &nbsp;
-            {!filteredResults || isLoading
-              ? ""
-              : `${filteredResults.length} universities found`}
-          </SearchResultCounter>
-        </SearchHelpers>
-        <Divider style={{ marginBottom: "30px" }} />
+        <StickyWrapper $padding={stickyPadding}>
+          <SearchBar
+            placeholder="University name, module code or name..."
+            onChangeHandler={onChangeHandler}
+            query={query}
+            onCrossClickHandler={() => setQuery("")}
+            isLoading={isLoading}
+          />
+          <SearchHelpers>
+            <FilterButton onClick={() => setIsFilterVisible(true)}>
+              Filter
+            </FilterButton>
+            <SearchResultCounter $color={theme.colors.grey400}>
+              &nbsp;
+              {!filteredResults || isLoading
+                ? ""
+                : `${filteredResults.length} universities found`}
+            </SearchResultCounter>
+          </SearchHelpers>
+          <Divider style={{ marginBottom: "30px" }} />
+        </StickyWrapper>
         {!filteredResults ? (
           <Spinner />
         ) : (
-          <Results $isLoading={isLoading}>
-            {filteredResults.map((university, index) => (
-              <UniversityResult key={index} university={university} />
-            ))}
-          </Results>
+          <>
+            <Results $isLoading={isLoading}>
+              {filteredResults
+                .slice(0, loadQuantity)
+                .map((university, index) => (
+                  <UniversityResult key={index} university={university} />
+                ))}
+            </Results>
+            {loadQuantity < filteredResults.length && (
+              <LoadMore
+                onClick={() => setLoadQuantity(loadQuantity + threshold)}
+              >
+                Load More
+              </LoadMore>
+            )}
+          </>
         )}
       </UnisSection>
       <FilterSection>
