@@ -80,6 +80,7 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
+  margin: 0;
   padding: 0 15px;
   border: 1px solid ${(props) => props.$color ?? props.theme.colors.blueCrayola};
   border-radius: 35px;

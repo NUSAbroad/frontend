@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 15px;
   position: sticky;
-  top: 80px;
+  top: 78px;
   height: fit-content;
 `;
 
