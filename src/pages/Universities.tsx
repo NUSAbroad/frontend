@@ -7,7 +7,13 @@ import Filter from "../components/Filter";
 import SearchBar from "../components/SearchBar";
 import SEO from "../components/SEO";
 import Spinner from "../components/Spinner";
-import { Body2, Divider, Heading3, Subheading } from "../components/Styles";
+import {
+  Body2,
+  Button,
+  Divider,
+  Heading3,
+  Subheading,
+} from "../components/Styles";
 import UniversityResult from "../components/UniversityResult";
 import { BACKEND_URL } from "../constants";
 
@@ -121,7 +127,13 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
+const LoadMore = styled(Button)`
+  width: 100%;
+  margin-top: 30px;
+`;
+
 const Universities: React.FC = () => {
+  const threshold = 20;
   const theme = useTheme();
   const [filters, setFilters] = useState<Types.Country[]>([]);
   const [results, setResults] = useState<Types.University[]>([]);
@@ -131,6 +143,7 @@ const Universities: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
   const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
+  const [loadQuantity, setLoadQuantity] = useState<number>(threshold);
 
   useEffect(() => {
     const { cancel, token } = axios.CancelToken.source();
@@ -140,6 +153,7 @@ const Universities: React.FC = () => {
 
   useEffect(() => {
     filterResults();
+    setLoadQuantity(threshold);
   }, [results, filters]);
 
   const fetchHits = (query: string, token: CancelToken) => {
@@ -199,11 +213,22 @@ const Universities: React.FC = () => {
         {!filteredResults ? (
           <Spinner />
         ) : (
-          <Results $isLoading={isLoading}>
-            {filteredResults.map((university, index) => (
-              <UniversityResult key={index} university={university} />
-            ))}
-          </Results>
+          <>
+            <Results $isLoading={isLoading}>
+              {filteredResults
+                .slice(0, loadQuantity)
+                .map((university, index) => (
+                  <UniversityResult key={index} university={university} />
+                ))}
+            </Results>
+            {loadQuantity <= filteredResults.length && (
+              <LoadMore
+                onClick={() => setLoadQuantity(loadQuantity + threshold)}
+              >
+                Load More
+              </LoadMore>
+            )}
+          </>
         )}
       </UnisSection>
       <FilterSection>
