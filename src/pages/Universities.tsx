@@ -129,15 +129,17 @@ const CloseButton = styled.button`
 
 const LoadMore = styled(Button)`
   width: 100%;
-  margin-top: 30px;
+  margin-top: 50px;
 `;
 
-const StyledSearchBar = styled(SearchBar)`
+const StickyWrapper = styled.div<{ $padding: number }>`
   position: sticky;
-  top: 80px;
+  top: 50px;
+  background: ${(props) => props.theme.colors.floralWhite};
+  padding-top: ${(props) => `${props.$padding}px`};
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
-    top: 110px;
+    top: 80px;
   }
 `;
 
@@ -153,6 +155,7 @@ const Universities: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
   const [loadQuantity, setLoadQuantity] = useState<number>(threshold);
+  const [stickyPadding, setStickyPadding] = useState<number>(0);
 
   useEffect(() => {
     const { cancel, token } = axios.CancelToken.source();
@@ -164,6 +167,21 @@ const Universities: React.FC = () => {
     filterResults();
     setLoadQuantity(threshold);
   }, [results, filters]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    const scrollTop = document.documentElement.scrollTop;
+    if (scrollTop <= 30) {
+      setStickyPadding(0);
+    } else {
+      setStickyPadding(30);
+    }
+  };
 
   const fetchHits = (query: string, token: CancelToken) => {
     setIsLoading(true);
@@ -200,25 +218,27 @@ const Universities: React.FC = () => {
     <Wrapper>
       <SEO title="Universities" />
       <UnisSection>
-        <StyledSearchBar
-          placeholder="University name, module code or name..."
-          onChangeHandler={onChangeHandler}
-          query={query}
-          onCrossClickHandler={() => setQuery("")}
-          isLoading={isLoading}
-        />
-        <SearchHelpers>
-          <FilterButton onClick={() => setIsFilterVisible(true)}>
-            Filter
-          </FilterButton>
-          <SearchResultCounter $color={theme.colors.grey400}>
-            &nbsp;
-            {!filteredResults || isLoading
-              ? ""
-              : `${filteredResults.length} universities found`}
-          </SearchResultCounter>
-        </SearchHelpers>
-        <Divider style={{ marginBottom: "30px" }} />
+        <StickyWrapper $padding={stickyPadding}>
+          <SearchBar
+            placeholder="University name, module code or name..."
+            onChangeHandler={onChangeHandler}
+            query={query}
+            onCrossClickHandler={() => setQuery("")}
+            isLoading={isLoading}
+          />
+          <SearchHelpers>
+            <FilterButton onClick={() => setIsFilterVisible(true)}>
+              Filter
+            </FilterButton>
+            <SearchResultCounter $color={theme.colors.grey400}>
+              &nbsp;
+              {!filteredResults || isLoading
+                ? ""
+                : `${filteredResults.length} universities found`}
+            </SearchResultCounter>
+          </SearchHelpers>
+          <Divider style={{ marginBottom: "30px" }} />
+        </StickyWrapper>
         {!filteredResults ? (
           <Spinner />
         ) : (
