@@ -176,7 +176,7 @@ const Universities: React.FC = () => {
 
   const handleScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
-    if (scrollTop <= 30) {
+    if (scrollTop <= 0) {
       setStickyPadding(0);
     } else {
       setStickyPadding(30);
@@ -250,7 +250,7 @@ const Universities: React.FC = () => {
                   <UniversityResult key={index} university={university} />
                 ))}
             </Results>
-            {loadQuantity <= filteredResults.length && (
+            {loadQuantity < filteredResults.length && (
               <LoadMore
                 onClick={() => setLoadQuantity(loadQuantity + threshold)}
               >
