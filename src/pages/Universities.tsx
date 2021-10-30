@@ -37,7 +37,7 @@ const FilterSection = styled.div`
   width: 300px;
   position: sticky;
   height: fit-content;
-  top: 0;
+  top: 80px;
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
     display: none;
@@ -132,6 +132,15 @@ const LoadMore = styled(Button)`
   margin-top: 30px;
 `;
 
+const StyledSearchBar = styled(SearchBar)`
+  position: sticky;
+  top: 80px;
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    top: 110px;
+  }
+`;
+
 const Universities: React.FC = () => {
   const threshold = 20;
   const theme = useTheme();
@@ -191,7 +200,7 @@ const Universities: React.FC = () => {
     <Wrapper>
       <SEO title="Universities" />
       <UnisSection>
-        <SearchBar
+        <StyledSearchBar
           placeholder="University name, module code or name..."
           onChangeHandler={onChangeHandler}
           query={query}
