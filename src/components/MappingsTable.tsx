@@ -89,7 +89,7 @@ const PaginationWrapper = styled.div`
   color: ${(props) => props.theme.colors.blueCrayola};
   display: flex;
   padding: 5px 10px 10px 10px;
-  justify-content: right;
+  justify-content: flex-end;
 `;
 
 const Pagination = styled.span<{ $selected?: boolean }>`

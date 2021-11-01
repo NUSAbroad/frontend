@@ -78,6 +78,17 @@ const Input = styled.input`
     box-shadow: 0 0 0 0.2rem ${(props) => props.theme.colors.blueCrayola50};
     background: ${(props) => props.theme.colors.babyPowder};
   }
+
+  :disabled {
+    -webkit-text-fill-color: ${(props) => props.theme.colors.bistre};
+    opacity: 1;
+
+    ::-webkit-outer-spin-button,
+    ::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+  }
 `;
 
 const Button = styled.button<{ $color: string; $focusColor: string }>`
