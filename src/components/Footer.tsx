@@ -117,8 +117,7 @@ const Footer: React.FC = function () {
             <Body1>
               <FooterLink
                 to={{
-                  pathname:
-                    "https://www.facebook.com/NUSAbroad-100124822479872",
+                  pathname: "https://www.facebook.com/nusabroad",
                 }}
                 target="_blank"
                 rel="noopener noreferrer"
