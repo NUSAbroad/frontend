@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { ReactComponent as Logo } from "../assets/logo-horizontal.svg";
-import { Body1, Body2 } from "./Styles";
+import { Body1, Body2, StyledLink } from "./Styles";
 
 const Container = styled.footer`
   width: 100%;
@@ -49,7 +49,7 @@ const StyledLogo = styled(Logo)`
 `;
 
 const Copy = styled(Body2)`
-  padding-top: 0.5rem;
+  margin: 0.5rem 0 1rem;
   color: ${(props) => props.theme.colors.grey400};
 `;
 
@@ -84,6 +84,16 @@ const Footer: React.FC = function () {
           <LogoColumn>
             <StyledLogo />
             <Copy>&copy; {date.getFullYear()} NUSAbroad</Copy>
+            <Body1>
+              Have feedback?{" "}
+              <StyledLink
+                to={{ pathname: "https://bit.ly/nusabroad" }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Let us know!
+              </StyledLink>
+            </Body1>
           </LogoColumn>
 
           <Column>
