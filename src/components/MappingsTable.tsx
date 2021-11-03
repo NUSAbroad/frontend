@@ -39,6 +39,11 @@ const HeaderCell = styled.th<{ $softBorder?: boolean }>`
   }
 `;
 
+const EmptyHeaderCell = styled.th`
+  width: 0px;
+  padding: 0;
+`;
+
 const HeaderRow = styled.tr<{ $isSmall?: boolean; $isCentered?: boolean }>`
   font-size: ${(props) =>
     props.$isSmall ? props.theme.fontSizes.sm : props.theme.fontSizes.md};
@@ -183,11 +188,12 @@ const MappingsTable: React.FC<Props> = function (props) {
       <Table cellSpacing="0">
         <thead>
           <HeaderRow $isCentered>
-            <HeaderCell colSpan={4}>NUS</HeaderCell>
+            <HeaderCell colSpan={5}>NUS</HeaderCell>
             <HeaderCell colSpan={3}>Partner University</HeaderCell>
             <HeaderCell />
           </HeaderRow>
           <HeaderRow $isSmall>
+            <EmptyHeaderCell />
             <HeaderCell $softBorder>Faculty</HeaderCell>
             <HeaderCell $softBorder>Module Code</HeaderCell>
             <HeaderCell $softBorder>Module Name</HeaderCell>

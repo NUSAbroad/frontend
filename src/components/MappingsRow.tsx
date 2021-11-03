@@ -16,7 +16,6 @@ import MappingDropdown from "./MappingDropdown";
 
 interface BodyCellProps {
   $softBorder?: boolean;
-  $isButton?: boolean;
   $width?: string;
   $minWidth?: string;
   $maxWidth?: string;
@@ -26,12 +25,6 @@ const BodyCell = styled.td<BodyCellProps>`
   ${(props) => props.$width && `width: ${props.$width};`}
   ${(props) => props.$minWidth && `min-width: ${props.$minWidth};`}
   ${(props) => props.$maxWidth && `max-width: ${props.$maxWidth};`}
-  ${(props) =>
-    props.$isButton &&
-    `
-    padding: 7px;
-    width: 24px;
-  `}
 
   &:not(:last-child) {
     border-right: 1px solid
@@ -93,6 +86,7 @@ const Button = styled.button<{ $color: string; $focusColor: string }>`
   border-radius: 100%;
   background: none;
   cursor: pointer;
+  margin: 0 auto;
 
   &:hover {
     background: ${(props) => props.$color};
@@ -253,6 +247,11 @@ const MappingsRow: React.FC<Props> = function (props) {
 
   return (
     <BodyRow onBlur={handleModuleCodeBlur}>
+      <MappingDropdown
+        show={showDropdown}
+        nusModules={nusModuleHits}
+        onDropdownItemClickHandler={onDropdownItemClickHandler}
+      />
       <BodyCell $softBorder $width="5%">
         <Input
           type="text"
@@ -269,7 +268,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $softBorder $width="30%" $minWidth="240px">
+      <BodyCell $softBorder $width="30%">
         <Input
           type="text"
           value={mapping.nusModuleName}
@@ -286,7 +285,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $softBorder>
+      <BodyCell $softBorder $width="10%">
         <Input
           type="text"
           value={mapping.partnerModuleCode}
@@ -294,7 +293,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $softBorder $width="30%" $minWidth="240px">
+      <BodyCell $softBorder>
         <Input
           type="text"
           value={mapping.partnerModuleName}
@@ -312,7 +311,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $isButton $maxWidth="46px">
+      <BodyCell $width="45px">
         <Button
           $color={color}
           $focusColor={focusColor}
@@ -321,12 +320,6 @@ const MappingsRow: React.FC<Props> = function (props) {
           {isPlanner ? <Cross /> : <Plus />}
         </Button>
       </BodyCell>
-      {showDropdown && (
-        <MappingDropdown
-          nusModules={nusModuleHits}
-          onDropdownItemClickHandler={onDropdownItemClickHandler}
-        />
-      )}
     </BodyRow>
   );
 };

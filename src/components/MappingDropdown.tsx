@@ -3,9 +3,14 @@ import styled from "styled-components";
 
 import { Body1 } from "./Styles";
 
+const Empty = styled.td`
+  width: 0;
+  padding: 0;
+`;
+
 const Wrapper = styled.td`
-  overflow-y: overlay;
   width: 50%;
+  overflow-y: overlay;
   position: absolute;
   border: 1px solid ${(props) => props.theme.colors.grey300};
   border-radius: 3px;
@@ -36,14 +41,18 @@ const DropdownItem = styled.div`
     cursor: pointer;
   }
 `;
-
 interface Props {
+  show: boolean;
   nusModules: Types.NusModule[];
   onDropdownItemClickHandler: (nusModule: Types.NusModule) => void;
 }
 
 const MappingDropdown: React.FC<Props> = (props) => {
-  const { nusModules, onDropdownItemClickHandler } = props;
+  const { show, nusModules, onDropdownItemClickHandler } = props;
+
+  if (!show) {
+    return <Empty />;
+  }
 
   return (
     <Wrapper>
