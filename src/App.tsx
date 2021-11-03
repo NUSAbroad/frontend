@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import OnboardOverlay from "./components/Onboarding";
 import ToastOverlay from "./components/Toast";
 import { useTrackPage } from "./hooks/GoogleAnalytics";
 import ComponentsTest from "./pages/ComponentsTest";
@@ -56,6 +57,7 @@ const App: React.FC = () => {
           <ComponentsTest />
         </Route>
         <ToastOverlay />
+        <OnboardOverlay />
       </Main>
       <Footer />
     </Router>
