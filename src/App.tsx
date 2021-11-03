@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import ToastOverlay from "./components/Toast";
 import { useTrackPage } from "./hooks/GoogleAnalytics";
+import About from "./pages/About";
 import ComponentsTest from "./pages/ComponentsTest";
 import Planner from "./pages/Planner";
 import Resources from "./pages/Resources";
@@ -50,6 +51,9 @@ const App: React.FC = () => {
         </Route>
         <Route exact path="/resources">
           <Resources />
+        </Route>
+        <Route exact path="/about">
+          <About />
         </Route>
         {/* Testing route, delete later */}
         <Route exact path="/test">
