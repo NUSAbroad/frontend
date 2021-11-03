@@ -29,11 +29,14 @@ const MyMappingsRow: React.FC<Props> = function (props) {
             {uni.Mappings.length} mappings &bull; {countMCs(uni.Mappings)} MCs
           </Body2>
           <Mods>
-            {uni.Mappings.map((mapping) => (
-              <Pill key={mapping.id}>
-                <Body2>{mapping.nusModuleCode}</Body2>
-              </Pill>
-            ))}
+            {uni.Mappings.map(
+              (mapping) =>
+                mapping.nusModuleCode.length !== 0 && (
+                  <Pill key={mapping.id}>
+                    <Body2>{mapping.nusModuleCode}</Body2>
+                  </Pill>
+                )
+            )}
           </Mods>
         </Cell>
       ))}
