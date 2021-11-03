@@ -9,8 +9,6 @@ import { Body1 } from "./Styles";
 const Container = styled.div`
   margin: -5px;
   padding: 5px;
-  overflow-x: auto;
-  overflow-y: hidden;
 `;
 
 const Table = styled.table`
