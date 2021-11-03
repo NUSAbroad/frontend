@@ -23,7 +23,6 @@ interface BodyCellProps {
 }
 
 const BodyCell = styled.td<BodyCellProps>`
-  position: relative;
   ${(props) => props.$width && `width: ${props.$width};`}
   ${(props) => props.$minWidth && `min-width: ${props.$minWidth};`}
   ${(props) => props.$maxWidth && `max-width: ${props.$maxWidth};`}
@@ -44,6 +43,7 @@ const BodyCell = styled.td<BodyCellProps>`
 `;
 
 const BodyRow = styled.tr`
+  position: relative;
   &:not(:last-child) {
     > ${BodyCell} {
       border-bottom: 1px solid ${(props) => props.theme.colors.grey300};
@@ -118,9 +118,11 @@ interface Props {
 const MappingsRow: React.FC<Props> = function (props) {
   const { mapping, isPlanner, uni } = props;
   const theme = useTheme();
-  const [showModuleCodeDropdown, setShowModuleCodeDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [isSelectAction, setIsSelectAction] = useState(false);
   const [nusModuleHits, setNusModuleHits] = useState([]);
-  const firstUpdate = useRef(true);
+  const firstModuleCodeUpdate = useRef(true);
+  const firstModuleNameUpdate = useRef(true);
   const dispatch = useAppDispatch();
   const color = isPlanner ? theme.colors.orangeSoda : theme.colors.blueCrayola;
   const focusColor = isPlanner
@@ -128,8 +130,12 @@ const MappingsRow: React.FC<Props> = function (props) {
     : theme.colors.blueCrayola50;
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
+    if (firstModuleCodeUpdate.current) {
+      firstModuleCodeUpdate.current = false;
+      return;
+    }
+    if (isSelectAction) {
+      setIsSelectAction(false);
       return;
     }
     if (mapping.nusModuleCode.length >= 2) {
@@ -141,6 +147,25 @@ const MappingsRow: React.FC<Props> = function (props) {
       return () => (cancel("No longer last query"), clearTimeout(timeoutId));
     }
   }, [mapping.nusModuleCode]);
+
+  useEffect(() => {
+    if (firstModuleNameUpdate.current) {
+      firstModuleNameUpdate.current = false;
+      return;
+    }
+    if (isSelectAction) {
+      setIsSelectAction(false);
+      return;
+    }
+    if (mapping.nusModuleName.length >= 2) {
+      const { cancel, token } = axios.CancelToken.source();
+      const timeoutId = setTimeout(
+        () => fetchModuleNameHits(mapping.nusModuleName, token),
+        200
+      );
+      return () => (cancel("No longer last query"), clearTimeout(timeoutId));
+    }
+  }, [mapping.nusModuleName]);
 
   const handleClickButton = () => {
     if (isPlanner) {
@@ -162,7 +187,10 @@ const MappingsRow: React.FC<Props> = function (props) {
     (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
       if (field === "nusModuleCode" && value.length < 2) {
-        setShowModuleCodeDropdown(false);
+        setShowDropdown(false);
+      }
+      if (field === "nusModuleName" && value.length < 2) {
+        setShowDropdown(false);
       }
       const updatedMapping = {
         ...mapping,
@@ -185,7 +213,21 @@ const MappingsRow: React.FC<Props> = function (props) {
       .get(`${BACKEND_URL}/search/moduleCode/${query}`, { cancelToken: token })
       .then((response) => {
         setNusModuleHits(response.data);
-        setShowModuleCodeDropdown(true);
+        setShowDropdown(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const fetchModuleNameHits = (query: string, token: CancelToken) => {
+    axios
+      .get(`${BACKEND_URL}/search/moduleName/${query}`, {
+        cancelToken: token,
+      })
+      .then((response) => {
+        setNusModuleHits(response.data);
+        setShowDropdown(true);
       })
       .catch((err) => {
         console.error(err);
@@ -193,21 +235,24 @@ const MappingsRow: React.FC<Props> = function (props) {
   };
 
   const handleModuleCodeBlur = () => {
-    setShowModuleCodeDropdown(false);
+    setShowDropdown(false);
   };
 
-  const updateNusModuleFields = (nusModule: Types.NusModule) => {
+  const onDropdownItemClickHandler = (nusModule: Types.NusModule) => {
+    setShowDropdown(false);
+    setIsSelectAction(true);
     const updatedMapping = {
       ...mapping,
       nusModuleFaculty: nusModule.faculty,
       nusModuleCode: nusModule.code,
       nusModuleName: nusModule.name,
+      nusModuleCredits: nusModule.credits,
     };
     dispatch(updateMapping({ uniId: uni.id, mapping: updatedMapping }));
   };
 
   return (
-    <BodyRow>
+    <BodyRow onBlur={handleModuleCodeBlur}>
       <BodyCell $softBorder $width="5%">
         <Input
           type="text"
@@ -216,20 +261,13 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $softBorder>
+      <BodyCell $softBorder $width="10%">
         <Input
           type="text"
           value={mapping.nusModuleCode}
-          onBlur={handleModuleCodeBlur}
           onChange={handleChange("nusModuleCode")}
           disabled={!isPlanner}
         />
-        {showModuleCodeDropdown && (
-          <MappingDropdown
-            nusModules={nusModuleHits}
-            onClickHandler={updateNusModuleFields}
-          />
-        )}
       </BodyCell>
       <BodyCell $softBorder $width="30%" $minWidth="240px">
         <Input
@@ -283,6 +321,12 @@ const MappingsRow: React.FC<Props> = function (props) {
           {isPlanner ? <Cross /> : <Plus />}
         </Button>
       </BodyCell>
+      {showDropdown && (
+        <MappingDropdown
+          nusModules={nusModuleHits}
+          onDropdownItemClickHandler={onDropdownItemClickHandler}
+        />
+      )}
     </BodyRow>
   );
 };

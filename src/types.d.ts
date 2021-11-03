@@ -59,5 +59,6 @@ declare namespace Types {
     name: string;
     faculty: string;
     code: string;
+    credits: number;
   }
 }
