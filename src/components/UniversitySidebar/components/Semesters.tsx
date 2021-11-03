@@ -3,12 +3,16 @@ import styled from "styled-components";
 
 import { Body1, Subheading } from "../../Styles";
 
+const StyledBody1 = styled(Body1)`
+  margin-top: 5px;
+`;
+
 interface Props {
   semesters: Types.Semester[];
 }
 
 const MarginSubheading = styled(Subheading)`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
 const Semesters: React.FC<Props> = (props) => {
@@ -18,7 +22,7 @@ const Semesters: React.FC<Props> = (props) => {
     <>
       <MarginSubheading>Semesters</MarginSubheading>
       {semesters.map((elem, index) => {
-        return <Body1 key={index}>{elem.description}</Body1>;
+        return <StyledBody1 key={index}>{elem.description}</StyledBody1>;
       })}
     </>
   );

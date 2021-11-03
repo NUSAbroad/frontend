@@ -4,8 +4,12 @@ import styled from "styled-components";
 import { StyledLink, Subheading } from "../../Styles";
 
 const MarginSubheading = styled(Subheading)`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   margin-top: 20px;
+`;
+
+const QuickLink = styled(StyledLink)`
+  margin-top: 5px;
 `;
 
 interface Props {
@@ -19,14 +23,14 @@ const QuickLinks: React.FC<Props> = (props) => {
       <MarginSubheading>Quick Links</MarginSubheading>
       {links.map((link, index) => {
         return (
-          <StyledLink
+          <QuickLink
             key={index}
             to={{ pathname: `${link.link}` }}
             target="_blank"
             rel="noopener noreferrer"
           >
             {link.name}
-          </StyledLink>
+          </QuickLink>
         );
       })}
     </>
