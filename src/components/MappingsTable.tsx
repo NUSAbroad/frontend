@@ -14,6 +14,7 @@ const Container = styled.div`
 `;
 
 const Table = styled.table`
+  table-layout: fixed;
   width: 100%;
   border-radius: 5px;
   background: ${(props) => props.theme.colors.babyPowder};
@@ -37,11 +38,6 @@ const HeaderCell = styled.th<{ $softBorder?: boolean }>`
           ? props.theme.colors.grey200
           : props.theme.colors.grey300};
   }
-`;
-
-const EmptyHeaderCell = styled.th`
-  width: 0px;
-  padding: 0;
 `;
 
 const HeaderRow = styled.tr<{ $isSmall?: boolean; $isCentered?: boolean }>`
@@ -186,14 +182,23 @@ const MappingsTable: React.FC<Props> = function (props) {
   return (
     <Container>
       <Table cellSpacing="0">
+        <col style={{ width: "8%" }} />
+        <col style={{ width: "12%" }} />
+        <col style={{ width: "23%" }} />
+        <col style={{ width: "7%" }} />
+
+        <col style={{ width: "12%" }} />
+        <col style={{ width: "auto" }} />
+        <col style={{ width: "7%" }} />
+
+        <col style={{ width: "45px" }} />
         <thead>
           <HeaderRow $isCentered>
-            <HeaderCell colSpan={5}>NUS</HeaderCell>
+            <HeaderCell colSpan={4}>NUS</HeaderCell>
             <HeaderCell colSpan={3}>Partner University</HeaderCell>
-            <HeaderCell />
+            <HeaderCell colSpan={1} />
           </HeaderRow>
           <HeaderRow $isSmall>
-            <EmptyHeaderCell />
             <HeaderCell $softBorder>Faculty</HeaderCell>
             <HeaderCell $softBorder>Module Code</HeaderCell>
             <HeaderCell $softBorder>Module Name</HeaderCell>

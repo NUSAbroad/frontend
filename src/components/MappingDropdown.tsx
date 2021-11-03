@@ -3,12 +3,7 @@ import styled from "styled-components";
 
 import { Body1 } from "./Styles";
 
-const Empty = styled.td`
-  width: 0;
-  padding: 0;
-`;
-
-const Wrapper = styled.td`
+const Wrapper = styled.div`
   width: 50%;
   overflow-y: overlay;
   position: absolute;
@@ -34,7 +29,6 @@ const StyledBody1 = styled(Body1)`
 `;
 
 const DropdownItem = styled.div`
-  z-index: 999;
   width: 100%;
   &:hover {
     background-color: ${(props) => props.theme.colors.blueCrayola10};
@@ -51,7 +45,7 @@ const MappingDropdown: React.FC<Props> = (props) => {
   const { show, nusModules, onDropdownItemClickHandler } = props;
 
   if (!show) {
-    return <Empty />;
+    return null;
   }
 
   return (

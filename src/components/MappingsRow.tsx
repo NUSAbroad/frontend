@@ -247,20 +247,20 @@ const MappingsRow: React.FC<Props> = function (props) {
 
   return (
     <BodyRow onBlur={handleModuleCodeBlur}>
-      <MappingDropdown
-        show={showDropdown}
-        nusModules={nusModuleHits}
-        onDropdownItemClickHandler={onDropdownItemClickHandler}
-      />
-      <BodyCell $softBorder $width="5%">
+      <BodyCell $softBorder>
         <Input
           type="text"
           value={mapping.nusModuleFaculty}
           onChange={handleChange("nusModuleFaculty")}
           disabled={!isPlanner}
         />
+        <MappingDropdown
+          show={showDropdown}
+          nusModules={nusModuleHits}
+          onDropdownItemClickHandler={onDropdownItemClickHandler}
+        />
       </BodyCell>
-      <BodyCell $softBorder $width="10%">
+      <BodyCell $softBorder>
         <Input
           type="text"
           value={mapping.nusModuleCode}
@@ -268,7 +268,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $softBorder $width="30%">
+      <BodyCell $softBorder>
         <Input
           type="text"
           value={mapping.nusModuleName}
@@ -285,7 +285,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $softBorder $width="10%">
+      <BodyCell $softBorder>
         <Input
           type="text"
           value={mapping.partnerModuleCode}
@@ -301,7 +301,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $width="5%">
+      <BodyCell>
         <Input
           type="number"
           min="0"
@@ -311,7 +311,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $width="45px">
+      <BodyCell>
         <Button
           $color={color}
           $focusColor={focusColor}
