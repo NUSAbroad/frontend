@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import { steps } from "../../../constants/onboarding";
+import { useAppDispatch } from "../../../redux/hooks";
+import { hideOnboard } from "../../../redux/onboardSlice";
 
 const StyledButton = styled.button`
   position: absolute;
@@ -21,6 +23,16 @@ const StyledButton = styled.button`
     background: ${(props) => props.theme.colors.grey500};
     color: ${(props) => props.theme.colors.grey100};
   }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
+    top: 25px;
+    right: 25px;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.sm}) {
+    top: 20px;
+    right: 20px;
+  }
 `;
 
 interface Props {
@@ -29,11 +41,17 @@ interface Props {
 
 const SkipButton: React.FC<Props> = function (props) {
   const { currStep } = props;
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(hideOnboard());
+  };
 
   if (currStep === steps.length - 1) {
     return null;
   }
-  return <StyledButton>SKIP</StyledButton>;
+
+  return <StyledButton onClick={handleClick}>SKIP</StyledButton>;
 };
 
 export default SkipButton;

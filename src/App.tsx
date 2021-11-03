@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactGA from "react-ga";
 import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
@@ -14,6 +14,8 @@ import Planner from "./pages/Planner";
 import Resources from "./pages/Resources";
 import Universities from "./pages/Universities";
 import University from "./pages/University";
+import { useAppSelector } from "./redux/hooks";
+import { getIsVisible } from "./redux/onboardSlice";
 
 ReactGA.initialize("UA-209752856-1");
 
@@ -26,7 +28,17 @@ const Main = styled.main`
 `;
 
 const App: React.FC = () => {
+  const isOnboardVisible = useAppSelector(getIsVisible);
+
   useTrackPage();
+
+  useEffect(() => {
+    if (isOnboardVisible) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [isOnboardVisible]);
 
   return (
     <Router>

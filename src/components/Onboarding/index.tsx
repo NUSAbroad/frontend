@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useAppSelector } from "../../redux/hooks";
+import { getIsVisible } from "../../redux/onboardSlice";
 import Card from "./components/Card";
+import HelpButton from "./components/HelpButton";
 
 const Overlay = styled.div`
   position: fixed;
@@ -14,10 +17,17 @@ const Overlay = styled.div`
 `;
 
 const OnboardOverlay: React.FC = function () {
+  const isVisible = useAppSelector(getIsVisible);
+
   return (
-    <Overlay>
-      <Card />
-    </Overlay>
+    <>
+      <HelpButton />
+      {isVisible && (
+        <Overlay>
+          <Card />
+        </Overlay>
+      )}
+    </>
   );
 };
 

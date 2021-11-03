@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { Body1, Heading3 } from "../components/Styles";
 
 const StyledHeading3 = styled(Heading3)`
-  font-weight: 300;
+  margin-top: 0.6rem;
   color: ${(props) => props.theme.colors.babyPowder};
+  font-weight: 300;
 `;
 
 const StyledBody1 = styled(Body1)`
-  margin-top: 10px;
+  margin-top: 0.6rem;
   color: ${(props) => props.theme.colors.grey200};
   font-weight: 300;
 
@@ -43,6 +44,9 @@ export const steps: Step[] = [
         <StyledBody1>
           Applying for exchange? Let us help you make your application process{" "}
           <b>fast, easy and organised</b>.
+        </StyledBody1>
+        <StyledBody1>
+          Let&apos;s have a look at how NUSAbroad can help!
         </StyledBody1>
       </>
     ),

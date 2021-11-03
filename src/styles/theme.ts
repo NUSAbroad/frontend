@@ -2,6 +2,7 @@ export interface Theme {
   typeface: string;
 
   colors: {
+    black: string;
     bistre: string;
     bistre50: string;
     grey500: string;
@@ -41,6 +42,7 @@ export interface Theme {
 const theme: Theme = {
   typeface: "Space Grotesk, sans-serif",
   colors: {
+    black: "#333333",
     bistre: "#33261D",
     bistre50: "rgba(51, 38, 29, 0.5)",
     grey500: "#665C53",

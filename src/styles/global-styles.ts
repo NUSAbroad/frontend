@@ -49,6 +49,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${(props) => props.theme.typeface};
     appearance: none;
   }
+
+  button {
+    font-family: ${(props) => props.theme.typeface};
+  }
 `;
 
 export default GlobalStyle;
