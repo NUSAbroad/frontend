@@ -16,7 +16,7 @@ const StyledButton = styled(Button)`
   font-weight: 600;
   line-height: 33px;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
   cursor: pointer;
   z-index: 3;
 
