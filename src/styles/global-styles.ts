@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme.colors.floralWhite};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-y: auto;
+    overflow-y: overlay;
 
     #root {
       display: flex;
