@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 
 import FacultiesSection from "./FacultiesSection";
 import { Body1, Body2, Divider, Heading2, StyledLink } from "./Styles";
@@ -34,22 +34,36 @@ const UniInfo = styled.div`
 
 const StyledHeading2 = styled(Heading2)`
   margin-bottom: 5px;
+  font-weight: 500;
 `;
 
-const StyledBody2 = styled(Body2)`
-  margin-top: 20px;
-  color: ${(props) => props.theme.colors.grey400};
+const SearchTerm = styled.span`
+  font-weight: 700;
 `;
 
 interface Props {
   university: Types.University;
+  searchTerm: string;
 }
 
 const UniversityResult: React.FC<Props> = (props) => {
-  const { university } = props;
+  const { university, searchTerm } = props;
+  const theme = useTheme();
+
+  const foundInMappings = () => {
+    return university.foundIn?.includes("Module Mappings");
+  };
+
   return (
     <>
       <HeaderSection>
+        {foundInMappings() && searchTerm !== "" && (
+          <Body2 $color={theme.colors.grey400}>
+            Found mappings related to &quot;
+            <SearchTerm>{searchTerm}</SearchTerm>
+            &quot;
+          </Body2>
+        )}
         <StyledHeading2>
           <StyledLink to={`/universities/${university.slug}`}>
             {university.name}
@@ -67,11 +81,6 @@ const UniversityResult: React.FC<Props> = (props) => {
             <b>{university.mappingsCount}</b> Previous mappings
           </Body1>
           <FacultiesSection faculties={university.Faculties} />
-          {university.foundIn && (
-            <StyledBody2>
-              Found in: {university.foundIn?.join(", ")}
-            </StyledBody2>
-          )}
         </UniInfo>
         <UniversitySidebar
           semesters={university.Semesters}
