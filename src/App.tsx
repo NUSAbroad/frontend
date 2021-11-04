@@ -68,10 +68,6 @@ const App: React.FC = () => {
         <Route exact path="/about">
           <About />
         </Route>
-        {/* Testing route, delete later */}
-        <Route exact path="/test">
-          <ComponentsTest />
-        </Route>
         <ToastOverlay />
         <OnboardOverlay />
       </Main>
