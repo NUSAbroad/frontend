@@ -88,13 +88,24 @@ const UniversityResult: React.FC<Props> = (props) => {
     return tokens;
   };
 
+  const foundInMappings = () => {
+    return (
+      university.foundIn?.findIndex((term) => term === "Module Mappings") !== -1
+    );
+  };
+
+  console.log(university.foundIn);
+
   return (
     <>
       <HeaderSection>
-        <Body2>
-          Found mappings related to &quot;<SearchTerm>{searchTerm}</SearchTerm>
-          &quot;
-        </Body2>
+        {foundInMappings() && (
+          <Body2>
+            Found mappings related to &quot;
+            <SearchTerm>{searchTerm}</SearchTerm>
+            &quot;
+          </Body2>
+        )}
         <StyledHeading2>
           <StyledLink to={`/universities/${university.slug}`}>
             {tokenizeNames(university.name).map((token) => {
