@@ -16,6 +16,7 @@ import MappingDropdown from "./MappingDropdown";
 
 interface BodyCellProps {
   $softBorder?: boolean;
+  $isButton?: boolean;
   $width?: string;
   $minWidth?: string;
   $maxWidth?: string;
@@ -25,6 +26,12 @@ const BodyCell = styled.td<BodyCellProps>`
   ${(props) => props.$width && `width: ${props.$width};`}
   ${(props) => props.$minWidth && `min-width: ${props.$minWidth};`}
   ${(props) => props.$maxWidth && `max-width: ${props.$maxWidth};`}
+  ${(props) =>
+    props.$isButton &&
+    `
+    padding: 7px;
+    width: 24px;
+  `}
 
   &:not(:last-child) {
     border-right: 1px solid
@@ -86,7 +93,6 @@ const Button = styled.button<{ $color: string; $focusColor: string }>`
   border-radius: 100%;
   background: none;
   cursor: pointer;
-  margin: 0 auto;
 
   &:hover {
     background: ${(props) => props.$color};
@@ -112,12 +118,15 @@ interface Props {
 const MappingsRow: React.FC<Props> = function (props) {
   const { mapping, isPlanner, uni } = props;
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [isSelectAction, setIsSelectAction] = useState(false);
   const [nusModuleHits, setNusModuleHits] = useState([]);
   const firstModuleCodeUpdate = useRef(true);
   const firstModuleNameUpdate = useRef(true);
-  const dispatch = useAppDispatch();
+  const rowRef = useRef<HTMLTableRowElement | null>(null);
+
   const color = isPlanner ? theme.colors.orangeSoda : theme.colors.blueCrayola;
   const focusColor = isPlanner
     ? theme.colors.orangeSoda50
@@ -160,6 +169,16 @@ const MappingsRow: React.FC<Props> = function (props) {
       return () => (cancel("No longer last query"), clearTimeout(timeoutId));
     }
   }, [mapping.nusModuleName]);
+
+  // Hide dropdown on scroll
+  useEffect(() => {
+    const handleScroll: EventListener = () => {
+      setShowDropdown(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleClickButton = () => {
     if (isPlanner) {
@@ -246,19 +265,21 @@ const MappingsRow: React.FC<Props> = function (props) {
   };
 
   return (
-    <BodyRow onBlur={handleModuleCodeBlur}>
-      <BodyCell $softBorder>
+    <BodyRow onBlur={handleModuleCodeBlur} ref={rowRef}>
+      <BodyCell $softBorder $width="5%">
         <Input
           type="text"
           value={mapping.nusModuleFaculty}
           onChange={handleChange("nusModuleFaculty")}
           disabled={!isPlanner}
         />
-        <MappingDropdown
-          show={showDropdown}
-          nusModules={nusModuleHits}
-          onDropdownItemClickHandler={onDropdownItemClickHandler}
-        />
+        {showDropdown && (
+          <MappingDropdown
+            rowRef={rowRef}
+            nusModules={nusModuleHits}
+            onDropdownItemClickHandler={onDropdownItemClickHandler}
+          />
+        )}
       </BodyCell>
       <BodyCell $softBorder>
         <Input
@@ -268,7 +289,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $softBorder>
+      <BodyCell $softBorder $width="30%" $minWidth="240px">
         <Input
           type="text"
           value={mapping.nusModuleName}
@@ -293,7 +314,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell $softBorder>
+      <BodyCell $softBorder $width="30%" $minWidth="240px">
         <Input
           type="text"
           value={mapping.partnerModuleName}
@@ -301,7 +322,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell>
+      <BodyCell $width="5%">
         <Input
           type="number"
           min="0"
@@ -311,7 +332,7 @@ const MappingsRow: React.FC<Props> = function (props) {
           disabled={!isPlanner}
         />
       </BodyCell>
-      <BodyCell>
+      <BodyCell $isButton $maxWidth="46px">
         <Button
           $color={color}
           $focusColor={focusColor}

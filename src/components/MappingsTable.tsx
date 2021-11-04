@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch } from "../redux/hooks";
@@ -9,10 +9,10 @@ import { Body1 } from "./Styles";
 const Container = styled.div`
   margin: -5px;
   padding: 5px;
+  overflow-x: auto;
 `;
 
 const Table = styled.table`
-  table-layout: fixed;
   width: 100%;
   border-radius: 5px;
   background: ${(props) => props.theme.colors.babyPowder};
@@ -180,19 +180,11 @@ const MappingsTable: React.FC<Props> = function (props) {
   return (
     <Container>
       <Table cellSpacing="0">
-        <col style={{ width: "8%" }} />
-        <col style={{ width: "12%" }} />
-        <col style={{ width: "23%" }} />
-        <col style={{ width: "7%" }} />
-
-        <col style={{ width: "12%" }} />
-        <col style={{ width: "auto" }} />
-        <col style={{ width: "7%" }} />
-
-        <col style={{ width: "45px" }} />
         <thead>
           <HeaderRow $isCentered>
-            <HeaderCell colSpan={4}>NUS</HeaderCell>
+            <HeaderCell colSpan={4} id="nus-header">
+              NUS
+            </HeaderCell>
             <HeaderCell colSpan={3}>Partner University</HeaderCell>
             <HeaderCell colSpan={1} />
           </HeaderRow>
