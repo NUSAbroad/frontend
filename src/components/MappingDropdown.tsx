@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { Body1 } from "./Styles";
@@ -41,23 +41,38 @@ const StyledBody1 = styled(Body1)`
   padding: 10px;
 `;
 
-const DropdownItem = styled.div`
+const DropdownItem = styled.div<{ $index: number; $activeIndex: number }>`
   width: 100%;
+
   &:hover {
     background-color: ${(props) => props.theme.colors.blueCrayola10};
     cursor: pointer;
   }
+
+  ${(props) =>
+    props.$index === props.$activeIndex &&
+    `
+    background-color: ${props.theme.colors.blueCrayola10};
+  `}
 `;
 interface Props {
   nusModules: Types.NusModule[];
+  activeIndex: number;
   onDropdownItemClickHandler: (nusModule: Types.NusModule) => void;
   rowRef: React.MutableRefObject<HTMLTableRowElement | null>;
 }
 
 const MappingDropdown: React.FC<Props> = (props) => {
-  const { nusModules, onDropdownItemClickHandler, rowRef } = props;
+  const { nusModules, activeIndex, onDropdownItemClickHandler, rowRef } = props;
   const rect = rowRef.current?.getBoundingClientRect();
   const nusHeader = document.getElementById("nus-header");
+
+  useEffect(() => {
+    document.getElementById("active-option")?.scrollIntoView({
+      block: "nearest",
+      inline: "start",
+    });
+  }, [activeIndex]);
 
   return (
     <Outer>
@@ -74,6 +89,9 @@ const MappingDropdown: React.FC<Props> = (props) => {
           nusModules.map((nusModule, index) => (
             <DropdownItem
               key={index}
+              $index={index}
+              $activeIndex={activeIndex}
+              id={activeIndex == index ? "active-option" : undefined}
               onMouseDown={() => onDropdownItemClickHandler(nusModule)}
             >
               <StyledBody1>

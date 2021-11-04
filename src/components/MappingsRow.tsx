@@ -122,6 +122,7 @@ const MappingsRow: React.FC<Props> = function (props) {
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [isSelectAction, setIsSelectAction] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const [nusModuleHits, setNusModuleHits] = useState([]);
   const firstModuleCodeUpdate = useRef(true);
   const firstModuleNameUpdate = useRef(true);
@@ -247,10 +248,6 @@ const MappingsRow: React.FC<Props> = function (props) {
       });
   };
 
-  const handleModuleCodeBlur = () => {
-    setShowDropdown(false);
-  };
-
   const onDropdownItemClickHandler = (nusModule: Types.NusModule) => {
     setShowDropdown(false);
     setIsSelectAction(true);
@@ -264,8 +261,51 @@ const MappingsRow: React.FC<Props> = function (props) {
     dispatch(updateMapping({ uniId: uni.id, mapping: updatedMapping }));
   };
 
+  const getPrevIndex = () => {
+    if (activeIndex === -1) {
+      return 0;
+    }
+    if (activeIndex === 0) {
+      return nusModuleHits.length - 1;
+    }
+    return activeIndex - 1;
+  };
+
+  const getNextIndex = () => {
+    if (activeIndex === -1) {
+      return 0;
+    }
+    if (activeIndex === nusModuleHits.length - 1) {
+      return 0;
+    }
+    return activeIndex + 1;
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler = (e) => {
+    switch (e.key) {
+      case "ArrowUp":
+        e.preventDefault();
+        setActiveIndex(getPrevIndex());
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        setActiveIndex(getNextIndex());
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (activeIndex != -1) {
+          onDropdownItemClickHandler(nusModuleHits[activeIndex]);
+        }
+        break;
+    }
+  };
+
   return (
-    <BodyRow onBlur={handleModuleCodeBlur} ref={rowRef}>
+    <BodyRow
+      ref={rowRef}
+      onBlur={() => setShowDropdown(false)}
+      onKeyDown={handleKeyDown}
+    >
       <BodyCell $softBorder $width="5%">
         <Input
           type="text"
@@ -276,6 +316,7 @@ const MappingsRow: React.FC<Props> = function (props) {
         {showDropdown && (
           <MappingDropdown
             rowRef={rowRef}
+            activeIndex={activeIndex}
             nusModules={nusModuleHits}
             onDropdownItemClickHandler={onDropdownItemClickHandler}
           />
