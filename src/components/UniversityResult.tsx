@@ -39,6 +39,7 @@ const UniInfo = styled.div`
 
 const StyledHeading2 = styled(Heading2)`
   margin-bottom: 5px;
+  font-weight: 500;
 `;
 
 const StyledBody2 = styled(Body2)`
@@ -50,13 +51,43 @@ const SearchTerm = styled.span`
   font-weight: 900;
 `;
 
+const TitleSpan = styled.span<{ $underlined?: boolean; $weight?: number }>`
+  text-decoration: ${(props) => (props.$underlined ? "underline" : "none")};
+  font-weight: ${(props) =>
+    props.$underlined && props.$weight ? props.$weight : "inherit"};
+`;
+
 interface Props {
   university: Types.University;
   searchTerm: string;
 }
 
+interface Tokens {
+  token: string;
+  firstMatch: boolean;
+}
+
 const UniversityResult: React.FC<Props> = (props) => {
   const { university, searchTerm } = props;
+
+  const tokenizeNames = (name: string) => {
+    const toMatch = searchTerm.toUpperCase();
+    const tokens: Tokens[] = name.split(" ").map((term) => {
+      return {
+        token: term,
+        firstMatch: false,
+      };
+    });
+    const matchIndex = tokens.findIndex((token) => {
+      return token.token.toUpperCase().indexOf(toMatch) !== -1;
+    });
+    if (matchIndex !== -1 && toMatch !== "") {
+      tokens[matchIndex].firstMatch = true;
+    }
+
+    return tokens;
+  };
+
   return (
     <>
       <HeaderSection>
@@ -66,7 +97,17 @@ const UniversityResult: React.FC<Props> = (props) => {
         </Body2>
         <StyledHeading2>
           <StyledLink to={`/universities/${university.slug}`}>
-            {university.name}
+            {tokenizeNames(university.name).map((token) => {
+              return (
+                <TitleSpan
+                  key={token.token}
+                  $underlined={token.firstMatch}
+                  $weight={700}
+                >
+                  {token.token}&nbsp;
+                </TitleSpan>
+              );
+            })}
           </StyledLink>
         </StyledHeading2>
         <Body1>
