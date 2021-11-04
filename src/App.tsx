@@ -37,7 +37,7 @@ const App: React.FC = () => {
     if (isOnboardVisible) {
       document.body.style.overflowY = "hidden";
     } else {
-      document.body.style.overflowY = "auto";
+      document.body.style.overflowY = "overlay";
     }
   }, [isOnboardVisible]);
 
