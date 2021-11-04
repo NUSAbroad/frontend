@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 
 import FacultiesSection from "./FacultiesSection";
 import { Body1, Body2, Divider, Heading2, StyledLink } from "./Styles";
@@ -42,19 +42,8 @@ const StyledHeading2 = styled(Heading2)`
   font-weight: 500;
 `;
 
-const StyledBody2 = styled(Body2)`
-  margin-top: 20px;
-  color: ${(props) => props.theme.colors.grey400};
-`;
-
 const SearchTerm = styled.span`
-  font-weight: 900;
-`;
-
-const TitleSpan = styled.span<{ $underlined?: boolean; $weight?: number }>`
-  text-decoration: ${(props) => (props.$underlined ? "underline" : "none")};
-  font-weight: ${(props) =>
-    props.$underlined && props.$weight ? props.$weight : "inherit"};
+  font-weight: 700;
 `;
 
 interface Props {
@@ -62,43 +51,19 @@ interface Props {
   searchTerm: string;
 }
 
-interface Tokens {
-  token: string;
-  firstMatch: boolean;
-}
-
 const UniversityResult: React.FC<Props> = (props) => {
   const { university, searchTerm } = props;
-
-  const tokenizeNames = (name: string) => {
-    const toMatch = searchTerm.toUpperCase();
-    const tokens: Tokens[] = name.split(" ").map((term) => {
-      return {
-        token: term,
-        firstMatch: false,
-      };
-    });
-    const matchIndex = tokens.findIndex((token) => {
-      return token.token.toUpperCase().indexOf(toMatch) !== -1;
-    });
-    if (matchIndex !== -1 && toMatch !== "") {
-      tokens[matchIndex].firstMatch = true;
-    }
-
-    return tokens;
-  };
+  const theme = useTheme();
 
   const foundInMappings = () => {
-    return (
-      university.foundIn?.findIndex((term) => term === "Module Mappings") !== -1
-    );
+    return university.foundIn?.includes("Module Mappings");
   };
 
   return (
     <>
       <HeaderSection>
         {foundInMappings() && searchTerm !== "" && (
-          <Body2>
+          <Body2 $color={theme.colors.grey400}>
             Found mappings related to &quot;
             <SearchTerm>{searchTerm}</SearchTerm>
             &quot;
@@ -106,17 +71,7 @@ const UniversityResult: React.FC<Props> = (props) => {
         )}
         <StyledHeading2>
           <StyledLink to={`/universities/${university.slug}`}>
-            {tokenizeNames(university.name).map((token) => {
-              return (
-                <TitleSpan
-                  key={token.token}
-                  $underlined={token.firstMatch}
-                  $weight={700}
-                >
-                  {token.token}&nbsp;
-                </TitleSpan>
-              );
-            })}
+            {university.name}
           </StyledLink>
         </StyledHeading2>
         <Body1>
@@ -131,11 +86,6 @@ const UniversityResult: React.FC<Props> = (props) => {
             <b>{university.mappingsCount}</b> Previous mappings
           </Body1>
           <FacultiesSection faculties={university.Faculties} />
-          {university.foundIn && (
-            <StyledBody2>
-              Found in: {university.foundIn?.join(", ")}
-            </StyledBody2>
-          )}
         </UniInfo>
         <UniversitySidebar
           semesters={university.Semesters}
