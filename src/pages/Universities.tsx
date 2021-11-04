@@ -95,7 +95,7 @@ const FilterOverlay = styled.div`
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 99;
+  z-index: 4;
 
   @media (min-width: ${(props) => props.theme.breakPoints.md}) {
     display: none;
