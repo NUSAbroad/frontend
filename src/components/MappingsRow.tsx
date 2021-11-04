@@ -1,8 +1,10 @@
-import React from "react";
+import axios, { CancelToken } from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { useTheme } from "styled-components";
 
 import { ReactComponent as Cross } from "../assets/cross.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
+import { BACKEND_URL } from "../constants";
 import { useAppDispatch } from "../redux/hooks";
 import {
   addMapping,
@@ -10,6 +12,7 @@ import {
   updateMapping,
 } from "../redux/plannerSlice";
 import { setToast } from "../redux/toastSlice";
+import MappingDropdown from "./MappingDropdown";
 
 interface BodyCellProps {
   $softBorder?: boolean;
@@ -40,6 +43,7 @@ const BodyCell = styled.td<BodyCellProps>`
 `;
 
 const BodyRow = styled.tr`
+  position: relative;
   &:not(:last-child) {
     > ${BodyCell} {
       border-bottom: 1px solid ${(props) => props.theme.colors.grey300};
@@ -126,10 +130,67 @@ const MappingsRow: React.FC<Props> = function (props) {
   const { mapping, isPlanner, uni } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
+
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [isSelectAction, setIsSelectAction] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [nusModuleHits, setNusModuleHits] = useState([]);
+  const firstModuleCodeUpdate = useRef(true);
+  const firstModuleNameUpdate = useRef(true);
+  const rowRef = useRef<HTMLTableRowElement | null>(null);
+
   const color = isPlanner ? theme.colors.orangeSoda : theme.colors.blueCrayola;
   const focusColor = isPlanner
     ? theme.colors.orangeSoda50
     : theme.colors.blueCrayola50;
+
+  useEffect(() => {
+    if (firstModuleCodeUpdate.current) {
+      firstModuleCodeUpdate.current = false;
+      return;
+    }
+    if (isSelectAction) {
+      setIsSelectAction(false);
+      return;
+    }
+    if (mapping.nusModuleCode.length >= 2) {
+      const { cancel, token } = axios.CancelToken.source();
+      const timeoutId = setTimeout(
+        () => fetchModuleCodeHits(mapping.nusModuleCode, token),
+        200
+      );
+      return () => (cancel("No longer last query"), clearTimeout(timeoutId));
+    }
+  }, [mapping.nusModuleCode]);
+
+  useEffect(() => {
+    if (firstModuleNameUpdate.current) {
+      firstModuleNameUpdate.current = false;
+      return;
+    }
+    if (isSelectAction) {
+      setIsSelectAction(false);
+      return;
+    }
+    if (mapping.nusModuleName.length >= 2) {
+      const { cancel, token } = axios.CancelToken.source();
+      const timeoutId = setTimeout(
+        () => fetchModuleNameHits(mapping.nusModuleName, token),
+        200
+      );
+      return () => (cancel("No longer last query"), clearTimeout(timeoutId));
+    }
+  }, [mapping.nusModuleName]);
+
+  // Hide dropdown on scroll
+  useEffect(() => {
+    const handleScroll: EventListener = () => {
+      setShowDropdown(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleClickButton = () => {
     if (isPlanner) {
@@ -149,9 +210,16 @@ const MappingsRow: React.FC<Props> = function (props) {
 
   const handleChange =
     (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      if (field === "nusModuleCode" && value.length < 2) {
+        setShowDropdown(false);
+      }
+      if (field === "nusModuleName" && value.length < 2) {
+        setShowDropdown(false);
+      }
       const updatedMapping = {
         ...mapping,
-        [field]: e.target.value,
+        [field]: value,
       };
       dispatch(updateMapping({ uniId: uni.id, mapping: updatedMapping }));
     };
@@ -165,8 +233,90 @@ const MappingsRow: React.FC<Props> = function (props) {
       dispatch(updateMapping({ uniId: uni.id, mapping: updatedMapping }));
     };
 
+  const fetchModuleCodeHits = (query: string, token: CancelToken) => {
+    axios
+      .get(`${BACKEND_URL}/search/moduleCode/${query}`, { cancelToken: token })
+      .then((response) => {
+        setNusModuleHits(response.data);
+        setShowDropdown(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const fetchModuleNameHits = (query: string, token: CancelToken) => {
+    axios
+      .get(`${BACKEND_URL}/search/moduleName/${query}`, {
+        cancelToken: token,
+      })
+      .then((response) => {
+        setNusModuleHits(response.data);
+        setShowDropdown(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const onDropdownItemClickHandler = (nusModule: Types.NusModule) => {
+    setShowDropdown(false);
+    setIsSelectAction(true);
+    const updatedMapping = {
+      ...mapping,
+      nusModuleFaculty: nusModule.faculty,
+      nusModuleCode: nusModule.code,
+      nusModuleName: nusModule.name,
+      nusModuleCredits: nusModule.credits,
+    };
+    dispatch(updateMapping({ uniId: uni.id, mapping: updatedMapping }));
+  };
+
+  const getPrevIndex = () => {
+    if (activeIndex === -1) {
+      return 0;
+    }
+    if (activeIndex === 0) {
+      return nusModuleHits.length - 1;
+    }
+    return activeIndex - 1;
+  };
+
+  const getNextIndex = () => {
+    if (activeIndex === -1) {
+      return 0;
+    }
+    if (activeIndex === nusModuleHits.length - 1) {
+      return 0;
+    }
+    return activeIndex + 1;
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler = (e) => {
+    switch (e.key) {
+      case "ArrowUp":
+        e.preventDefault();
+        setActiveIndex(getPrevIndex());
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        setActiveIndex(getNextIndex());
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (activeIndex != -1) {
+          onDropdownItemClickHandler(nusModuleHits[activeIndex]);
+        }
+        break;
+    }
+  };
+
   return (
-    <BodyRow>
+    <BodyRow
+      ref={rowRef}
+      onBlur={() => setShowDropdown(false)}
+      onKeyDown={handleKeyDown}
+    >
       <BodyCell $softBorder $width="5%">
         <Input
           type="text"
@@ -174,6 +324,14 @@ const MappingsRow: React.FC<Props> = function (props) {
           onChange={handleChange("nusModuleFaculty")}
           disabled={!isPlanner}
         />
+        {showDropdown && (
+          <MappingDropdown
+            rowRef={rowRef}
+            activeIndex={activeIndex}
+            nusModules={nusModuleHits}
+            onDropdownItemClickHandler={onDropdownItemClickHandler}
+          />
+        )}
       </BodyCell>
       <BodyCell $softBorder>
         <Input

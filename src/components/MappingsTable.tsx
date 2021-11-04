@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch } from "../redux/hooks";
@@ -182,9 +182,11 @@ const MappingsTable: React.FC<Props> = function (props) {
       <Table cellSpacing="0">
         <thead>
           <HeaderRow $isCentered>
-            <HeaderCell colSpan={4}>NUS</HeaderCell>
+            <HeaderCell colSpan={4} id="nus-header">
+              NUS
+            </HeaderCell>
             <HeaderCell colSpan={3}>Partner University</HeaderCell>
-            <HeaderCell />
+            <HeaderCell colSpan={1} />
           </HeaderRow>
           <HeaderRow $isSmall>
             <HeaderCell $softBorder>Faculty</HeaderCell>
