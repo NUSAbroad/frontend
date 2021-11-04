@@ -15,7 +15,7 @@ const StyledBody2 = styled(Body2)`
 const TagContainer = styled.div`
   padding: 0 15px;
   border: 1px solid ${(props) => props.theme.colors.bistre};
-  border-radius: 35px;
+  border-radius: 1rem;
   line-height: 2rem;
 `;
 
@@ -35,7 +35,14 @@ const FacultiesSection: React.FC<Props> = (props) => {
   const { className, faculties } = props;
 
   if (faculties.length === 0) {
-    return null;
+    return (
+      <Container className={className}>
+        <Subheading>No faculties specified</Subheading>
+        <StyledBody2>
+          More information can be found in the GRO infosheet
+        </StyledBody2>
+      </Container>
+    );
   }
 
   let heading;
@@ -46,7 +53,7 @@ const FacultiesSection: React.FC<Props> = (props) => {
     subheading = "These faculties are accepting exchange students";
   } else {
     heading = "NUS Faculties";
-    subheading = "Suitable for stuents from these faculties";
+    subheading = "Suitable for students from these faculties";
   }
 
   return (

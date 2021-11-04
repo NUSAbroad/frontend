@@ -11,12 +11,15 @@ const HeaderSection = styled.div`
 
 const InfoSection = styled.div`
   display: flex;
-  flex-wrap: wrap;
   gap: 30px;
   margin-top: 20px;
 
   &:not(:last-child) {
     margin-bottom: 50px;
+  }
+
+  @media (max-width: ${(props) => props.theme.breakPoints.lg}) {
+    flex-direction: column;
   }
 `;
 
@@ -25,14 +28,6 @@ const UniInfo = styled.div`
   padding: 0;
 
   @media (max-width: ${(props) => props.theme.breakPoints.lg}) {
-    width: 100%;
-  }
-
-  @media (max-width: ${(props) => props.theme.breakPoints.md}) {
-    width: calc(100% - 270px);
-  }
-
-  @media (max-width: 576px) {
     width: 100%;
   }
 `;

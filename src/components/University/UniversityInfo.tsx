@@ -157,7 +157,11 @@ const UniversityInfo: React.FC<Props> = function (props) {
             </Body2>
           </Notice>
         </Main>
-        <UniversitySidebar semesters={uni.Semesters} links={uni.Links} />
+        <UniversitySidebar
+          semesters={uni.Semesters}
+          links={uni.Links}
+          isUniPage
+        />
       </InfoSection>
     </>
   );
