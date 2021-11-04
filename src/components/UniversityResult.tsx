@@ -46,15 +46,24 @@ const StyledBody2 = styled(Body2)`
   color: ${(props) => props.theme.colors.grey400};
 `;
 
+const SearchTerm = styled.span`
+  font-weight: 900;
+`;
+
 interface Props {
   university: Types.University;
+  searchTerm: string;
 }
 
 const UniversityResult: React.FC<Props> = (props) => {
-  const { university } = props;
+  const { university, searchTerm } = props;
   return (
     <>
       <HeaderSection>
+        <Body2>
+          Found mappings related to &quot;<SearchTerm>{searchTerm}</SearchTerm>
+          &quot;
+        </Body2>
         <StyledHeading2>
           <StyledLink to={`/universities/${university.slug}`}>
             {university.name}

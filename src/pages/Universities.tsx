@@ -69,6 +69,7 @@ const FilterButton = styled.button`
 
 const SearchResultCounter = styled(Body2)`
   text-align: right;
+  font-weight: 500;
 `;
 
 const Results = styled.div<{ $isLoading: boolean }>`
@@ -247,7 +248,11 @@ const Universities: React.FC = () => {
               {filteredResults
                 .slice(0, loadQuantity)
                 .map((university, index) => (
-                  <UniversityResult key={index} university={university} />
+                  <UniversityResult
+                    key={index}
+                    university={university}
+                    searchTerm={query}
+                  />
                 ))}
             </Results>
             {loadQuantity < filteredResults.length && (
