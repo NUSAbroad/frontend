@@ -69,7 +69,7 @@ const About: React.FC = function () {
         </li>
         <li>
           <StyledBody1>
-            <b>Compare univerisites</b> side-by-side on the same page with the{" "}
+            <b>Compare universities</b> side-by-side on the same page with the{" "}
             <StyledLink to="/planner">built-in planner</StyledLink>.
           </StyledBody1>
         </li>
