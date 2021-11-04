@@ -94,12 +94,10 @@ const UniversityResult: React.FC<Props> = (props) => {
     );
   };
 
-  console.log(university.foundIn);
-
   return (
     <>
       <HeaderSection>
-        {foundInMappings() && (
+        {foundInMappings() && searchTerm !== "" && (
           <Body2>
             Found mappings related to &quot;
             <SearchTerm>{searchTerm}</SearchTerm>
