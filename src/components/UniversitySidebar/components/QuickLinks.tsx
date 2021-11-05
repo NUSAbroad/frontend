@@ -5,7 +5,10 @@ import { StyledLink, Subheading } from "../../Styles";
 
 const MarginSubheading = styled(Subheading)`
   margin-bottom: 5px;
-  margin-top: 20px;
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
 `;
 
 const QuickLink = styled(StyledLink)`

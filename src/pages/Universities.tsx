@@ -136,8 +136,9 @@ const LoadMore = styled(Button)`
 const StickyWrapper = styled.div<{ $padding: number }>`
   position: sticky;
   top: 50px;
-  background: ${(props) => props.theme.colors.floralWhite};
   padding-top: ${(props) => `${props.$padding}px`};
+  background: ${(props) => props.theme.colors.floralWhite};
+  z-index: 2;
 
   @media (max-width: ${(props) => props.theme.breakPoints.md}) {
     top: 80px;
