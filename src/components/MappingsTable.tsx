@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch } from "../redux/hooks";
@@ -86,20 +86,42 @@ const AddButton = styled.button`
 `;
 
 const PaginationWrapper = styled.div`
-  color: ${(props) => props.theme.colors.blueCrayola};
   display: flex;
-  padding: 5px 10px 10px 10px;
-  justify-content: flex-end;
+  justify-content: space-between;
+  padding: 5px 0 10px;
+  gap: 1rem;
+  color: ${(props) => props.theme.colors.blueCrayola};
 `;
 
-const Pagination = styled.span<{ $selected?: boolean }>`
-  margin-left: 10px;
-  text-decoration: ${(props) => props.$selected && "underline"};
+const Pagination = styled.button<{ $selected?: boolean }>`
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: ${(props) => props.theme.fontSizes.md};
+  color: ${(props) => props.theme.colors.blueCrayola};
+  ${(props) =>
+    props.$selected &&
+    `
+    font-weight: 700;
+    text-decoration: underline;
+  `}
 
   &:hover {
     cursor: pointer;
     text-decoration: underline;
   }
+
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+`;
+
+const Pages = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px 10px;
 `;
 
 const StyledBody1 = styled(Body1)`
@@ -178,57 +200,62 @@ const MappingsTable: React.FC<Props> = function (props) {
   };
 
   return (
-    <Container>
-      <Table cellSpacing="0">
-        <thead>
-          <HeaderRow $isCentered>
-            <HeaderCell colSpan={4} id="nus-header">
-              NUS
-            </HeaderCell>
-            <HeaderCell colSpan={3}>Partner University</HeaderCell>
-            <HeaderCell colSpan={1} />
-          </HeaderRow>
-          <HeaderRow $isSmall>
-            <HeaderCell $softBorder>Faculty</HeaderCell>
-            <HeaderCell $softBorder>Module Code</HeaderCell>
-            <HeaderCell $softBorder>Module Name</HeaderCell>
-            <HeaderCell>Credits</HeaderCell>
-            <HeaderCell $softBorder>Module Code</HeaderCell>
-            <HeaderCell $softBorder>Module Name</HeaderCell>
-            <HeaderCell>Credits</HeaderCell>
-            <HeaderCell />
-          </HeaderRow>
-        </thead>
-        <tbody>
-          {isPlanner ? generateMappings() : generatePaginatedMappings()}
-          {isPlanner && (
-            <tr>
-              <ButtonCell colSpan={8}>
-                <AddButton onClick={handleAddClick}>+ Add mapping</AddButton>
-              </ButtonCell>
-            </tr>
-          )}
-          {!isPlanner && mappings.length === 0 && (
-            <tr>
-              <ButtonCell colSpan={8}>
-                <StyledBody1>No mappings available</StyledBody1>
-              </ButtonCell>
-            </tr>
-          )}
-        </tbody>
-      </Table>
+    <>
+      <Container>
+        <Table cellSpacing="0">
+          <thead>
+            <HeaderRow $isCentered>
+              <HeaderCell colSpan={4} id="nus-header">
+                NUS
+              </HeaderCell>
+              <HeaderCell colSpan={3}>Partner University</HeaderCell>
+              <HeaderCell colSpan={1} />
+            </HeaderRow>
+            <HeaderRow $isSmall>
+              <HeaderCell $softBorder>Faculty</HeaderCell>
+              <HeaderCell $softBorder>Module Code</HeaderCell>
+              <HeaderCell $softBorder>Module Name</HeaderCell>
+              <HeaderCell>Credits</HeaderCell>
+              <HeaderCell $softBorder>Module Code</HeaderCell>
+              <HeaderCell $softBorder>Module Name</HeaderCell>
+              <HeaderCell>Credits</HeaderCell>
+              <HeaderCell />
+            </HeaderRow>
+          </thead>
+          <tbody>
+            {isPlanner ? generateMappings() : generatePaginatedMappings()}
+            {isPlanner && (
+              <tr>
+                <ButtonCell colSpan={8}>
+                  <AddButton onClick={handleAddClick}>+ Add mapping</AddButton>
+                </ButtonCell>
+              </tr>
+            )}
+            {!isPlanner && mappings.length === 0 && (
+              <tr>
+                <ButtonCell colSpan={8}>
+                  <StyledBody1>No mappings available</StyledBody1>
+                </ButtonCell>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      </Container>
       {!isPlanner && totalPageCount > 1 && (
         <PaginationWrapper>
-          {page !== 1 && (
-            <Pagination onClick={onPreviousPageClick}>Previous</Pagination>
-          )}
-          {generatePaginations()}
-          {page !== totalPageCount && (
-            <Pagination onClick={onNextPageClick}>Next</Pagination>
-          )}
+          <Pagination onClick={onPreviousPageClick} disabled={page === 1}>
+            Previous
+          </Pagination>
+          <Pages>{generatePaginations()}</Pages>
+          <Pagination
+            onClick={onNextPageClick}
+            disabled={page === totalPageCount}
+          >
+            Next
+          </Pagination>
         </PaginationWrapper>
       )}
-    </Container>
+    </>
   );
 };
 

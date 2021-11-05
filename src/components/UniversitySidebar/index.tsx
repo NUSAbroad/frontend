@@ -36,7 +36,7 @@ const UniversitySidebar: React.FC<Props> = (props) => {
 
   return (
     <Wrapper $isUniPage={isUniPage}>
-      <Semesters semesters={semesters} />
+      {semesters.length > 0 && <Semesters semesters={semesters} />}
       <QuickLinks links={links} />
     </Wrapper>
   );
