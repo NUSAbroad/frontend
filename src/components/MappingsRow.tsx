@@ -144,6 +144,7 @@ const MappingsRow: React.FC<Props> = function (props) {
     ? theme.colors.orangeSoda50
     : theme.colors.blueCrayola50;
 
+  // Trigger search by module code
   useEffect(() => {
     if (firstModuleCodeUpdate.current) {
       firstModuleCodeUpdate.current = false;
@@ -163,6 +164,7 @@ const MappingsRow: React.FC<Props> = function (props) {
     }
   }, [mapping.nusModuleCode]);
 
+  // Trigger search by module name
   useEffect(() => {
     if (firstModuleNameUpdate.current) {
       firstModuleNameUpdate.current = false;
@@ -236,9 +238,12 @@ const MappingsRow: React.FC<Props> = function (props) {
   const fetchModuleCodeHits = (query: string, token: CancelToken) => {
     axios
       .get(`${BACKEND_URL}/search/moduleCode/${query}`, { cancelToken: token })
-      .then((response) => {
+      .then((response: { data: [] }) => {
         setNusModuleHits(response.data);
         setShowDropdown(true);
+        if (response.data.length < activeIndex) {
+          setActiveIndex(0);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -250,9 +255,12 @@ const MappingsRow: React.FC<Props> = function (props) {
       .get(`${BACKEND_URL}/search/moduleName/${query}`, {
         cancelToken: token,
       })
-      .then((response) => {
+      .then((response: { data: [] }) => {
         setNusModuleHits(response.data);
         setShowDropdown(true);
+        if (response.data.length < activeIndex) {
+          setActiveIndex(0);
+        }
       })
       .catch((err) => {
         console.error(err);

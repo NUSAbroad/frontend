@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     @media (max-width: ${(props) => props.theme.breakPoints.sm}) {
-      font-size: 14px;
+      font-size: 15px;
     }
   }
 
