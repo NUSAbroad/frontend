@@ -102,7 +102,9 @@ const PlannerSearchBar: React.FC = () => {
         break;
       case "Enter":
         e.preventDefault();
-        dispatch(addUni(dropdownUnis[activeIndex]));
+        if (activeIndex !== -1) {
+          dispatch(addUni(dropdownUnis[activeIndex]));
+        }
         break;
     }
   };
