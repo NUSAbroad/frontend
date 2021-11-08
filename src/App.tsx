@@ -37,7 +37,7 @@ const App: React.FC = () => {
     if (isOnboardVisible) {
       document.body.style.overflowY = "hidden";
     } else {
-      document.body.style.overflowY = "auto";
+      document.body.style.overflowY = "overlay";
     }
   }, [isOnboardVisible]);
 
@@ -67,10 +67,6 @@ const App: React.FC = () => {
         </Route>
         <Route exact path="/about">
           <About />
-        </Route>
-        {/* Testing route, delete later */}
-        <Route exact path="/test">
-          <ComponentsTest />
         </Route>
         <ToastOverlay />
         <OnboardOverlay />
