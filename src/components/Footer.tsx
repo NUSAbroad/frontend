@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { ReactComponent as Logo } from "../assets/logo-horizontal.svg";
@@ -65,13 +64,11 @@ const Heading = styled(Body1)`
   margin-bottom: 0.5rem;
 `;
 
-const FooterLink = styled(Link)`
+const FooterLink = styled(StyledLink)`
   color: ${(props) => props.theme.colors.bistre};
-  text-decoration: none;
 
   &:hover {
     color: ${(props) => props.theme.colors.blueCrayola};
-    text-decoration: underline;
   }
 `;
 

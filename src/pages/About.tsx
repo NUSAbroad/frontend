@@ -45,7 +45,7 @@ const About: React.FC = function () {
           <StyledBody1>
             Get a <b>quick overview</b> of{" "}
             <StyledLink to="/universities">
-              all 189 partner universities
+              all 199 partner universities
             </StyledLink>
             , with information such as past approved mappings, semester
             schedule, estimated costs, minimum CAP and quick links to related

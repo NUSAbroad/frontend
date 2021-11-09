@@ -73,6 +73,7 @@ const StyledArrow = styled(Arrow)<{ $isLeft?: boolean }>`
 
   path {
     stroke: ${(props) => props.theme.colors.grey200};
+    transition: stroke 0.2s ease-out;
   }
 
   &:hover {

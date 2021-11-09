@@ -3,7 +3,7 @@ import styled, { useTheme } from "styled-components";
 
 import { ReactComponent as Search } from "../assets/search.svg";
 import { FEEDBACK_FORM_URL, RESULTS_PER_PAGE } from "../constants";
-import { Body1, Button, Heading3, StyledLink, Subheading } from "./Styles";
+import { Body1, Button, Heading3, StyledLink } from "./Styles";
 import UniversityResult from "./UniversityResult";
 
 const Wrapper = styled.div<{ $isLoading: boolean }>`

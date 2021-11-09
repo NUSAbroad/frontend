@@ -52,6 +52,7 @@ const University: React.FC<Props> = function (props) {
         </Heading2>
         <Button
           $color={theme.colors.orangeSoda}
+          $focusColor={theme.colors.orangeSoda50}
           onClick={handleRemoveFromPlanner}
         >
           Remove

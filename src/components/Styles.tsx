@@ -60,6 +60,7 @@ export const Divider = styled.hr`
 export const LinkStyles = css`
   color: ${(props) => props.theme.colors.blueCrayola};
   text-decoration: none;
+  transition: color 0.2s ease-out;
 
   &:hover {
     text-decoration: underline;
@@ -92,6 +93,9 @@ export const Button = styled.button<{ $color?: string; $focusColor?: string }>`
   text-align: center;
   white-space: nowrap;
   cursor: pointer;
+  transition-property: box-shadow, color, background;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 
   &:hover {
     background: ${(props) => props.$color ?? props.theme.colors.blueCrayola};

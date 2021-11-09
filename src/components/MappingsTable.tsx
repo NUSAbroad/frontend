@@ -74,6 +74,9 @@ const AddButton = styled.button`
   font-size: ${(props) => props.theme.fontSizes.md};
   text-align: left;
   cursor: pointer;
+  transition-property: box-shadow, background;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 
   &:hover {
     background: ${(props) => props.theme.colors.grey200};
