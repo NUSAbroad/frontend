@@ -33,14 +33,20 @@ const Button = styled.button`
   border: 0;
   border-radius: 3px;
   background: none;
+  cursor: pointer;
+  transition-property: box-shadow, background;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 
   &:hover {
     background: ${(props) => props.theme.colors.orangeSoda};
-    cursor: pointer;
 
     svg path {
       stroke: ${(props) => props.theme.colors.floralWhite};
       stroke-width: 1.5px;
+      transition-property: stroke, stroke-width;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-out;
     }
   }
 

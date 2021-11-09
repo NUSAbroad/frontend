@@ -18,6 +18,9 @@ const StyledButton = styled.button`
   font-size: ${(props) => props.theme.fontSizes.sm};
   letter-spacing: 0.05em;
   cursor: pointer;
+  transition-property: background, color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 
   &:hover {
     background: ${(props) => props.theme.colors.grey500};

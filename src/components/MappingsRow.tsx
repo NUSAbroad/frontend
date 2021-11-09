@@ -76,6 +76,7 @@ const Input = styled.input`
   background: none;
   font-size: ${(props) => props.theme.fontSizes.md};
   color: ${(props) => props.theme.colors.bistre};
+  transition: box-shadow 0.2s ease-out;
 
   &:focus {
     outline: 0;
@@ -104,6 +105,9 @@ const Button = styled.button<{ $color: string; $focusColor: string }>`
   border-radius: 100%;
   background: none;
   cursor: pointer;
+  transition-property: box-shadow, background;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 
   &:hover {
     background: ${(props) => props.$color};
@@ -111,6 +115,9 @@ const Button = styled.button<{ $color: string; $focusColor: string }>`
     svg path {
       stroke: ${(props) => props.theme.colors.babyPowder};
       stroke-width: 2px;
+      transition-property: stroke, stroke-width;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-out;
     }
   }
 

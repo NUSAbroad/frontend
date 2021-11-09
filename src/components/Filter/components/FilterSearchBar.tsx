@@ -44,6 +44,9 @@ const SearchBarInput = styled.input.attrs({ type: "text" })`
   color: ${(props) => props.theme.colors.bistre};
   font-weight: 400;
   font-size: ${(props) => props.theme.fontSizes.sm};
+  transition-property: box-shadow, border;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 
   &::placeholder {
     color: ${(props) => props.theme.colors.grey400};
