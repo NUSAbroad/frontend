@@ -59,9 +59,9 @@ const UniversityResult: React.FC<Props> = (props) => {
       <HeaderSection>
         {foundInMappings() && searchTerm !== "" && (
           <Body2 $color={theme.colors.grey400}>
-            Found mappings related to &quot;
+            Found mappings related to &ldquo;
             <SearchTerm>{searchTerm}</SearchTerm>
-            &quot;
+            &rdquo;
           </Body2>
         )}
         <StyledHeading2>

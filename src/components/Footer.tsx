@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { ReactComponent as Logo } from "../assets/logo-horizontal.svg";
+import { FEEDBACK_FORM_URL } from "../constants";
 import { Body1, Body2, StyledLink } from "./Styles";
 
 const Container = styled.footer`
@@ -87,7 +88,7 @@ const Footer: React.FC = function () {
             <Body1>
               Have feedback?{" "}
               <StyledLink
-                to={{ pathname: "https://bit.ly/nusabroad" }}
+                to={{ pathname: FEEDBACK_FORM_URL }}
                 target="_blank"
                 rel="noopener noreferrer"
               >

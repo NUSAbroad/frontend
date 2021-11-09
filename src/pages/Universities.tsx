@@ -6,16 +6,9 @@ import { ReactComponent as Cross } from "../assets/x.svg";
 import Filter from "../components/Filter";
 import SearchBar from "../components/SearchBar";
 import SEO from "../components/SEO";
-import Spinner from "../components/Spinner";
-import {
-  Body2,
-  Button,
-  Divider,
-  Heading3,
-  Subheading,
-} from "../components/Styles";
-import UniversityResult from "../components/UniversityResult";
-import { BACKEND_URL } from "../constants";
+import { Body2, Divider, Heading3, Subheading } from "../components/Styles";
+import UniversityResults from "../components/UniversityResults";
+import { BACKEND_URL, RESULTS_PER_PAGE } from "../constants";
 
 const Wrapper = styled.div`
   position: relative;
@@ -69,16 +62,6 @@ const FilterButton = styled.button`
 
 const SearchResultCounter = styled(Body2)`
   text-align: right;
-  font-weight: 500;
-`;
-
-const Results = styled.div<{ $isLoading: boolean }>`
-  ${(props) =>
-    props.$isLoading &&
-    `
-    opacity: 50%;
-    pointer-events: none;
-  `}
 `;
 
 const StyledHeading3 = styled(Heading3)`
@@ -128,11 +111,6 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const LoadMore = styled(Button)`
-  width: 100%;
-  margin-top: 50px;
-`;
-
 const StickyWrapper = styled.div<{ $padding: number }>`
   position: sticky;
   top: 50px;
@@ -146,7 +124,6 @@ const StickyWrapper = styled.div<{ $padding: number }>`
 `;
 
 const Universities: React.FC = () => {
-  const threshold = 20;
   const theme = useTheme();
   const [filters, setFilters] = useState<Types.Country[]>([]);
   const [results, setResults] = useState<Types.University[]>([]);
@@ -156,7 +133,7 @@ const Universities: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [query, setQuery] = useState<string>("");
   const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
-  const [loadQuantity, setLoadQuantity] = useState<number>(threshold);
+  const [loadQuantity, setLoadQuantity] = useState<number>(RESULTS_PER_PAGE);
   const [stickyPadding, setStickyPadding] = useState<number>(0);
 
   useEffect(() => {
@@ -167,7 +144,7 @@ const Universities: React.FC = () => {
 
   useEffect(() => {
     filterResults();
-    setLoadQuantity(threshold);
+    setLoadQuantity(RESULTS_PER_PAGE);
   }, [results, filters]);
 
   useEffect(() => {
@@ -232,7 +209,7 @@ const Universities: React.FC = () => {
             <FilterButton onClick={() => setIsFilterVisible(true)}>
               Filter
             </FilterButton>
-            <SearchResultCounter $color={theme.colors.grey400}>
+            <SearchResultCounter $color={theme.colors.grey500}>
               &nbsp;
               {!filteredResults || isLoading
                 ? ""
@@ -241,30 +218,13 @@ const Universities: React.FC = () => {
           </SearchHelpers>
           <Divider style={{ marginBottom: "30px" }} />
         </StickyWrapper>
-        {!filteredResults ? (
-          <Spinner />
-        ) : (
-          <>
-            <Results $isLoading={isLoading}>
-              {filteredResults
-                .slice(0, loadQuantity)
-                .map((university, index) => (
-                  <UniversityResult
-                    key={index}
-                    university={university}
-                    searchTerm={query}
-                  />
-                ))}
-            </Results>
-            {loadQuantity < filteredResults.length && (
-              <LoadMore
-                onClick={() => setLoadQuantity(loadQuantity + threshold)}
-              >
-                Load More
-              </LoadMore>
-            )}
-          </>
-        )}
+        <UniversityResults
+          results={filteredResults}
+          isLoading={isLoading}
+          query={query}
+          loadQuantity={loadQuantity}
+          setLoadQuantity={setLoadQuantity}
+        />
       </UnisSection>
       <FilterSection>
         <StyledHeading3 $color={theme.colors.grey400}>Filter by</StyledHeading3>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import SEO from "../components/SEO";
 import { Body1, Heading1, Heading2, StyledLink } from "../components/Styles";
+import { FEEDBACK_FORM_URL } from "../constants";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -80,7 +81,7 @@ const About: React.FC = function () {
         application, and we would love to hear your feedback! Found a bug or
         have suggestions? Let us know{" "}
         <StyledLink
-          to={{ pathname: "https://bit.ly/nusabroad" }}
+          to={{ pathname: FEEDBACK_FORM_URL }}
           target="_blank"
           rel="noopener noreferrer"
         >
