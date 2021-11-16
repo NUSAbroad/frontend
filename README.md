@@ -1,5 +1,5 @@
 <p align="center">
-  <img align="center" src="./src/assets/logo.svg" />
+  <img align="center" src="./public/og.png" />
 </p>
 
 # NUSAbroad
