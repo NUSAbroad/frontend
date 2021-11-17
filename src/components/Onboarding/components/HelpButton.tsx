@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { useAppDispatch } from "../../../redux/hooks";
 import { showOnboard } from "../../../redux/onboardSlice";
+import analytics from "../../../utils/analytics";
 import { Button } from "../../Styles";
 
 const StyledButton = styled(Button)`
@@ -32,6 +33,10 @@ const HelpButton: React.FC = function () {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
+    analytics.sendEvent({
+      category: "Help",
+      action: "Clicked on Help Button",
+    });
     dispatch(showOnboard());
   };
 

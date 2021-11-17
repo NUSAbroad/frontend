@@ -12,6 +12,7 @@ import {
   updateMapping,
 } from "../redux/plannerSlice";
 import { setToast } from "../redux/toastSlice";
+import analytics from "../utils/analytics";
 import MappingDropdown from "./MappingDropdown";
 
 interface BodyCellProps {
@@ -203,6 +204,10 @@ const MappingsRow: React.FC<Props> = function (props) {
 
   const handleClickButton = () => {
     if (isPlanner) {
+      analytics.sendEvent({
+        category: "Planner",
+        action: "Removed module mapping from planner",
+      });
       dispatch(removeMapping({ uniId: uni.id, mapping }));
       dispatch(
         setToast({
@@ -212,6 +217,10 @@ const MappingsRow: React.FC<Props> = function (props) {
         })
       );
     } else {
+      analytics.sendEvent({
+        category: "University",
+        action: "Added module mapping to planner",
+      });
       dispatch(addMapping({ uni, mapping }));
       dispatch(setToast({ message: "Mapping added to planner" }));
     }

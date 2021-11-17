@@ -4,6 +4,7 @@ import styled, { useTheme } from "styled-components";
 import { useAppDispatch } from "../../../redux/hooks";
 import { removeUni } from "../../../redux/plannerSlice";
 import { setToast } from "../../../redux/toastSlice";
+import analytics from "../../../utils/analytics";
 import { countMCs } from "../../../utils/countMCs";
 import MappingsTable from "../../MappingsTable";
 import { Body1, Button, Heading2, StyledLink } from "../../Styles";
@@ -34,6 +35,11 @@ const University: React.FC<Props> = function (props) {
   const dispatch = useAppDispatch();
 
   const handleRemoveFromPlanner = () => {
+    analytics.sendEvent({
+      category: "Planner",
+      action: "Removed university from planner",
+      label: "Mappings View",
+    });
     dispatch(removeUni(uni));
     dispatch(
       setToast({

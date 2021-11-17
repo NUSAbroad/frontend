@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { BACKEND_URL } from "../../../constants";
 import { useAppDispatch } from "../../../redux/hooks";
 import { addUni } from "../../../redux/plannerSlice";
+import analytics from "../../../utils/analytics";
 import PlannerDropdown from "./PlannerDropdown";
 
 const Container = styled.div`
@@ -106,6 +107,11 @@ const PlannerSearchBar: React.FC = () => {
       case "Enter":
         e.preventDefault();
         if (activeIndex !== -1) {
+          analytics.sendEvent({
+            category: "Planner",
+            action: "Added university to planner",
+            label: "Planner Sidebar",
+          });
           dispatch(addUni(dropdownUnis[activeIndex]));
         }
         break;
