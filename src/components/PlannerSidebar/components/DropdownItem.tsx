@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { useAppDispatch } from "../../../redux/hooks";
 import { addUni } from "../../../redux/plannerSlice";
+import analytics from "../../../utils/analytics";
 import { Body2 } from "../../Styles";
 
 const Item = styled(Body2)<{ $active: boolean }>`
@@ -34,6 +35,11 @@ const DropdownItem: React.FC<Props> = function (props) {
   const active = activeIndex === index;
 
   const handleClick = () => {
+    analytics.sendEvent({
+      category: "Planner",
+      action: "Added university to planner",
+      label: "Planner Sidebar",
+    });
     dispatch(addUni(uni));
   };
 

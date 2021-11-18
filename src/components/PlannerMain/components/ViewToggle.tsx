@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import { View } from "../../../constants/plannerViews";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setView } from "../../../redux/plannerSlice";
+import analytics from "../../../utils/analytics";
 import { Button } from "../../Styles";
 
 const Buttons = styled.div`
@@ -46,6 +47,11 @@ const ViewToggle: React.FC<Props> = function (props) {
     if (view == currView) {
       return;
     }
+    analytics.sendEvent({
+      category: "Planner",
+      action: `Toggled planner view`,
+      label: view,
+    });
     dispatch(setView(view));
   };
 

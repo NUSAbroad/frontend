@@ -1,8 +1,21 @@
 import { useEffect } from "react";
-import ReactGA from "react-ga";
+import { useLocation } from "react-router";
 
-export const useTrackPage = (): void => {
+import analytics from "../utils/analytics";
+
+const useGoogleAnalytics = () => {
+  const location = useLocation();
+
+  // Initialise once
   useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    analytics.init();
   }, []);
+
+  // Update when location changes
+  useEffect(() => {
+    const currentPath = location.pathname + location.search;
+    analytics.sendPageview(currentPath);
+  }, [location]);
 };
+
+export default useGoogleAnalytics;

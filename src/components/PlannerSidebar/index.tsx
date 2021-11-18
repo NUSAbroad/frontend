@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { useAppSelector } from "../../redux/hooks";
 import { getUnis } from "../../redux/plannerSlice";
+import analytics from "../../utils/analytics";
 import { exportPlanner } from "../../utils/exportPlanner";
 import { Button, Divider } from "../Styles";
 import PlannerSearchBar from "./components/PlannerSearchBar";
@@ -21,6 +22,10 @@ const PlannerSidebar: React.FC = () => {
   const unis = useAppSelector(getUnis);
 
   const onExportClickHandler = () => {
+    analytics.sendEvent({
+      category: "Planner",
+      action: "Exported planner as Word Doc",
+    });
     exportPlanner(unis);
   };
 

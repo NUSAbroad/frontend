@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import ReactGA from "react-ga";
 import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import styled from "styled-components";
@@ -8,7 +7,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import OnboardOverlay from "./components/Onboarding";
 import ToastOverlay from "./components/Toast";
-import { useTrackPage } from "./hooks/GoogleAnalytics";
+import useGoogleAnalytics from "./hooks/GoogleAnalytics";
 import About from "./pages/About";
 import ComponentsTest from "./pages/ComponentsTest";
 import Planner from "./pages/Planner";
@@ -18,8 +17,6 @@ import University from "./pages/University";
 import { useAppSelector } from "./redux/hooks";
 import { getIsVisible } from "./redux/onboardSlice";
 
-ReactGA.initialize("UA-209752856-1");
-
 const Main = styled.main`
   padding: 0 30px 50px;
 
@@ -28,10 +25,43 @@ const Main = styled.main`
   }
 `;
 
-const App: React.FC = () => {
-  const isOnboardVisible = useAppSelector(getIsVisible);
+// NOTE: Created as a subcomponent as the Google Analytics hook depends on the location
+// object which is only available to children of the Router component.
+const Routes: React.FC = function () {
+  useGoogleAnalytics();
 
-  useTrackPage();
+  return (
+    <>
+      <Route exact path="/">
+        <Redirect to="/planner" />
+      </Route>
+      <Route exact path="/planner">
+        <Planner />
+      </Route>
+      <Route exact path="/universities">
+        <Universities />
+      </Route>
+      <Route path="/universities/:slug">
+        <University />
+      </Route>
+      <Route exact path="/resources">
+        <Resources />
+      </Route>
+      <Route exact path="/about">
+        <About />
+      </Route>
+      {/* Testing route, delete later */}
+      <Route exact path="/test">
+        <ComponentsTest />
+      </Route>
+      <ToastOverlay />
+      <OnboardOverlay />
+    </>
+  );
+};
+
+const App: React.FC = function () {
+  const isOnboardVisible = useAppSelector(getIsVisible);
 
   useEffect(() => {
     if (isOnboardVisible) {
@@ -50,30 +80,7 @@ const App: React.FC = () => {
       </Helmet>
       <Navbar />
       <Main>
-        <Route exact path="/">
-          <Redirect to="/planner" />
-        </Route>
-        <Route exact path="/planner">
-          <Planner />
-        </Route>
-        <Route exact path="/universities">
-          <Universities />
-        </Route>
-        <Route path="/universities/:slug">
-          <University />
-        </Route>
-        <Route exact path="/resources">
-          <Resources />
-        </Route>
-        <Route exact path="/about">
-          <About />
-        </Route>
-        {/* Testing route, delete later */}
-        <Route exact path="/test">
-          <ComponentsTest />
-        </Route>
-        <ToastOverlay />
-        <OnboardOverlay />
+        <Routes />
       </Main>
       <Footer />
     </Router>

@@ -4,6 +4,7 @@ import styled, { useTheme } from "styled-components";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addUni, getUnis, removeUni } from "../../redux/plannerSlice";
 import { setToast } from "../../redux/toastSlice";
+import analytics from "../../utils/analytics";
 import { getMonthAndYear } from "../../utils/date";
 import FacultiesSection from "../FacultiesSection";
 import Notice from "../Notice";
@@ -88,11 +89,19 @@ const UniversityInfo: React.FC<Props> = function (props) {
     plannerUnis.findIndex((plannerUni) => plannerUni.id == uni.id) !== -1;
 
   const handleAddToPlanner = () => {
+    analytics.sendEvent({
+      category: "University",
+      action: "Added university to planner",
+    });
     dispatch(addUni(uni));
     dispatch(setToast({ message: "University added to planner" }));
   };
 
   const handleRemoveFromPlanner = () => {
+    analytics.sendEvent({
+      category: "University",
+      action: "Removed university from planner",
+    });
     dispatch(removeUni(uni));
     dispatch(
       setToast({
