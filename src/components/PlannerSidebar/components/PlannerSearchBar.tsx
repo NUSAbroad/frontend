@@ -119,15 +119,22 @@ const PlannerSearchBar: React.FC = () => {
   };
 
   const handleFocus = () => {
+    console.log("focus");
     setShowDropdown(true);
     setActiveIndex(-1);
+  };
+
+  const handleBlur = () => {
+    console.log("blur");
+    setShowDropdown(false);
   };
 
   return (
     <Container
       tabIndex={-1}
       onFocus={handleFocus}
-      onBlur={() => setShowDropdown(false)}
+      // onBlur={() => setShowDropdown(false)}
+      onBlur={handleBlur}
       onKeyDown={handleKeyDown}
     >
       <SearchBarInput
