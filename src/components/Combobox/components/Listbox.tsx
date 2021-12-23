@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import styled from "styled-components";
 
-import { Body2 } from "../../Styles";
-import ListboxOption from "./ListboxOption";
+import { IListboxProps } from "../types";
 
 const StyledListbox = styled.div<{ $isExpanded?: boolean }>`
   position: absolute;
@@ -17,31 +16,19 @@ const StyledListbox = styled.div<{ $isExpanded?: boolean }>`
   border-radius: 3px;
   background-color: ${(props) => props.theme.colors.babyPowder};
   overflow-y: auto;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
 `;
 
-const EmptyMessage = styled(Body2)`
-  padding: 4px 10px;
-  background-color: ${(props) => props.theme.colors.babyPowder};
-  color: ${(props) => props.theme.colors.grey400};
-`;
-
-interface Props {
-  options: any[];
-  isExpanded?: boolean;
-  activeIndex: number;
-  isOptionSelected: (option: any) => boolean;
-  handleSelect: (option: any) => void;
-  emptyMessage?: string;
-}
-
-const Listbox: React.FC<Props> = function (props) {
+const Listbox = <T extends unknown>(
+  props: IListboxProps<T>
+): ReactElement | null => {
   const {
     options,
     isExpanded,
     activeIndex,
-    isOptionSelected,
     handleSelect,
-    emptyMessage,
+    isOptionSelected,
+    optionComponent: ListboxOption,
   } = props;
 
   // Ensure activeOption is always scrolled into view
@@ -56,8 +43,8 @@ const Listbox: React.FC<Props> = function (props) {
     <StyledListbox
       id="listbox"
       role="listbox"
-      $isExpanded={isExpanded}
       onMouseDown={(e) => e.preventDefault()}
+      $isExpanded={isExpanded}
     >
       {options.map((option, index) => (
         <ListboxOption
@@ -65,13 +52,10 @@ const Listbox: React.FC<Props> = function (props) {
           option={option}
           index={index}
           activeIndex={activeIndex}
-          isOptionSelected={isOptionSelected}
           handleSelect={handleSelect}
+          isOptionSelected={isOptionSelected}
         />
       ))}
-      {options.length === 0 && (
-        <EmptyMessage>{emptyMessage ?? "No results found"}</EmptyMessage>
-      )}
     </StyledListbox>
   );
 };

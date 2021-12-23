@@ -12,6 +12,7 @@ import Combobox from "../Combobox";
 import { Button, Divider } from "../Styles";
 import PlannerSearchBar from "./components/PlannerSearchBar";
 import PlannerSideList from "./components/PlannerSideList";
+import UniListboxOption from "./components/UniListboxOption";
 
 const Wrapper = styled.div`
   display: flex;
@@ -93,10 +94,10 @@ const PlannerSidebar: React.FC = () => {
       <Combobox
         options={allUnis}
         placeholder="Add university to list..."
-        emptyMessage="No universities found"
         filterOptions={filterUnis}
         isOptionSelected={isUniSelected}
         handleSelect={handleSelectUni}
+        optionComponent={UniListboxOption}
       />
       <PlannerSideList />
       <Divider />

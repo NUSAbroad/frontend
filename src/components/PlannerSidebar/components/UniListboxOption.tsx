@@ -1,6 +1,7 @@
-import React from "react";
+import { ReactElement } from "react";
 import styled from "styled-components";
 
+import { IListboxOptionProps } from "../../Combobox/types";
 import { Body2 } from "../../Styles";
 
 const Option = styled(Body2)<{ $active: boolean; $isSelected: boolean }>`
@@ -22,23 +23,17 @@ const Option = styled(Body2)<{ $active: boolean; $isSelected: boolean }>`
   ${(props) =>
     props.$isSelected &&
     `
-    font-weight: 600;
+    font-weight: 700;
   `}
 `;
 
-interface Props {
-  option: any;
-  index: number;
-  activeIndex: number;
-  isOptionSelected: (option: any) => boolean;
-  handleSelect: (option: any) => void;
-}
-
-const ListboxOption: React.FC<Props> = function (props) {
-  const { option, index, activeIndex, isOptionSelected, handleSelect } = props;
+const UniListboxOption = (
+  props: IListboxOptionProps<Types.University>
+): ReactElement | null => {
+  const { option, index, activeIndex, handleSelect, isOptionSelected } = props;
   const active = activeIndex === index;
 
-  const isSelected = isOptionSelected(option);
+  const isSelected = isOptionSelected?.(option) ?? false;
 
   const handleClick = () => {
     handleSelect(option);
@@ -57,4 +52,4 @@ const ListboxOption: React.FC<Props> = function (props) {
   );
 };
 
-export default ListboxOption;
+export default UniListboxOption;

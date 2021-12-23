@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Listbox from "./components/Listbox";
+import { IComboboxProps } from "./types";
 
 const Wrapper = styled.div`
   position: relative;
@@ -31,28 +32,21 @@ const ComboboxInput = styled.input.attrs({ type: "text" })`
   }
 `;
 
-interface Props {
-  options: any[];
-  placeholder?: string;
-  emptyMessage?: string;
-  filterOptions: (filter: string) => any[];
-  isOptionSelected: (option: any) => boolean;
-  handleSelect: (option: any) => void;
-}
-
-const Combobox: React.FC<Props> = function (props) {
+const Combobox = <T extends unknown>(
+  props: IComboboxProps<T>
+): ReactElement | null => {
   const {
     options,
     placeholder,
-    emptyMessage,
     filterOptions,
-    isOptionSelected,
     handleSelect,
+    isOptionSelected,
+    optionComponent,
   } = props;
 
   const [inputValue, setInputValue] = useState<string>("");
   const [isListboxExpanded, setIsListboxExpanded] = useState<boolean>(false);
-  const [listboxOptions, setListboxOptions] = useState<any[]>([]);
+  const [listboxOptions, setListboxOptions] = useState<T[]>([]);
   const [activeIndex, setActiveIndex] = useState(-1);
 
   // Filter options when inputValue changes
@@ -139,9 +133,9 @@ const Combobox: React.FC<Props> = function (props) {
         options={listboxOptions}
         isExpanded={isListboxExpanded}
         activeIndex={activeIndex}
-        isOptionSelected={isOptionSelected}
         handleSelect={handleSelect}
-        emptyMessage={emptyMessage}
+        isOptionSelected={isOptionSelected}
+        optionComponent={optionComponent}
       />
     </Wrapper>
   );
