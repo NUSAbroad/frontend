@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled, { useTheme } from "styled-components";
 
 import { ReactComponent as Cross } from "../assets/x.svg";
-import Filter from "../components/Filter";
+import CountriesFilter from "../components/CountriesFilter";
 import SearchBar from "../components/SearchBar";
 import SEO from "../components/SEO";
 import { Body2, Divider, Heading3, Subheading } from "../components/Styles";
@@ -230,7 +230,7 @@ const Universities: React.FC = () => {
         <StyledHeading3 $color={theme.colors.grey400}>Filter by</StyledHeading3>
         <Divider />
         <StyledSubheading>Country</StyledSubheading>
-        <Filter filters={filters} setFilters={setFilters} />
+        <CountriesFilter filters={filters} setFilters={setFilters} />
       </FilterSection>
       {isFilterVisible && (
         <FilterOverlay>
@@ -245,7 +245,7 @@ const Universities: React.FC = () => {
             </FilterDrawerHeader>
             <Divider />
             <StyledSubheading>Country</StyledSubheading>
-            <Filter filters={filters} setFilters={setFilters} />
+            <CountriesFilter filters={filters} setFilters={setFilters} />
           </FilterDrawer>
         </FilterOverlay>
       )}
