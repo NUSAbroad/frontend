@@ -47,7 +47,7 @@ const PlannerSidebar: React.FC = () => {
   };
 
   /* ---------- Combobox helper functions ---------- */
-  const filterUnis = (filter: string) => {
+  const filterUnis = (filter: string): Types.University[] => {
     const toMatch = filter.toLowerCase();
     const filteredUnis = [...allUnis].filter((uni) => {
       return uni.name.toLowerCase().indexOf(toMatch) !== -1;
@@ -56,7 +56,7 @@ const PlannerSidebar: React.FC = () => {
     return filteredUnis;
   };
 
-  const isUniSelected = (uni: Types.University) =>
+  const isUniSelected = (uni: Types.University): boolean =>
     unis.find((selectedUni) => selectedUni.name === uni.name) != null;
 
   const handleSelectUni = (uni: Types.University) => {

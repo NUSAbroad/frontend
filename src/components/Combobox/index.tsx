@@ -1,19 +1,50 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
+import { ReactComponent as ChevronIcon } from "../../assets/chevron-down.svg";
+import { ReactComponent as SearchIcon } from "../../assets/search-small.svg";
 import Listbox from "./components/Listbox";
 import { IComboboxProps } from "./types";
 
-const Wrapper = styled.div`
-  position: relative;
+const IconStyles = css`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 `;
 
-const ComboboxInput = styled.input.attrs({ type: "text" })`
+const StyledSearchIcon = styled(SearchIcon)`
+  ${IconStyles}
+  left: 8px;
+`;
+const StyledChevronIcon = styled(ChevronIcon)`
+  ${IconStyles}
+  right: 8px;
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+
+  &:focus-within {
+    ${StyledSearchIcon} {
+      path {
+        stroke: ${(props) => props.theme.colors.blueCrayola};
+      }
+    }
+  }
+`;
+
+const ComboboxInput = styled.input.attrs({ type: "text" })<{
+  $leftIcon?: boolean;
+  $rightIcon?: boolean;
+}>`
   width: 100%;
   padding: 8px 10px;
+  ${(props) => props.$leftIcon && `padding-left: 34px;`}
+  ${(props) => props.$rightIcon && `padding-right: 34px;`}
   border: 1px solid ${(props) => props.theme.colors.grey300};
   border-radius: 3px;
-  background-color: ${(props) => props.theme.colors.babyPowder};
+  background: ${(props) => props.theme.colors.babyPowder};
   color: ${(props) => props.theme.colors.bistre};
   font-size: ${(props) => props.theme.fontSizes.sm};
   font-weight: 400;
@@ -42,6 +73,8 @@ const Combobox = <T extends unknown>(
     handleSelect,
     isOptionSelected,
     optionComponent,
+    leftIcon,
+    rightIcon,
   } = props;
 
   const [inputValue, setInputValue] = useState<string>("");
@@ -116,6 +149,7 @@ const Combobox = <T extends unknown>(
         aria-owns="listbox"
         aria-expanded={isListboxExpanded}
       >
+        {leftIcon && <StyledSearchIcon />}
         <ComboboxInput
           role="combobox"
           aria-autocomplete="list"
@@ -127,7 +161,10 @@ const Combobox = <T extends unknown>(
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           onKeyDown={handleKeyDown}
+          $leftIcon={leftIcon}
+          $rightIcon={rightIcon}
         />
+        {rightIcon && <StyledChevronIcon />}
       </div>
       <Listbox
         options={listboxOptions}

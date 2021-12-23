@@ -17,6 +17,7 @@ const StyledListbox = styled.div<{ $isExpanded?: boolean }>`
   background-color: ${(props) => props.theme.colors.babyPowder};
   overflow-y: auto;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+  z-index: 2;
 `;
 
 const Listbox = <T extends unknown>(

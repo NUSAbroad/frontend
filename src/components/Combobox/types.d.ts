@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface IComboboxProps<T> {
   options: T[];
   placeholder?: string;
@@ -5,6 +7,8 @@ export interface IComboboxProps<T> {
   handleSelect: (option: T) => void;
   isOptionSelected?: (option: T) => boolean;
   optionComponent: (props: IListboxOptionProps<T>) => ReactElement | null;
+  leftIcon?: boolean;
+  rightIcon?: boolean;
 }
 
 export interface IListboxProps<T> {
