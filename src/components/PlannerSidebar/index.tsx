@@ -10,7 +10,6 @@ import analytics from "../../utils/analytics";
 import { exportPlanner } from "../../utils/exportPlanner";
 import Combobox from "../Combobox";
 import { Button, Divider } from "../Styles";
-import PlannerSearchBar from "./components/PlannerSearchBar";
 import PlannerSideList from "./components/PlannerSideList";
 import UniListboxOption from "./components/UniListboxOption";
 
@@ -90,7 +89,6 @@ const PlannerSidebar: React.FC = () => {
   return (
     <Wrapper>
       <Button onClick={onExportClickHandler}>Download as .docx</Button>
-      <PlannerSearchBar />
       <Combobox
         options={allUnis}
         placeholder="Add university to list..."
