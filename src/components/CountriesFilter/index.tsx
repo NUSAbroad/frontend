@@ -19,7 +19,7 @@ interface Props {
   setFilters: React.Dispatch<React.SetStateAction<Types.Country[]>>;
 }
 
-const Filter: React.FC<Props> = function (props) {
+const CountriesFilter: React.FC<Props> = function (props) {
   const { filters, setFilters } = props;
   const [allCountries, setAllCountries] = useState<Types.Country[]>([]);
 
@@ -84,4 +84,4 @@ const Filter: React.FC<Props> = function (props) {
   );
 };
 
-export default Filter;
+export default CountriesFilter;

@@ -1,5 +1,3 @@
-import React from "react";
-
 export interface IComboboxProps<T> {
   options: T[];
   placeholder?: string;
