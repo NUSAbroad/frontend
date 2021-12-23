@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { BACKEND_URL } from "../../constants";
 import Combobox from "../Combobox";
 import CountryListboxOption from "./components/CountryListboxOption";
-import FilterSearchBar from "./components/FilterSearchBar";
 import FilterTag from "./components/FilterTag";
 
 const TagsWrapper = styled.div`
@@ -66,7 +65,6 @@ const Filter: React.FC<Props> = function (props) {
 
   return (
     <>
-      <FilterSearchBar filters={filters} setFilters={setFilters} />
       <Combobox
         options={allCountries}
         placeholder="Add a country..."
